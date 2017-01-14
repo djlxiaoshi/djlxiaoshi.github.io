@@ -3,15 +3,14 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hexo</title>
+  <title>DJLXS</title>
 
   
-  <meta name="author" content="John Doe">
+  <meta name="author" content="DJLXS">
   
 
   
-  <meta name="description" content="这两天一直在捣鼓hexo，虽然不是很难，但是在搭建过程中，还是遇到了一些问题，导致花了两天。网上有很多相关教程，但是很多都含糊不清，其实让我豁然开朗的还是这篇文章，在此特别谢谢这位博主小白独立搭建博客–Github Pages和Hexo简明教程。好了下面我们直接开始吧
-所需工具Git：版本控制器  ">
+  <meta name="description" content="DJL箫氏的博客">
   
 
   
@@ -25,14 +24,14 @@
 
   
 
-  <meta property="og:site_name" content="Hexo"/>
+  <meta property="og:site_name" content="DJLXS"/>
 
   
   <meta property="og:image" content="/favicon.ico"/>
   
 
   <link href="/favicon.ico" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="DJLXS" type="application/atom+xml">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
 </head>
 
@@ -44,7 +43,17 @@
     <header>
   <div class="site-branding">
     <h1 class="site-title">
-      <a href="/">Hexo</a>
+        
+          <a href="/" class="title0">D</a>
+        
+          <a href="/" class="title1">J</a>
+        
+          <a href="/" class="title2">L</a>
+        
+          <a href="/" class="title3">箫</a>
+        
+          <a href="/" class="title4">氏</a>
+        
     </h1>
     <p class="site-description"></p>
   </div>
@@ -185,27 +194,30 @@
 </article>
 
   
-	<div id="comment">
-	
-	
-	<!-- 多说评论框 start -->
-	 <div class="ds-thread" data-thread-key="/2017/01/13/hexo初探---让写作飞起来/" data-title="" data-url="http://yoursite.com/2017/01/13/hexo初探---让写作飞起来/"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
 	<script type="text/javascript">
-	var duoshuoQuery = {short_name:""};
-	  (function() {
-	    var ds = document.createElement('script');
-	    ds.type = 'text/javascript';ds.async = true;
-	    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-	    ds.charset = 'UTF-8';
-	    (document.getElementsByTagName('head')[0] 
-	     || document.getElementsByTagName('body')[0]).appendChild(ds);
-	  })();
-	  </script>
-	<!-- 多说公共JS代码 end -->
-	
-	</div>
+	var disqus_shortname = 'djlxs';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
+
 
 
 
@@ -218,7 +230,7 @@
     Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
     </br>
     
-    &copy; 2017 John Doe
+    &copy; 2017 DJLXS
     
   </p>
 </footer>
