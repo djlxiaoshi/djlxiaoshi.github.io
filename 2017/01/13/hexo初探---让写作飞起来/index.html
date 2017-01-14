@@ -1,99 +1,335 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html >
 <head>
-  <meta charset="utf-8">
-  
-  <title>hexo初探---让写作飞起来 | DJLXS</title>
 
-  
-  <meta name="author" content="DJLXS">
-  
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
 
-  
-  <meta name="description" content="DJL箫氏的博客">
-  
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="DJLXS" />
 
-  
-  
-  <meta name="keywords" content="hexo,github">
-  
 
-  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  <meta property="og:title" content="hexo初探---让写作飞起来"/>
+<meta name="description" content="这两天一直在捣鼓hexo，虽然不是很难，但是在搭建过程中，还是遇到了一些问题，导致花了两天。网上有很多相关教程，但是很多都含糊不清，其实让我豁然开朗的还是这篇文章，在此特别谢谢这位博主小白独立搭建博客–Github Pages和Hexo简明教程。好了下面我们直接开始吧
+所需工具Git：版本控制器   
+Node：提供服务器端JavaScript开发环境
+GitHub：需注册一个账号
+在这里只提供下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo初探---让写作飞起来">
+<meta property="og:url" content="http://yoursite.com/2017/01/13/hexo初探---让写作飞起来/index.html">
+<meta property="og:site_name" content="DJLXS">
+<meta property="og:description" content="这两天一直在捣鼓hexo，虽然不是很难，但是在搭建过程中，还是遇到了一些问题，导致花了两天。网上有很多相关教程，但是很多都含糊不清，其实让我豁然开朗的还是这篇文章，在此特别谢谢这位博主小白独立搭建博客–Github Pages和Hexo简明教程。好了下面我们直接开始吧
+所需工具Git：版本控制器   
+Node：提供服务器端JavaScript开发环境
+GitHub：需注册一个账号
+在这里只提供下">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-970cfcfc5c4d9e07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-f6d8b39d88552ff3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-f6c1ceeafe9de1d8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-a9604272a538c58f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-762b47f41c85b29e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-e9ad42417d0f33d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-ac753802c8884e86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-82a49dd72ededad5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-84fbadde099f3129.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-ef566fc26d0cedcb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-2a9b043895299590.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-badcf3287146813f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-53f92f31dd7c739c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-d7c3768113ba4bc5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-b4d8e0c05fc2fe50.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-6ffad7b818b55492.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-db064d9b5ef4c125.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-01-14T06:57:54.597Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hexo初探---让写作飞起来">
+<meta name="twitter:description" content="这两天一直在捣鼓hexo，虽然不是很难，但是在搭建过程中，还是遇到了一些问题，导致花了两天。网上有很多相关教程，但是很多都含糊不清，其实让我豁然开朗的还是这篇文章，在此特别谢谢这位博主小白独立搭建博客–Github Pages和Hexo简明教程。好了下面我们直接开始吧
+所需工具Git：版本控制器   
+Node：提供服务器端JavaScript开发环境
+GitHub：需注册一个账号
+在这里只提供下">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1948637-970cfcfc5c4d9e07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
-  <meta property="og:site_name" content="DJLXS"/>
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
-  
-  <meta property="og:image" content="/favicon.ico"/>
-  
 
-  <link href="/favicon.ico" rel="icon">
-  <link rel="alternate" href="/atom.xml" title="DJLXS" type="application/atom+xml">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+    <link rel="alternate" href="/atom.xml" title="DJLXS" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>hexo初探---让写作飞起来 | DJLXS</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: undefined
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
 </head>
-
-
 <body>
-<div class="blog">
-  <div class="content">
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">DJLXS</a></h1>
+        </hgroup>
 
-    <header>
-  <div class="site-branding">
-    <h1 class="site-title">
         
-          <a href="/" class="title0">D</a>
+
         
-          <a href="/" class="title1">J</a>
+
+
         
-          <a href="/" class="title2">L</a>
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
         
-          <a href="/" class="title3">箫</a>
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:123@123.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">DJLXS</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">DJLXS</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:123@123.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-hexo初探---让写作飞起来" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/01/13/hexo初探---让写作飞起来/" class="article-date">
+      <time datetime="2017-01-13T06:49:57.000Z" itemprop="datePublished">2017-01-13</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
         
-          <a href="/" class="title4">氏</a>
-        
+  
+    <h1 class="article-title" itemprop="name">
+      hexo初探---让写作飞起来
     </h1>
-    <p class="site-description"></p>
-  </div>
-  <nav class="site-navigation">
-    <ul>
-      
-        <li><a href="/">Home</a></li>
-      
-        <li><a href="/archives">Archives</a></li>
-      
-    </ul>
-  </nav>
-</header>
-
-    <main class="site-main posts-loop">
-    <article>
-
-
   
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/hexo博客搭建/">hexo博客搭建</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
     
-    <h3 class="article-title"><span>hexo初探---让写作飞起来</span></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2017/01/13/hexo初探---让写作飞起来/" rel="bookmark">
-        <time class="entry-date published" datetime="2017-01-13T06:49:57.000Z">
-          2017-01-13
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
+    <div class="article-entry" itemprop="articleBody">
       
+          
         <p>这两天一直在捣鼓hexo，虽然不是很难，但是在搭建过程中，还是遇到了一些问题，导致花了两天。网上有很多相关教程，但是很多都含糊不清，其实让我豁然开朗的还是这篇文章，在此特别谢谢这位博主<a href="https://my.oschina.net/ryaneLee/blog/638440" target="_blank" rel="external">小白独立搭建博客–Github Pages和Hexo简明教程</a>。好了下面我们直接开始吧</p>
 <h2 id="所需工具"><a href="#所需工具" class="headerlink" title="所需工具"></a>所需工具</h2><p><a href="https://git-scm.com/download" target="_blank" rel="external">Git</a>：版本控制器   </p>
 <p><a href="https://nodejs.org/zh-cn/download/" target="_blank" rel="external">Node</a>：提供服务器端JavaScript开发环境</p>
@@ -178,166 +414,225 @@
 
       
     </div>
-
+    
   </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
+  
     
-      
-
-    <span class="post-categories">
-      <i class="icon-categories"></i>
-        <a href="/categories/hexo博客搭建/">hexo博客搭建</a>
-    </span>
-    
-
-    
-    
-
-    <span class="post-tags">
-      <i class="icon-tags"></i>
-        <a href="/tags/hexo/">hexo</a><a href="/tags/github/">github</a>
-    </span>
-    
-
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/01/13/hexo初探---让写作飞起来/">hexo初探---让写作飞起来</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">DJLXS</a></p>
+        <p><span>发布时间:</span>2017-01-13, 14:49:57</p>
+        <p><span>最后更新:</span>2017-01-14, 14:57:54</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/01/13/hexo初探---让写作飞起来/" title="hexo初探---让写作飞起来">http://yoursite.com/2017/01/13/hexo初探---让写作飞起来/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/01/13/hexo初探---让写作飞起来/　　作者: DJLXS" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
     </div>
 
-    
-  </div>
-</article>
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2017/01/14/这是一个测试/">
+                    这是一个测试
+                </a>
+            </div>
+        
+        
+    </nav>
 
   
-	<div id="comment">
-	
-	
-	<!-- 多说评论框 start -->
-	 <div class="ds-thread" data-thread-key="/2017/01/13/hexo初探---让写作飞起来/" data-title="hexo初探---让写作飞起来" data-url="http://yoursite.com/2017/01/13/hexo初探---让写作飞起来/"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"djlxs"};
-	  (function() {
-	    var ds = document.createElement('script');
-	    ds.type = 'text/javascript';ds.async = true;
-	    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-	    ds.charset = 'UTF-8';
-	    (document.getElementsByTagName('head')[0] 
-	     || document.getElementsByTagName('body')[0]).appendChild(ds);
-	  })();
-	  </script>
-	<!-- 多说公共JS代码 end -->
-	
-	</div>
+</article>
 
-
-
-
-<h1>djl.pub/2017/01/13/hexo初探---让写作飞起来/</h1>
- <div class="ds-share" data-thread-key="此处请替换为当前文章的thread-key" data-title="hexo初探---让写作飞起来" data-images="此处请替换为分享时显示的图片的链接地址" data-content="<p>这两天一直在捣鼓hexo，虽然不是很难，但是在搭建过程中，还是遇到了一些问题，导致花了两天。网上有很多相关教程，但是很多都含糊不清，其实让我豁然开朗的还是这篇文章，在此特别谢谢这位博主<a href="https://my.oschina.net/ryaneLee/blog/638440" target="_blank" rel="external">小白独立搭建博客–Github Pages和Hexo简明教程</a>。好了下面我们直接开始吧</p>
-<h2 id="所需工具"><a href="#所需工具" class="headerlink" title="所需工具"></a>所需工具</h2><p><a href="https://git-scm.com/download" target="_blank" rel="external">Git</a>：版本控制器   </p>
-<p><a href="https://nodejs.org/zh-cn/download/" target="_blank" rel="external">Node</a>：提供服务器端JavaScript开发环境</p>
-<p><a href="https://github.com" target="_blank" rel="external">GitHub</a>：需注册一个账号</p>
-<p>在这里只提供下载链接，安装过程基本就是下一步了。</p>
-<h2 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h2><h3 id="1-安装hexo"><a href="#1-安装hexo" class="headerlink" title="1 安装hexo"></a>1 安装hexo</h3><p>安装好上述工具后，我们开始安装hexo，首先打开git,鼠标右键–&gt;git bash here</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1948637-970cfcfc5c4d9e07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Git_bash.png"></p>
-<p>打开效果如下图：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1948637-f6d8b39d88552ff3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="打开Git.png"></p>
-<p>然后执行下面的命令<br><code>$ npm install -g hexo-cli</code>，全局安装hexo的脚手架，安装以后我们就可以全局使用hexo这个命令了。安装成功后执行下面命令<code>hexo -v</code>，就可以看见如下效果。<br><img src="http://upload-images.jianshu.io/upload_images/1948637-f6c1ceeafe9de1d8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="hexo安装成功.png"></p>
-<p>接着执行下面命令<code>npm install hexo --save</code></p>
-<p>然后新建一个文件夹比如hexo，在该文件夹下打开Git(即Git bash here)，执行下面命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ hexo init </div><div class="line">$ npm install</div></pre></td></tr></table></figure>
-<p>不出问题的话，该文件夹下面会新增这些文件。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1948637-a9604272a538c58f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="hexo_init.png"></p>
-<h3 id="3-安装hexo服务器"><a href="#3-安装hexo服务器" class="headerlink" title="3 安装hexo服务器"></a>3 安装hexo服务器</h3><p>Hexo 3.0 把服务器独立成了个别模块，您必须先安装 <a href="https://github.com/hexojs/hexo-server" target="_blank" rel="external">hexo-server</a> 才能使用。执行命令<code>$ npm install hexo-server --save</code>。这样安装好hexo服务器以后，我们就可以启动服务器了。执行命令<code>$ hexo server</code>，然后在浏览器输入网址<strong><a href="http://127.0.0.1:4000/" target="_blank" rel="external">http://127.0.0.1:4000/</a></strong>,就可以正常访问了。效果图如下：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1948637-762b47f41c85b29e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="本地效果.png">。</p>
-<p>OK！现在本地已经没问题了，接下来就是要把它部署到远程服务器上了。</p>
-<h3 id="3-建立GitHub-pages"><a href="#3-建立GitHub-pages" class="headerlink" title="3  建立GitHub pages"></a>3  建立GitHub pages</h3><p>新建一个github仓库</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1948637-e9ad42417d0f33d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="new_repository.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1948637-ac753802c8884e86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="GitHub_pages建立.png"></p>
-<p>这个仓库比较特殊，它要安装如下格式进行命令：你的GitHub用户昵称.github.io。新建好这个仓库后，见如下效果图</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1948637-82a49dd72ededad5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="djlxs.github.io.png"></p>
-<p>然后点击settings选项，向下翻到Git Pages选项</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1948637-84fbadde099f3129.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="导入主题前Git_pages.png"></p>
-<p>上面有一个提示信息</p>
-<blockquote>
-<p>GitHub Pages is currently disabled. You must first add content to your repository before you can publish a GitHub Pages site</p>
-</blockquote>
-<p>我们此时访问<a href="https://djlxs.github.io/" target="_blank" rel="external">https://djlxs.github.io/</a> 是会报404的，因为没有内容，我们可以点击下面的Choose a theme按钮，选择一个主题后，在访问<a href="https://djlxs.github.io/" target="_blank" rel="external">https://djlxs.github.io/</a> ，就可以了。此时看看GitHub Pages选项已经变成</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1948637-ef566fc26d0cedcb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="选择主题后.png"><br>上面有个提示信息</p>
-<blockquote>
-<p>Your GitHub Pages site is currently being built from the master<br> branch</p>
-</blockquote>
-<p>OK啦</p>
-<h3 id="4-配置SSH公钥"><a href="#4-配置SSH公钥" class="headerlink" title="4 配置SSH公钥"></a>4 配置SSH公钥</h3><p>配置Github的SSH密钥可以让本地git项目与远程的github建立联系，让我们在本地写了代码之后直接通过git操作就可以实现本地代码库与Github代码库同步。操作如下：</p>
-<p>第一步、看看是否存在SSH密钥(keys)<br>首先，我们需要看看是否看看本机是否存在SSH keys,打开Git Bash,并运行:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cd ~/. ssh</div></pre></td></tr></table></figure>
-<p>检查你本机用户home目录下是否存在.ssh目录<br>如果，不存在此目录，则进行第二步操作，否则，你本机已经存在ssh公钥和私钥，可以略过第二步，直接进入第三步操作。</p>
-<p>第二步、创建一对新的SSH密钥(keys)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ssh-keygen -t rsa -C &quot;your_email@example.com&quot; #这将按照你提供的邮箱地址，创建一对密钥</div></pre></td></tr></table></figure>
-<p>直接回车，则将密钥按默认文件进行存储。此时也可以输入特定的文件名，比如<code>/c/Users/you/.ssh/github_rsa</code><br>接着，根据提示，你需要输入密码和确认密码,在这里我们直接enter，不用输入密码。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Enter passphrase (empty for no passphrase): [Type a passphrase]</div><div class="line">Enter same passphrase again: [Type passphrase again]</div></pre></td></tr></table></figure>
-<p>输入完成之后，屏幕会显示如下信息：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Your identification has been saved in /c/Users/you/.ssh/id_rsa.Your public key </div><div class="line">has been saved in /c/Users/you/.ssh/id_rsa.pub.The key fingerprint </div><div class="line">is:01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db your_email@example.com</div></pre></td></tr></table></figure>
-<p>第三步、在GitHub账户中添加你的公钥<br>运行如下命令，将公钥的内容复制到系统粘贴板(clipboard)中。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">clip &lt; ~/.ssh/id_rsa.pub</div></pre></td></tr></table></figure>
-<p>接着：<br>登陆GitHub,进入你的Account Settings.</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1948637-2a9b043895299590.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="add_SSH_key.png"></p>
-<p>第四步、测试<br>可以输入下面的命令，看看设置是否成功，git@github.com的部分不要修改：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh -T git@github.com</div></pre></td></tr></table></figure>
-<p>成功后你会看到</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Hi cnfeat! You&apos;ve successfully authenticated, but GitHub does not provide shell access.</div></pre></td></tr></table></figure>
-<p>第五步、设置用户信息<br>现在你已经可以通过SSH链接到GitHub了，还有一些个人信息需要完善的。 Git会根据用户的名字和邮箱来记录提交。GitHub也是用这些信息来做权限的处理，输入下面的代码进行个人信息的设置，把名称和邮箱替换成你自己的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name &quot;cnfeat&quot;//用户名</div><div class="line">$ git config --global user.email &quot;cnfeat@gmail.com&quot;//填写自己的邮箱</div></pre></td></tr></table></figure>
-<h3 id="5-将本地文件同步至GitHub"><a href="#5-将本地文件同步至GitHub" class="headerlink" title="5 将本地文件同步至GitHub"></a>5 将本地文件同步至GitHub</h3><p><img src="http://upload-images.jianshu.io/upload_images/1948637-badcf3287146813f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="clone_https.png"></p>
-<p>到新建的仓库下面复制HTTPS地址，然后打开本地hexo文件夹下的<br><img src="http://upload-images.jianshu.io/upload_images/1948637-53f92f31dd7c739c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="_config.jpg"></p>
-<p>填入以下信息：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1948637-d7c3768113ba4bc5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="add_config.jpg"></p>
-<p>然后在命令窗口执行下面命令,安装相关部署插件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
-<p>安装完成后，执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo g</div><div class="line">hexo d</div></pre></td></tr></table></figure>
-<p>或者</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo d -g</div></pre></td></tr></table></figure>
-<p>此时会让你输入GitHub的账号和密码，输入后在浏览器中输入 <a href="https://djlxs.github.io/" target="_blank" rel="external">https://djlxs.github.io/</a> 应该就可以访问了。</p>
-<h2 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h2><p>首先去<a href="https://hexo.io/themes/" target="_blank" rel="external">hexo皮肤网站</a>,选择一款进入它的GitHub地址然后将clone的文件移动到<strong>themes</strong>文件夹下。然后修改<strong>_config.yml</strong>文件中的theme为你所选择的主题的名称即可。然后执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo g</div><div class="line">hexo s</div></pre></td></tr></table></figure>
-<p>现在本地看看主题皮肤是否已经更换过来，然后执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo d -g</div></pre></td></tr></table></figure>
-<p>同步至GitHub，刷新即可</p>
-<h2 id="绑定域名"><a href="#绑定域名" class="headerlink" title="绑定域名"></a>绑定域名</h2><p>首先在万网上购买自己的域名，然后进入管理界面</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1948637-b4d8e0c05fc2fe50.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="域名解析.jpg"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1948637-6ffad7b818b55492.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="域名解析内容.jpg"></p>
-<p>然后在source文件夹下建立一个CNAME文件(没有后缀名)</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1948637-db064d9b5ef4c125.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="CNAME文件.jpg"><br>然后执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo d -g</div></pre></td></tr></table></figure>
-<p>同步至GitHub即可，至此hexo博客搭建基本就大功告成。下面推荐一个工具<a href="https://github.com/nihgwu/hexo-hey" target="_blank" rel="external">hexo-hey</a></p>
-<p><a href="https://my.oschina.net/ryaneLee/blog/638440" target="_blank" rel="external">小白独立搭建博客–Github Pages和Hexo简明教程</a></p>
-<p><a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="external">hexo中文文档</a></p>
-<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>这是我在新的博客上面的第一篇文章，欢迎大家访问我的博客。<a href="http://djl.pub/" target="_blank" rel="external">DJL箫氏</a></p>
-" data-url="/2017/01/13/hexo初探---让写作飞起来/">
-  <div class="ds-share-aside-left">
-    <div class="ds-share-aside-inner">
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#所需工具"><span class="toc-number">1.</span> <span class="toc-text">所需工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开始安装"><span class="toc-number">2.</span> <span class="toc-text">开始安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-安装hexo"><span class="toc-number">2.1.</span> <span class="toc-text">1 安装hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-安装hexo服务器"><span class="toc-number">2.2.</span> <span class="toc-text">3 安装hexo服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-建立GitHub-pages"><span class="toc-number">2.3.</span> <span class="toc-text">3  建立GitHub pages</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-配置SSH公钥"><span class="toc-number">2.4.</span> <span class="toc-text">4 配置SSH公钥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-将本地文件同步至GitHub"><span class="toc-number">2.5.</span> <span class="toc-text">5 将本地文件同步至GitHub</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更换主题"><span class="toc-number">3.</span> <span class="toc-text">更换主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绑定域名"><span class="toc-number">4.</span> <span class="toc-text">绑定域名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写在最后"><span class="toc-number">5.</span> <span class="toc-text">写在最后</span></a></li></ol>
+        
     </div>
-    <div class="ds-share-aside-toggle">分享到</div>
-  </div>
-  </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
 
-    </main>
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
-    <footer class="site-footer">
-  <p class="site-info">
-    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
-    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
-    </br>
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
     
-    &copy; 2017 DJLXS
+<div class="share">
     
-  </p>
-</footer>
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"hexo初探---让写作飞起来　| DJLXS　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
     
-  </div>
+
+    
 </div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/01/13/hexo初探---让写作飞起来/" data-title="hexo初探---让写作飞起来" data-url="http://yoursite.com/2017/01/13/hexo初探---让写作飞起来/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"djlxs"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/01/14/这是一个测试/" title="上一篇: 这是一个测试">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/01/14/新建文本文档/">新建文本文档</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/14/这是一个测试/">这是一个测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/13/hexo初探---让写作飞起来/">hexo初探---让写作飞起来</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2017 DJLXS
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
 </body>
 </html>
