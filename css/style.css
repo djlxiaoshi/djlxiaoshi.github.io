@@ -480,12 +480,33 @@ header .site-branding .site-title a {
   background-color: #f03838;
   line-height: 3rem;
   height: 3rem;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
+  margin: 1rem;
   -webkit-transition: padding 0.3s ease-out;
   transition: padding 0.3s ease-out;
+  font-family: '微软雅黑';
 }
 header .site-branding .site-title a:hover {
   padding: 0 1.5rem;
+}
+header .site-branding .site-title a.title0 {
+  color: #fff;
+  background: #0f0027;
+}
+header .site-branding .site-title a.title1 {
+  color: #69ff91;
+}
+header .site-branding .site-title a.title2 {
+  color: #ff4d29;
+  background: #5600f5;
+}
+header .site-branding .site-title a.title3 {
+  color: #d10800;
+  background: #1abc9c;
+}
+header .site-branding .site-title a.title4 {
+  color: #8e44ad;
+  background: #f77;
 }
 header .site-branding .site-description {
   color: #9e9e9e;
@@ -814,7 +835,7 @@ footer.site-footer .site-info {
   margin: 15px 0px;
   padding: 7px 15px;
   border-radius: 2px;
-  text-shadow: 0 0 1px #fff;
+  text-shadow: 0 0 1px #dc1919;
   line-height: 1.6;
   overflow: auto;
   color: #666;
@@ -848,7 +869,7 @@ footer.site-footer .site-info {
   color: color-link;
 }
 figure.highlight {
-  background: #eee;
+  background: #272822;
   border: 1px solid color-border;
   margin: 1em 0;
   padding: 1em;
@@ -887,7 +908,7 @@ figure.highlight .gutter {
 figure.highlight .code {
   padding-left: 15px;
   border-left: 1px solid #fff;
-  color: #666;
+  color: #e8d0d0;
 }
 figure.highlight .line {
   height: 20px;
