@@ -46,7 +46,10 @@ GitHub：需注册一个账号
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-b4d8e0c05fc2fe50.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-6ffad7b818b55492.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-db064d9b5ef4c125.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-01-14T06:57:54.597Z">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-1dbf77201fec45d2.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-ea78ba366c068ee3.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1948637-baad0040dbc4dae9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-01-17T02:07:24.669Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo初探---让写作飞起来">
 <meta name="twitter:description" content="这两天一直在捣鼓hexo，虽然不是很难，但是在搭建过程中，还是遇到了一些问题，导致花了两天。网上有很多相关教程，但是很多都含糊不清，其实让我豁然开朗的还是这篇文章，在此特别谢谢这位博主小白独立搭建博客–Github Pages和Hexo简明教程。好了下面我们直接开始吧
@@ -166,13 +169,13 @@ GitHub：需注册一个账号
                 <div class="tips-box hide">
                     <div class="tips-arrow"></div>
                     <ul class="tips-inner">
-                        <li>Menu</li>
-                        <li>Tags</li>
+                        <li>菜单</li>
+                        <li>标签</li>
                         
-                        <li>Friends</li>
+                        <li>友情链接</li>
                         
                         
-                        <li>About Me</li>
+                        <li>关于我</li>
                         
                     </ul>
                 </div>
@@ -292,7 +295,7 @@ GitHub：需注册一个账号
             </nav>
         </header>                
     </div>
-    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
       <div class="body-wrap"><article id="post-hexo初探---让写作飞起来" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -359,7 +362,7 @@ GitHub：需注册一个账号
 <h3 id="3-建立GitHub-pages"><a href="#3-建立GitHub-pages" class="headerlink" title="3  建立GitHub pages"></a>3  建立GitHub pages</h3><p>新建一个github仓库</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1948637-e9ad42417d0f33d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="new_repository.png"></p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1948637-ac753802c8884e86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="GitHub_pages建立.png"></p>
-<p>这个仓库比较特殊，它要安装如下格式进行命令：你的GitHub用户昵称.github.io。新建好这个仓库后，见如下效果图</p>
+<p>这个仓库比较特殊，它要按照如下格式进行命名：你的GitHub用户昵称.github.io。新建好这个仓库后，见如下效果图</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1948637-82a49dd72ededad5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="djlxs.github.io.png"></p>
 <p>然后点击settings选项，向下翻到Git Pages选项</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1948637-84fbadde099f3129.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="导入主题前Git_pages.png"></p>
@@ -390,11 +393,12 @@ GitHub：需注册一个账号
 <p>第四步、测试<br>可以输入下面的命令，看看设置是否成功，git@github.com的部分不要修改：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh -T git@github.com</div></pre></td></tr></table></figure>
 <p>成功后你会看到</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Hi cnfeat! You&apos;ve successfully authenticated, but GitHub does not provide shell access.</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Hi djlxs! You&apos;ve successfully authenticated, but GitHub does not provide shell access.</div></pre></td></tr></table></figure>
 <p>第五步、设置用户信息<br>现在你已经可以通过SSH链接到GitHub了，还有一些个人信息需要完善的。 Git会根据用户的名字和邮箱来记录提交。GitHub也是用这些信息来做权限的处理，输入下面的代码进行个人信息的设置，把名称和邮箱替换成你自己的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name &quot;cnfeat&quot;//用户名</div><div class="line">$ git config --global user.email &quot;cnfeat@gmail.com&quot;//填写自己的邮箱</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name &quot;djlxs&quot;//用户名</div><div class="line">$ git config --global user.email &quot;djlxs@gmail.com&quot;//填写自己的邮箱</div></pre></td></tr></table></figure>
 <h3 id="5-将本地文件同步至GitHub"><a href="#5-将本地文件同步至GitHub" class="headerlink" title="5 将本地文件同步至GitHub"></a>5 将本地文件同步至GitHub</h3><p><img src="http://upload-images.jianshu.io/upload_images/1948637-badcf3287146813f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="clone_https.png"></p>
-<p>到新建的仓库下面复制HTTPS地址，然后打开本地hexo文件夹下的<br><img src="http://upload-images.jianshu.io/upload_images/1948637-53f92f31dd7c739c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="_config.jpg"></p>
+<p>到新建的仓库下面复制HTTPS地址，然后打开本地hexo文件夹下的</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1948637-53f92f31dd7c739c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="_config.jpg"></p>
 <p>填入以下信息：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1948637-d7c3768113ba4bc5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="add_config.jpg"></p>
 <p>然后在命令窗口执行下面命令,安装相关部署插件</p>
@@ -414,6 +418,15 @@ GitHub：需注册一个账号
 <p><img src="http://upload-images.jianshu.io/upload_images/1948637-6ffad7b818b55492.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="域名解析内容.jpg"></p>
 <p>然后在source文件夹下建立一个CNAME文件(没有后缀名)</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/1948637-db064d9b5ef4c125.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="CNAME文件.jpg"><br>然后执行</p>
+<p>CNAME:是提供别名解析，就是说可以从一个域名解析绑定到另一个域名。 例如：<code>http://djlxs.github.io</code>  解析绑定到 <code>http://djl.pub</code>。<br>其中主机记录<strong><em>www</em></strong>代表一个二级域名此时输入<code>http://www.djl.pub</code>是可以正常访问的。如果主机记录是<strong><em>@</em></strong>代表直接输入<code>http://djl.pub</code>是可以访问的<br>一般情况下这两种方式我们都会添加，所以你在浏览器地址栏中输入<code>http://djl.pub</code>和<code>http://www.djl.pub</code>跳到是同一个页面。</p>
+<p>A:提供的是一种IP地址解析到你所买的域名的解析方式。例如：<code>151.101.24.133</code>  解析到 <code>djl.pub</code></p>
+<p>在这里我用的是阿里云自带的DNS服务器，当然你也可以使用其他第三方DNS服务器。例如：<a href="https://www.dnspod.cn/" target="_blank" rel="external">dnspod</a>,添加解析记录的方式一样<br>但是这里要记得在你购买域名的网站上更改默认的DNS服务商，以下以万网（域名提供商）和dnspod（域名解析服务商）为例</p>
+<p>首先进入控制台进入域名管理，找到相应域名点击<strong>管理</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1948637-1dbf77201fec45d2.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="域名管理控制台.jpg"></p>
+<p>点击修<strong>改DNS</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1948637-ea78ba366c068ee3.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修改DNS服务器.jpg"></p>
+<p>将以下内容复制粘贴进下图的内容框中保存，即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">f1g1ns1.dnspod.net</div><div class="line">f1g1ns2.dnspod.net</div></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1948637-baad0040dbc4dae9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="更改DNS服务器.jpg"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo d -g</div></pre></td></tr></table></figure>
 <p>同步至GitHub即可，至此hexo博客搭建基本就大功告成。下面推荐一个工具<a href="https://github.com/nihgwu/hexo-hey" target="_blank" rel="external">hexo-hey</a></p>
 <p><a href="https://my.oschina.net/ryaneLee/blog/638440" target="_blank" rel="external">小白独立搭建博客–Github Pages和Hexo简明教程</a></p>
@@ -427,17 +440,17 @@ GitHub：需注册一个账号
   
     
     <div class="copyright">
-        <p><span>Title:</span><a href="/2017/01/13/hexo初探---让写作飞起来/">hexo初探---让写作飞起来</a></p>
-        <p><span>Author:</span><a href="/" title="Back to Homepage">DJLXS</a></p>
-        <p><span>Created:</span>2017-01-13, 14:49:57</p>
-        <p><span>Updated:</span>2017-01-14, 14:57:54</p>
+        <p><span>本文标题:</span><a href="/2017/01/13/hexo初探---让写作飞起来/">hexo初探---让写作飞起来</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">DJLXS</a></p>
+        <p><span>发布时间:</span>2017-01-13, 14:49:57</p>
+        <p><span>最后更新:</span>2017-01-17, 10:07:24</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2017/01/13/hexo初探---让写作飞起来/" title="hexo初探---让写作飞起来">http://yoursite.com/2017/01/13/hexo初探---让写作飞起来/</a>
-            <span class="copy-path" data-clipboard-text="From http://yoursite.com/2017/01/13/hexo初探---让写作飞起来/　　By DJLXS" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/01/13/hexo初探---让写作飞起来/" title="hexo初探---让写作飞起来">http://yoursite.com/2017/01/13/hexo初探---让写作飞起来/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/01/13/hexo初探---让写作飞起来/　　作者: DJLXS" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
-            <span>License:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"CC BY-NC-SA 4.0"</a> Keep Link &amp; Author if Distribute.
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
         </p>
     </div>
 
@@ -458,7 +471,7 @@ GitHub：需注册一个账号
 </article>
 
     <div id="toc" class="toc-article">
-        <strong class="toc-title">Contents</strong>
+        <strong class="toc-title">文章目录</strong>
         
             <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#所需工具"><span class="toc-number">1.</span> <span class="toc-text">所需工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开始安装"><span class="toc-number">2.</span> <span class="toc-text">开始安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-安装hexo"><span class="toc-number">2.1.</span> <span class="toc-text">1 安装hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-安装hexo服务器"><span class="toc-number">2.2.</span> <span class="toc-text">3 安装hexo服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-建立GitHub-pages"><span class="toc-number">2.3.</span> <span class="toc-text">3  建立GitHub pages</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-配置SSH公钥"><span class="toc-number">2.4.</span> <span class="toc-text">4 配置SSH公钥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-将本地文件同步至GitHub"><span class="toc-number">2.5.</span> <span class="toc-text">5 将本地文件同步至GitHub</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更换主题"><span class="toc-number">3.</span> <span class="toc-text">更换主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绑定域名"><span class="toc-number">4.</span> <span class="toc-text">绑定域名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写在最后"><span class="toc-number">5.</span> <span class="toc-text">写在最后</span></a></li></ol>
         
@@ -474,10 +487,10 @@ GitHub：需注册一个账号
         }
     </style>
 
-    <input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
     <script>
-        yiliaConfig.toc = ["Hide", "Show", !!"false"];
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
     </script>
 
 
@@ -535,19 +548,19 @@ GitHub：需注册一个账号
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/01/14/这是一个测试/" title="Pre: 这是一个测试">
+            <a href="/2017/01/14/这是一个测试/" title="上一篇: 这是一个测试">
                 <i class="fa fa-angle-left"></i>
             </a>
         
 
-        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/" title="Back to Homepage"><i class="fa fa-home"></i></a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/01/14/新建文本文档/">新建文本文档</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/14/这是一个测试/">这是一个测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/13/hexo初探---让写作飞起来/">hexo初探---让写作飞起来</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/01/14/这是一个测试/">这是一个测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/13/hexo初探---让写作飞起来/">hexo初探---让写作飞起来</a></li></ul>
 
 
 
@@ -564,14 +577,14 @@ GitHub：需注册一个账号
                 2016-2017 DJLXS
             </div>
             <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
             </div>
         </div>
         
             <div class="visit">
                 
                     <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" title="Site Visitors"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
                         </span>
                     </span>
                 
@@ -580,7 +593,7 @@ GitHub：需注册一个账号
                 
                 
                     <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit"  title="Page Hits"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
                         </span>
                     </span>
                 
@@ -613,9 +626,9 @@ GitHub：需注册一个账号
 
 
 <div class="scroll" id="scroll">
-    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
 </div>
 <script>
     // Open in New Window
