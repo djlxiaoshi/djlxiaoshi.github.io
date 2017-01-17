@@ -16,7 +16,10 @@
     <entry>
       <title><![CDATA[hexo初探---让写作飞起来]]></title>
       <url>http://yoursite.com/2017/01/13/hexo%E5%88%9D%E6%8E%A2---%E8%AE%A9%E5%86%99%E4%BD%9C%E9%A3%9E%E8%B5%B7%E6%9D%A5/</url>
-      <content type="html"><![CDATA[<p>这两天一直在捣鼓hexo，虽然不是很难，但是在搭建过程中，还是遇到了一些问题，导致花了两天。网上有很多相关教程，但是很多都含糊不清，其实让我豁然开朗的还是这篇文章，在此特别谢谢这位博主<a href="https://my.oschina.net/ryaneLee/blog/638440" target="_blank" rel="external">小白独立搭建博客–Github Pages和Hexo简明教程</a>。好了下面我们直接开始吧</p>
+      <content type="html"><![CDATA[<p><excerpt in="" index="" |="" 首页摘要=""><br>这两天一直在捣鼓hexo，虽然不是很难，但是在搭建过程中，还是遇到了一些问题，导致花了两天。网上有很多相关教程，但是很多都含糊不清，其实让我豁然开朗的还是这篇文章，在此特别谢谢这位博主<a href="https://my.oschina.net/ryaneLee/blog/638440" target="_blank" rel="external">小白独立搭建博客–Github Pages和Hexo简明教程</a>。好了下面我们直接开始吧<br><a id="more"></a></excerpt></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<p>这两天一直在捣鼓hexo，虽然不是很难，但是在搭建过程中，还是遇到了一些问题，导致花了两天。网上有很多相关教程，但是很多都含糊不清，其实让我豁然开朗的还是这篇文章，在此特别谢谢这位博主<a href="https://my.oschina.net/ryaneLee/blog/638440" target="_blank" rel="external">小白独立搭建博客–Github Pages和Hexo简明教程</a>。好了下面我们直接开始吧</p>
 <h2 id="所需工具"><a href="#所需工具" class="headerlink" title="所需工具"></a>所需工具</h2><p><a href="https://git-scm.com/download" target="_blank" rel="external">Git</a>：版本控制器   </p>
 <p><a href="https://nodejs.org/zh-cn/download/" target="_blank" rel="external">Node</a>：提供服务器端JavaScript开发环境</p>
 <p><a href="https://github.com" target="_blank" rel="external">GitHub</a>：需注册一个账号</p>
@@ -107,7 +110,7 @@
 <p><a href="https://my.oschina.net/ryaneLee/blog/638440" target="_blank" rel="external">小白独立搭建博客–Github Pages和Hexo简明教程</a></p>
 <p><a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="external">hexo中文文档</a></p>
 <h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>这是我在新的博客上面的第一篇文章，欢迎大家访问我的博客。<a href="http://djl.pub/" target="_blank" rel="external">DJL箫氏</a></p>
-]]></content>
+</the>]]></content>
     </entry>
     
   
