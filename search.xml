@@ -109,6 +109,8 @@
 <p>同步至GitHub即可，至此hexo博客搭建基本就大功告成。下面推荐一个工具<a href="https://github.com/nihgwu/hexo-hey" target="_blank" rel="external">hexo-hey</a></p>
 <p><a href="https://my.oschina.net/ryaneLee/blog/638440" target="_blank" rel="external">小白独立搭建博客–Github Pages和Hexo简明教程</a></p>
 <p><a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="external">hexo中文文档</a></p>
+<h2 id="遇到问题"><a href="#遇到问题" class="headerlink" title="遇到问题"></a>遇到问题</h2><p><img src="http://upload-images.jianshu.io/upload_images/1948637-f354427a1d5932cf.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="问题01.jpg"></p>
+<p>解决办法:<a href="https://segmentfault.com/q/1010000003734223" target="_blank" rel="external">参考链接</a><br><a href="https://github.com/hexojs/hexo/issues/1503" target="_blank" rel="external">参考链接</a></p>
 <h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>这是我在新的博客上面的第一篇文章，欢迎大家访问我的博客。<a href="http://djl.pub/">DJL箫氏</a></p>
 </the>]]></content>
     </entry>
