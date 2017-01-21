@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="DJLXS" />
+
+
+
+<meta name="description" content="Vue学习之组件
+title: hexo初探—让写作飞起来date: 2017-01-13 14:49:57tags: 
+- Vue
+- Vue组件
+categories: Vue组件在Vue中占有举足轻重的地位，在开发高仿饿了么外卖APP中也见识到了组件化开发的便捷和灵活。下面来总结一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DJLXS">
+<meta property="og:url" content="http://djl.pub/2017/01/21/Vue学习之组件/index.html">
+<meta property="og:site_name" content="DJLXS">
+<meta property="og:description" content="Vue学习之组件
+title: hexo初探—让写作飞起来date: 2017-01-13 14:49:57tags: 
+- Vue
+- Vue组件
+categories: Vue组件在Vue中占有举足轻重的地位，在开发高仿饿了么外卖APP中也见识到了组件化开发的便捷和灵活。下面来总结一下。">
+<meta property="og:image" content="http://ok3x4ia9b.bkt.clouddn.com/17-1-21/79403842-file_1485003651843_8299.jpg">
+<meta property="og:updated_time" content="2017-01-21T14:25:57.147Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DJLXS">
+<meta name="twitter:description" content="Vue学习之组件
+title: hexo初探—让写作飞起来date: 2017-01-13 14:49:57tags: 
+- Vue
+- Vue组件
+categories: Vue组件在Vue中占有举足轻重的地位，在开发高仿饿了么外卖APP中也见识到了组件化开发的便捷和灵活。下面来总结一下。">
+<meta name="twitter:image" content="http://ok3x4ia9b.bkt.clouddn.com/17-1-21/79403842-file_1485003651843_8299.jpg">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="DJLXS" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>DJLXS</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">DJLXS</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/随笔">随笔</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" href="http://www.weibo.com/u/3687140617/home" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/djlxiaoshi/" title="GitHub"></a>
+                            
+                                <a class="fa 简书" href="http://www.jianshu.com/u/d8657fcf1678" title="简书"></a>
+                            
+                                <a class="fa 博客园" href="http://www.cnblogs.com/djlxs/" title="博客园"></a>
+                            
+                                <a class="fa QQ" href="/1281233206" title="QQ"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生命周期/">生命周期</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">大家好，欢迎来到DJL箫氏的个人博客，目前大四，即将工作于深圳博雅互动，专注于前端，喜欢羽毛球、健身等等，如果愿意交流欢迎加我的QQ：1281233206（注明来自博客）</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">DJLXS</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">DJLXS</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/随笔">随笔</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://www.weibo.com/u/3687140617/home" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/djlxiaoshi/" title="GitHub"></a>
+                            
+                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/u/d8657fcf1678" title="简书"></a>
+                            
+                                <a class="fa 博客园" target="_blank" href="http://www.cnblogs.com/djlxs/" title="博客园"></a>
+                            
+                                <a class="fa QQ" target="_blank" href="/1281233206" title="QQ"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Vue学习之组件" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/01/21/Vue学习之组件/" class="article-date">
+      <time datetime="2017-01-21T14:25:33.369Z" itemprop="datePublished">2017-01-21</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="Vue学习之组件"><a href="#Vue学习之组件" class="headerlink" title="Vue学习之组件"></a>Vue学习之组件</h1><hr>
+<p>title: hexo初探—让写作飞起来<br>date: 2017-01-13 14:49:57<br>tags: </p>
+<pre><code>- Vue
+- Vue组件
+</code></pre><h2 id="categories-Vue"><a href="#categories-Vue" class="headerlink" title="categories: Vue"></a>categories: Vue</h2><p>组件在Vue中占有举足轻重的地位，在开发<em>高仿饿了么外卖APP</em>中也见识到了组件化开发的便捷和灵活。下面来总结一下。<br><a id="more"></a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="http://v1-cn.vuejs.org/guide/components.html" target="_blank" rel="external">官方Vue组件文档</a><br><a href="http://www.cnblogs.com/keepfool/p/5625583.html" target="_blank" rel="external">Vue.js——60分钟组件快速入门（上篇）</a><br><a href="http://www.cnblogs.com/keepfool/p/5637834.html" target="_blank" rel="external">Vue.js——60分钟组件快速入门（下篇）</a></p>
+<h2 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h2><h3 id="全局注册"><a href="#全局注册" class="headerlink" title="全局注册"></a>全局注册</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"example"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">my-component</span>&gt;</span><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 定义</span></div><div class="line"><span class="keyword">var</span> MyComponent = Vue.extend(&#123;</div><div class="line">  <span class="attr">template</span>: <span class="string">'&lt;div&gt;A custom component!&lt;/div&gt;'</span></div><div class="line">&#125;)</div><div class="line"><span class="comment">// 注册</span></div><div class="line">Vue.component(<span class="string">'my-component'</span>, MyComponent)</div><div class="line"><span class="comment">// 创建根实例</span></div><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">  <span class="attr">el</span>: <span class="string">'#example'</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>这个组件是全局注册。</p>
+<h3 id="局部注册"><a href="#局部注册" class="headerlink" title="局部注册"></a>局部注册</h3><p>有时我们需要在一个父组件下面注册另一个子组件，而这个子组件只能被这个父组件使用，那么我们就需要使用局部注册。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Child = Vue.extend(&#123; <span class="comment">/* ... */</span> &#125;)</div><div class="line"><span class="keyword">var</span> Parent = Vue.extend(&#123;</div><div class="line">  <span class="attr">template</span>: <span class="string">'...'</span>,</div><div class="line">  <span class="attr">components</span>: &#123;</div><div class="line">    <span class="comment">// &lt;my-component&gt; 只能用在父组件模板内</span></div><div class="line">    <span class="string">'my-component'</span>: Child</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>可以看到就是在一个父组件中的<strong>components</strong>属性中添加子组件。</p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol>
+<li>在子组件中data属性值是一个匿名函数的返回值</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">var</span> MyComponent = Vue.extend(&#123;</div><div class="line">  <span class="attr">data</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>如果不这样，那么每个实例都将共享这一个data，就会造成混乱。</p>
+<ol>
+<li>我们在子组件模板时，既可以以下面这种方式指定</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> MyComponent = Vue.extend(&#123;</div><div class="line">  <span class="attr">template</span>: <span class="string">'&lt;div&gt;A custom component!&lt;/div&gt;'</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>但是我们更推荐使用H5的template标签来做，尤其是在子组件模板比较大的时候<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">id</span>=<span class="string">"tmpl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span> <span class="attr">id</span>=<span class="string">"title"</span>&gt;</span>这是一个组件<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> component = Vue.extend(&#123;</div><div class="line">    <span class="attr">template</span>: <span class="string">"#tmpl"</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>当然对子组件模板也有一些要求，不然会解析出错</p>
+<blockquote>
+<ul>
+<li>a 不能包含其它的交互元素（如按钮，链接）</li>
+<li>ul 和 ol 只能直接包含 li</li>
+<li>select 只能包含 option 和 optgroup</li>
+<li>table 只能直接包含 thead, tbody, tfoot, tr, caption, col,   colgroup</li>
+<li>tr 只能直接包含 th 和 td </li>
+</ul>
+</blockquote>
+<p> <a href="http://v1-cn.vuejs.org/guide/components.html#模板解析" target="_blank" rel="external">更多模板注意事项</a></p>
+<h2 id="组件通信"><a href="#组件通信" class="headerlink" title="组件通信"></a>组件通信</h2><p>组件使用中最难的就是解决通信问题。一般有一下几种方式和情况</p>
+<h3 id="props"><a href="#props" class="headerlink" title="props"></a>props</h3><p>第一种就是在子组件中利用props属性，来实现父子组件中的通信。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"wrap"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tmlp-a</span> <span class="attr">:props-num</span>=<span class="string">"num"</span>&gt;</span><span class="tag">&lt;/<span class="name">tmlp-a</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;num&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">id</span>=<span class="string">"tmlp-a"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;propsNum&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"add"</span>&gt;</span>add<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">Vue.component(<span class="string">'tmlp-a'</span>,&#123;</div><div class="line">    <span class="attr">template</span>:<span class="string">"#tmlp-a"</span>,</div><div class="line">    <span class="attr">props</span>:[<span class="string">'propsNum'</span>],</div><div class="line">    <span class="attr">methods</span>:&#123;</div><div class="line">        <span class="attr">add</span>:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="keyword">this</span>.propsNum++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">el</span>:<span class="string">"#wrap"</span>,</div><div class="line">    <span class="attr">data</span>:&#123;</div><div class="line">        <span class="attr">num</span>:<span class="number">1</span></div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>通过props这个属性我们就可以拿到父组件的data数据，然后我们就可以操作这个数据，但是这里是一个单项问题，即我们在子组件中操作这个数据，并不会影响父组件中对应的数据，当然有一个办法就是通过props传递过来的是一个引用类型数据而不是一个基本变量，但是这无疑很麻烦。那么Vue提供了另外一种方法，那就是通过<strong>.sync</strong>修饰符来做。把代码做一点修改即可：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">tmlp-a</span> <span class="attr">:props-num.sync</span>=<span class="string">"num"</span>&gt;</span><span class="tag">&lt;/<span class="name">tmlp-a</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h2 id="Vue-dispatch"><a href="#Vue-dispatch" class="headerlink" title="Vue.$dispatch"></a>Vue.$dispatch</h2><p>第二种方式就是使用Vue.$dispatch（事件配发）来做，这种用法主要用在两个平级的子组件之间，它们有共同的父组件。也就是来解决兄弟组件间的通信问题，因为在一般情况下是不直接通信的（为了组件的独立性），那么有时候我们又有这样的需求。首先来看看通信的流程图：</p>
+<p><img src="http://ok3x4ia9b.bkt.clouddn.com/17-1-21/79403842-file_1485003651843_8299.jpg" alt="dispatch原理图"></p>
+<p>上面的通信方式，就如下面的对话。</p>
+<blockquote>
+<p>大儿子小明：老爸，让弟弟帮我拿一下快递，快递号码为（3737） //派发事件并传递参数3737<br>老爸听到了大儿子的请求，并开始行动 //父组件事件响应函数做出响应<br>老爸跑去找小儿子小明 //v-ref指令找到另一个子组件<br>爸爸：小华，快去拿一个快递，快递号码为（3737）<br>小儿子小明腾腾腾就去拿快递，告诉别人快递号码。</p>
+</blockquote>
+<p>代码示例：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">child-a</span> &gt;</span><span class="tag">&lt;/<span class="name">child-a</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">child-b</span>  <span class="attr">v-ref:other-child</span>&gt;</span><span class="tag">&lt;/<span class="name">child-b</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">template</span> <span class="attr">id</span>=<span class="string">"child-a"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"sendMsg"</span>&gt;</span>发送信息<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">template</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">template</span> <span class="attr">id</span>=<span class="string">"child-b"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;receiveMsg&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">template</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">el</span>: <span class="string">'#container'</span>,</div><div class="line">    <span class="attr">components</span>: &#123;</div><div class="line">        <span class="string">'childA'</span>: &#123;</div><div class="line">            <span class="attr">template</span>: <span class="string">'#child-a'</span>,</div><div class="line">            <span class="attr">data</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">                <span class="keyword">return</span> &#123;</div><div class="line">                    <span class="attr">msg</span>:<span class="string">'DJL箫氏'</span></div><div class="line">                &#125;</div><div class="line">            &#125;,</div><div class="line">            <span class="attr">methods</span>: &#123;</div><div class="line">                <span class="attr">sendMsg</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">                    <span class="keyword">this</span>.$dispatch(<span class="string">'fatherTodo'</span>,<span class="keyword">this</span>.msg);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;,</div><div class="line">        <span class="string">'childB'</span>: &#123;</div><div class="line">            <span class="attr">template</span>: <span class="string">'#child-b'</span>,</div><div class="line">            <span class="attr">data</span>:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">              <span class="keyword">return</span> &#123;</div><div class="line">                  <span class="attr">receiveMsg</span>:<span class="string">''</span></div><div class="line">              &#125;</div><div class="line">            &#125;,</div><div class="line">            <span class="attr">methods</span>: &#123;</div><div class="line">                <span class="attr">receiveMsgFromA</span>: <span class="function"><span class="keyword">function</span> (<span class="params">msg</span>) </span>&#123;</div><div class="line">                    <span class="keyword">this</span>.receiveMsg = msg;</div><div class="line">                    <span class="built_in">console</span>.log(<span class="string">'我接受到来自A的数据：'</span>+msg);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">events</span>: &#123;</div><div class="line">        <span class="attr">fatherTodo</span>: <span class="function"><span class="keyword">function</span> (<span class="params">msg</span>) </span>&#123;</div><div class="line">            <span class="keyword">this</span>.$refs.childB.receiveMsgFromA(msg);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>这样就可以在兄弟组件实现通信</p>
+<h2 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h2><p>最后一种方式就是利用<a href="https://github.com/vuejs/vuex/tree/1.0/docs/zh-cn" target="_blank" rel="external">Vuex</a>,关于这种方法，我会专门花一篇来写，敬请期待。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/01/21/Vue学习之组件/"></a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">DJLXS</a></p>
+        <p><span>发布时间:</span>2017-01-21, 22:25:33</p>
+        <p><span>最后更新:</span>2017-01-21, 22:25:57</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/01/21/Vue学习之组件/" title="">http://djl.pub/2017/01/21/Vue学习之组件/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://djl.pub/2017/01/21/Vue学习之组件/　　作者: DJLXS" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/01/21/Vue学习之生命周期/">
+                    Vue学习之生命周期
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Vue学习之组件"><span class="toc-number">1.</span> <span class="toc-text">Vue学习之组件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#categories-Vue"><span class="toc-number">1.1.</span> <span class="toc-text">categories: Vue</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">1.2.</span> <span class="toc-text">参考资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注册"><span class="toc-number">1.3.</span> <span class="toc-text">注册</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#全局注册"><span class="toc-number">1.3.1.</span> <span class="toc-text">全局注册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#局部注册"><span class="toc-number">1.3.2.</span> <span class="toc-text">局部注册</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意事项"><span class="toc-number">1.4.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组件通信"><span class="toc-number">1.5.</span> <span class="toc-text">组件通信</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#props"><span class="toc-number">1.5.1.</span> <span class="toc-text">props</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue-dispatch"><span class="toc-number">1.6.</span> <span class="toc-text">Vue.$dispatch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vuex"><span class="toc-number">1.7.</span> <span class="toc-text">Vuex</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"　| DJLXS　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/01/21/Vue学习之组件/" data-title="" data-url="http://djl.pub/2017/01/21/Vue学习之组件/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"djlxs"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/01/21/Vue学习之生命周期/" title="下一篇: Vue学习之生命周期">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之组件/">Vue学习之组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之生命周期/">Vue学习之生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/17/Vue-js学习/">Vue.js学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/13/hexo初探---让写作飞起来/">hexo初探---让写作飞起来</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017 DJLXS
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
