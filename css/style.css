@@ -2135,7 +2135,7 @@ aside.comment-bar:active {
   box-shadow: 1px 1px 1px rgba(0,0,0,0.05);
 }
 .article-entry .highlight pre {
-  background: #f00;
+  background: none;
   border: none;
   margin: 0;
   padding: 0;
