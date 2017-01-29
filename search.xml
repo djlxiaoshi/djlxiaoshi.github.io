@@ -6,7 +6,7 @@
     <entry>
       <title><![CDATA[Vuex初探]]></title>
       <url>http://djl.pub/2017/01/29/Vuex%E5%88%9D%E6%8E%A2/</url>
-      <content type="html"><![CDATA[<p>前篇我们谈到在Vue组件中进行通信的几种方式，父子组件中可以通过props属性，兄弟组件可以通过事件分发。当然很明显组件的独立性会有所降低，那么这里有另外一种方式就是通过Vuex。核心思想就是把子组件中需要共享的数据通过Vuex来进行管理。这里我使用的是Vuex1.0版本。<br><a id="more"></a></p>
+      <content type="html"><![CDATA[<p>前篇我们谈到在<a href="http://djl.pub/2017/01/21/Vue%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%BB%84%E4%BB%B6/#组件通信">Vue组件中进行通信的几种方式</a>，父子组件中可以通过props属性，兄弟组件可以通过事件分发。当然很明显组件的独立性会有所降低，那么这里有另外一种方式就是通过Vuex。核心思想就是把子组件中需要共享的数据通过Vuex来进行管理。这里我使用的是Vuex1.0版本。<br><a id="more"></a></p>
 <p><a href="https://github.com/vuejs/vuex/tree/1.0/docs/zh-cn" target="_blank" rel="external">官方文档1.0</a></p>
 <p>Vuex 1.0 和 2.0都完全支持 Vue 1.0 和 2.0。上面是1.0版本的文档，千万不要安装的2.0版本，查看的却是1.0的文档资料</p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install vuex@1.0.0</div></pre></td></tr></table></figure>
@@ -22,7 +22,7 @@
 <h3 id="actions"><a href="#actions" class="headerlink" title="actions"></a>actions</h3><blockquote>
 <p>action 是一种专门用来被 component 调用的函数。action 函数能够通过分发相应的 mutation 函数，来触发对 store 的更新。action 也可以先从 HTTP 后端或 store 中读取其他数据之后再分发更新事件。</p>
 </blockquote>
-<p>actions不能直接操作state数据的，而是通过dispatch相应的mutations来实现。一般组件直接调用的就是actions中提供的函数结构，而不会去直接调用mutations。</p>
+<p>actions不能直接操作state数据的，而是通过dispatch相应的mutations来实现。一般组件直接调用的就是actions中提供的函数接口，而不会去直接调用mutations。</p>
 <p><img src="http://ok3x4ia9b.bkt.clouddn.com/17-1-29/32989864-file_1485700769110_11d56.jpg" alt=""></p>
 <p>上图是我自己画的一个调用关系图，从上面我们可以看到，调用过程还是比较复杂的，所以如果是比较小的项目，就不要使用Vuex了。</p>
 <h2 id="开始动手吧"><a href="#开始动手吧" class="headerlink" title="开始动手吧"></a>开始动手吧</h2><p>首先我们通过vue-cli脚手架搭建一个vue工程，如果不是很清楚可以看看我的另一篇博客。然后我们构建<code>Display.vue</code>、<code>Increment.vue</code>和<code>Decrement.vue</code>三个组件。然后新建一个vuex文件夹下面有<code>store.js</code>、<code>actions.js</code>和<code>getters.js</code>。工程目录结构如下图所示。</p>
