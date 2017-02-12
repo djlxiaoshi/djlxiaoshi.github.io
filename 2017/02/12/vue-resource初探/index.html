@@ -14,19 +14,17 @@
 <meta name="author" content="DJLXS" />
 
 
-    
-    
 
-
-<meta name="description" content="DJL箫氏的博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="DJLXS">
-<meta property="og:url" content="http://djl.pub/index.html">
+<meta name="description" content="简介vue-resource是用来发送ajax请求或者解决jsonp跨域问题，既可以在全局Vue中使用（即Vue.\$http）也可以在vue实例中使用（即this.\$http）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue-resource初探">
+<meta property="og:url" content="http://djl.pub/2017/02/12/vue-resource初探/index.html">
 <meta property="og:site_name" content="DJLXS">
-<meta property="og:description" content="DJL箫氏的博客">
+<meta property="og:description" content="简介vue-resource是用来发送ajax请求或者解决jsonp跨域问题，既可以在全局Vue中使用（即Vue.\$http）也可以在vue实例中使用（即this.\$http）">
+<meta property="og:updated_time" content="2017-02-12T08:34:45.129Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DJLXS">
-<meta name="twitter:description" content="DJL箫氏的博客">
+<meta name="twitter:title" content="vue-resource初探">
+<meta name="twitter:description" content="简介vue-resource是用来发送ajax请求或者解决jsonp跨域问题，既可以在全局Vue中使用（即Vue.\$http）也可以在vue实例中使用（即this.\$http）">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -54,13 +52,11 @@
 <link rel="stylesheet" href="/css/style.css">
 
 
-    <style> .article { opacity: 0;} </style>
-
 
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>DJLXS</title>
+<title>vue-resource初探 | DJLXS</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -69,8 +65,8 @@
     var yiliaConfig = {
         fancybox: true,
         animate: true,
-        isHome: true,
-        isPost: false,
+        isHome: false,
+        isPost: true,
         isArchive: false,
         isTag: false,
         isCategory: false,
@@ -279,9 +275,7 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-vue-resource初探" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-vue-resource初探" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2017/02/12/vue-resource初探/" class="article-date">
@@ -299,513 +293,176 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/12/vue-resource初探/">vue-resource初探</a>
+    <h1 class="article-title" itemprop="name">
+      vue-resource初探
     </h1>
   
 
       </header>
       
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>vue-resource是用来发送ajax请求或者解决jsonp跨域问题，既可以在全局Vue中使用（即Vue.\$http）也可以在vue实例中使用（即this.\$http）<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
+      <div class="article-info article-info-post">
+        
 
-      
+        
     <div class="article-tag tagcloud">
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-resource/">vue-resource</a></li></ul>
     </div>
 
-      
-        <p class="article-more-link">
-          <a href="/2017/02/12/vue-resource初探/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-vue-router初探" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/02/08/vue-router初探/" class="article-date">
-      <time datetime="2017-02-08T13:34:12.000Z" itemprop="datePublished">2017-02-08</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/08/vue-router初探/">vue-router初探</a>
-    </h1>
-  
-
-      </header>
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>最近在跟着视频学习开发一个外卖APP单页运用，开发中用到了vue-router来做路由管理，现在来进行简单的总结。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>vue-resource是用来发送ajax请求或者解决jsonp跨域问题，既可以在全局Vue中使用（即Vue.\$http）也可以在vue实例中使用（即this.\$http）<br><a id="more"></a></p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>npm <code>$ npm install vue-resource</code><br>cdn  <code>&lt;script src=&quot;https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js&quot;&gt;&lt;/script&gt;</code></p>
+<h1 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h1><p>最常见的用法，目前还需要掌握这些<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// GET /someUrl</span></div><div class="line"><span class="keyword">this</span>.$http.get(<span class="string">'/someUrl'</span>).then(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</div><div class="line">  <span class="comment">// success callback</span></div><div class="line">&#125;, (response) =&gt; &#123;</div><div class="line">  <span class="comment">// error callback</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>如果没有es6解析环境就不要写成箭头函数的形式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// global Vue object</span></div><div class="line">Vue.http.get(<span class="string">'/someUrl'</span>, [options]).then(successCallback, errorCallback);</div><div class="line">Vue.http.post(<span class="string">'/someUrl'</span>, [body], [options]).then(successCallback, errorCallback);</div></pre></td></tr></table></figure>
+<p>也可以vue实例中使用<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// in a Vue instance</span></div><div class="line"><span class="keyword">this</span>.$http.get(<span class="string">'/someUrl'</span>, [options]).then(successCallback, errorCallback);</div><div class="line"><span class="keyword">this</span>.$http.post(<span class="string">'/someUrl'</span>, [body], [options]).then(successCallback, errorCallback);</div></pre></td></tr></table></figure></p>
+<p>一般我们请求的数据都会是一个对象或者字符串，我们通过response.body来获取响应内容，如果我们请求的是图片这样的二进制文件，我们通过response.blob来获取内容主题。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="comment">// POST /someUrl</span></div><div class="line">  <span class="keyword">this</span>.$http.post(<span class="string">'/someUrl'</span>, &#123;<span class="attr">foo</span>: <span class="string">'bar'</span>&#125;).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</div><div class="line">  </div><div class="line">    <span class="comment">// get body data</span></div><div class="line">    <span class="keyword">this</span>.someData = response.body;</div><div class="line"></div><div class="line">  &#125;, response =&gt; &#123;</div><div class="line">    <span class="comment">// error callback</span></div><div class="line">  &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>或者图片等等二进制大文件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">this</span>.$http.get(<span class="string">'/image.jpg'</span>).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</div><div class="line">  <span class="comment">// resolve to Blob</span></div><div class="line">  <span class="keyword">return</span> response.blob();</div><div class="line">  </div><div class="line">  &#125;).then(<span class="function"><span class="params">blob</span> =&gt;</span> &#123;</div><div class="line">  <span class="comment">// use image Blob</span></div><div class="line">  &#125;);</div></pre></td></tr></table></figure>
+<p><a href="https://github.com/pagekit/vue-resource/blob/develop/docs/http.md" target="_blank" rel="external">response对象</a></p>
+<h1 id="学习文档"><a href="#学习文档" class="headerlink" title="学习文档"></a>学习文档</h1><p><a href="https://github.com/pagekit/vue-resource" target="_blank" rel="external">官方文档</a><br><a href="http://www.cnblogs.com/keepfool/p/5657065.html" target="_blank" rel="external">参考资料</a></p>
 
       
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-router/">vue-router</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/02/08/vue-router初探/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
     </div>
     
   </div>
   
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-webpack1.0初探" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/02/07/webpack1.0初探/" class="article-date">
-      <time datetime="2017-02-07T00:49:08.000Z" itemprop="datePublished">2017-02-07</time>
-</a>
-
-
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/02/12/vue-resource初探/">vue-resource初探</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">DJLXS</a></p>
+        <p><span>发布时间:</span>2017-02-12, 16:33:33</p>
+        <p><span>最后更新:</span>2017-02-12, 16:34:45</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/02/12/vue-resource初探/" title="vue-resource初探">http://djl.pub/2017/02/12/vue-resource初探/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://djl.pub/2017/02/12/vue-resource初探/　　作者: DJLXS" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
     </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+
+
+
+    <nav id="article-nav">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/07/webpack1.0初探/">webpack1.0初探</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>webpack是目前最热门的前端资源模块化管理和打包工具,它能把各种资源，包括 jxs、coffeeJS、less／sass，甚至图片，当作模块来加载和使用。当我们需要使用这些资源时只需要require进来，方便模块化开发。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/02/07/webpack1.0初探/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Vuex初探" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/01/29/Vuex初探/" class="article-date">
-      <time datetime="2017-01-29T15:38:40.000Z" itemprop="datePublished">2017-01-29</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/29/Vuex初探/">Vuex初探</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>前篇我们谈到在<a href="http://djl.pub/2017/01/21/Vue%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%BB%84%E4%BB%B6/#组件通信">Vue组件中进行通信的几种方式</a>，父子组件中可以通过props属性，兄弟组件可以通过事件分发。当然很明显组件的独立性会有所降低，那么这里有另外一种方式就是通过Vuex。核心思想就是把子组件中需要共享的数据通过Vuex来进行管理。这里我使用的是Vuex1.0版本。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vuex/">vuex</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/01/29/Vuex初探/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Vue学习之组件" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/01/21/Vue学习之组件/" class="article-date">
-      <time datetime="2017-01-21T14:28:37.000Z" itemprop="datePublished">2017-01-21</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/02/08/vue-router初探/">
+                    vue-router初探
+                </a>
+            </div>
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/21/Vue学习之组件/">Vue学习之组件</a>
-    </h1>
-  
+    </nav>
 
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>组件在Vue中占有举足轻重的地位，在开发<em>高仿饿了么外卖APP</em>中也见识到了组件化开发的便捷和灵活。下面来总结一下。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Vue/">Vue</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue组件/">Vue组件</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/01/21/Vue学习之组件/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
   
 </article>
 
-
-
-
-
-
-
-
-
-  
-    <article id="post-Vue学习之生命周期" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/01/21/Vue学习之生命周期/" class="article-date">
-      <time datetime="2017-01-21T08:19:44.000Z" itemprop="datePublished">2017-01-21</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/21/Vue学习之生命周期/">Vue学习之生命周期</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>生命周期在组件开发总非常重要，尤其是能在适当的时机取得数据,做一些初始化准备。下面我们来简单的聊聊Vue生命周期。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Vue学习/">Vue学习</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/生命周期/">生命周期</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/01/21/Vue学习之生命周期/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Vue-js学习" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/01/17/Vue-js学习/" class="article-date">
-      <time datetime="2017-01-17T07:01:39.000Z" itemprop="datePublished">2017-01-17</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装"><span class="toc-number">2.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基本用法"><span class="toc-number">3.</span> <span class="toc-text">基本用法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#学习文档"><span class="toc-number">4.</span> <span class="toc-text">学习文档</span></a></li></ol>
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/17/Vue-js学习/">Vue.js学习</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>最近在慕课网上面买了一套<a href="http://coding.imooc.com/class/74.html">高仿饿了么APP</a>视频,个人认为<br>对于我这种没有实际经验（还没有正式工作），又在学习Vue.js的人来说，绝对是非常值得的（不是打广告）。<br>而这套课程中主要用到了<strong>Vue</strong>、<strong>Vue-router</strong>、<strong>Vue-source</strong>、<strong>webpack</strong>、<strong>ES6</strong>、<strong>ESLint</strong>等等<br>所以通过这次课程我对于这些都有了一个大致了解。而这篇文章主要讲解Vue的1.0版本。我将会接下来的时间利用Vue2.0来实现一遍。<br>
-          
-      
     </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
     
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/01/17/Vue-js学习/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
+<div class="share">
     
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hexo初探---让写作飞起来" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/01/13/hexo初探---让写作飞起来/" class="article-date">
-      <time datetime="2017-01-13T06:49:57.000Z" itemprop="datePublished">2017-01-13</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"vue-resource初探　| DJLXS　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
     
-      <input type="hidden" class="isFancy" />
+
     
+</div>
+
+
+
+
+
+
+
     
-      <header class="article-header">
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/02/12/vue-resource初探/" data-title="vue-resource初探" data-url="http://djl.pub/2017/02/12/vue-resource初探/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"djlxs"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/13/hexo初探---让写作飞起来/">hexo初探---让写作飞起来</a>
-    </h1>
-  
-
-      </header>
-      
+    </script>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>这两天一直在捣鼓hexo，虽然不是很难，但是在搭建过程中，还是遇到了一些问题，导致花了两天。网上有很多相关教程，但是很多都含糊不清，其实让我豁然开朗的还是这篇文章，在此特别谢谢这位博主<a href="https://my.oschina.net/ryaneLee/blog/638440">小白独立搭建博客–Github Pages和Hexo简明教程</a>。好了下面我们直接开始吧<br>
-          
-      
-    </div>
+    <script> loadComment(); </script>
+
+</div>
     
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/hexo博客搭建/">hexo博客搭建</a>
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/02/08/vue-router初探/" title="下一篇: vue-router初探">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
     </div>
 
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/01/13/hexo初探---让写作飞起来/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/02/12/vue-resource初探/">vue-resource初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/08/vue-router初探/">vue-router初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/07/webpack1.0初探/">webpack1.0初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/29/Vuex初探/">Vuex初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之组件/">Vue学习之组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之生命周期/">Vue学习之生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/17/Vue-js学习/">Vue.js学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/13/hexo初探---让写作飞起来/">hexo初探---让写作飞起来</a></li></ul>
 
 
 
 
-
-
-
-
-
-  
-  
+    <script>
+        
+    </script>
 </div>
       <footer id="footer">
     <div class="outer">
