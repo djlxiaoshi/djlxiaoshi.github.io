@@ -15,16 +15,25 @@
 
 
 
-<meta name="description" content="最近在慕课网上面买了一套高仿饿了么APP视频,个人认为对于我这种没有实际经验（还没有正式工作），又在学习Vue.js的人来说，绝对是非常值得的（不是打广告）。而这套课程中主要用到了Vue、Vue-router、Vue-source、webpack、ES6、ESLint等等所以通过这次课程我对于这些都有了一个大致了解。而这篇文章主要讲解Vue的1.0版本。我将会接下来的时间利用Vue2.0来实现一遍">
+<meta name="description" content="在做外卖APP项目时，用到了better-scroll这个插件，接口基本和iscroll一致，功能非常强大。
+文档资料官方文档主要资料还是参考iscroll这个插件，API接口都是一致的
+基本使用一定要有两层123&amp;lt;div class=&quot;outer&quot;&amp;gt;    &amp;lt;div class=&quot;inner&quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;
+123&amp;lt;script">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vue.js学习">
-<meta property="og:url" content="http://djl.pub/2017/01/17/Vue-js学习/index.html">
+<meta property="og:title" content="better-scroll初探">
+<meta property="og:url" content="http://djl.pub/2017/02/13/better-scroll初探/index.html">
 <meta property="og:site_name" content="DJLXS">
-<meta property="og:description" content="最近在慕课网上面买了一套高仿饿了么APP视频,个人认为对于我这种没有实际经验（还没有正式工作），又在学习Vue.js的人来说，绝对是非常值得的（不是打广告）。而这套课程中主要用到了Vue、Vue-router、Vue-source、webpack、ES6、ESLint等等所以通过这次课程我对于这些都有了一个大致了解。而这篇文章主要讲解Vue的1.0版本。我将会接下来的时间利用Vue2.0来实现一遍">
-<meta property="og:updated_time" content="2017-01-17T07:27:32.093Z">
+<meta property="og:description" content="在做外卖APP项目时，用到了better-scroll这个插件，接口基本和iscroll一致，功能非常强大。
+文档资料官方文档主要资料还是参考iscroll这个插件，API接口都是一致的
+基本使用一定要有两层123&amp;lt;div class=&quot;outer&quot;&amp;gt;    &amp;lt;div class=&quot;inner&quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;
+123&amp;lt;script">
+<meta property="og:updated_time" content="2017-02-13T03:38:45.017Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Vue.js学习">
-<meta name="twitter:description" content="最近在慕课网上面买了一套高仿饿了么APP视频,个人认为对于我这种没有实际经验（还没有正式工作），又在学习Vue.js的人来说，绝对是非常值得的（不是打广告）。而这套课程中主要用到了Vue、Vue-router、Vue-source、webpack、ES6、ESLint等等所以通过这次课程我对于这些都有了一个大致了解。而这篇文章主要讲解Vue的1.0版本。我将会接下来的时间利用Vue2.0来实现一遍">
+<meta name="twitter:title" content="better-scroll初探">
+<meta name="twitter:description" content="在做外卖APP项目时，用到了better-scroll这个插件，接口基本和iscroll一致，功能非常强大。
+文档资料官方文档主要资料还是参考iscroll这个插件，API接口都是一致的
+基本使用一定要有两层123&amp;lt;div class=&quot;outer&quot;&amp;gt;    &amp;lt;div class=&quot;inner&quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;
+123&amp;lt;script">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +65,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Vue.js学习 | DJLXS</title>
+<title>better-scroll初探 | DJLXS</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -275,11 +284,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Vue-js学习" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-better-scroll初探" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/01/17/Vue-js学习/" class="article-date">
-      <time datetime="2017-01-17T07:01:39.000Z" itemprop="datePublished">2017-01-17</time>
+      <a href="/2017/02/13/better-scroll初探/" class="article-date">
+      <time datetime="2017-02-13T03:34:09.000Z" itemprop="datePublished">2017-02-13</time>
 </a>
 
 
@@ -294,7 +303,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Vue.js学习
+      better-scroll初探
     </h1>
   
 
@@ -304,10 +313,6 @@
         
 
         
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
-    </div>
-
         <div class="clearfix"></div>
       </div>
       
@@ -315,10 +320,27 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>最近在慕课网上面买了一套<a href="http://coding.imooc.com/class/74.html" target="_blank" rel="external">高仿饿了么APP</a>视频,个人认为<br>对于我这种没有实际经验（还没有正式工作），又在学习Vue.js的人来说，绝对是非常值得的（不是打广告）。<br>而这套课程中主要用到了<strong>Vue</strong>、<strong>Vue-router</strong>、<strong>Vue-source</strong>、<strong>webpack</strong>、<strong>ES6</strong>、<strong>ESLint</strong>等等<br>所以通过这次课程我对于这些都有了一个大致了解。而这篇文章主要讲解Vue的1.0版本。我将会接下来的时间利用Vue2.0来实现一遍。<br><a id="more"></a></p>
-<p><a href="http://v1-cn.vuejs.org/guide/" target="_blank" rel="external">官方文档</a></p>
-<p>Vue.js的两大特性：组件化开发、数据驱动。之前没有学习任何框架的时候，开发过一个H5的音乐播放器，里面涉及<br>了大量DOM操作，实在很费神，如果使用Vue来做的话应该简单很多。由于Vue的官方文档已经写的比较好了而且又有中文版，<br>所以这里我并不打算讲Vue的一些基本知识（相比官方文档也讲不出什么花出来）</p>
-<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><h2 id="组件化开发"><a href="#组件化开发" class="headerlink" title="组件化开发"></a>组件化开发</h2><h2 id="组件间通信"><a href="#组件间通信" class="headerlink" title="组件间通信"></a>组件间通信</h2><h2 id="常见的用法"><a href="#常见的用法" class="headerlink" title="常见的用法"></a>常见的用法</h2>
+        <p>在做外卖APP项目时，用到了better-scroll这个插件，接口基本和iscroll一致，功能非常强大。</p>
+<h1 id="文档资料"><a href="#文档资料" class="headerlink" title="文档资料"></a>文档资料</h1><p><a href="https://github.com/ustbhuangyi/better-scroll" target="_blank" rel="external">官方文档</a><br>主要资料还是参考<a href="https://iiunknown.gitbooks.io/iscroll-5-api-cn/content/index.html" target="_blank" rel="external">iscroll</a>这个插件，API接口都是一致的</p>
+<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><p>一定要有两层<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"outer"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"inner"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</div><div class="line">    <span class="keyword">var</span> myScroll = <span class="keyword">new</span> IScroll(<span class="string">'#wrapper'</span>);</div><div class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></div></pre></td></tr></table></figure>
+<p>或者<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> wrapper = <span class="built_in">document</span>.getElementById(<span class="string">'wrapper'</span>);</div><div class="line"><span class="keyword">var</span> myScroll = <span class="keyword">new</span> IScroll(wrapper);</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意：使用的是querySelector 而不是 querySelectorAll，所以iScroll只会作用到选择器选中元素的第一个。如果你需要对多个对象使用iScroll，你需要构建自己的循环机制。</p>
+</blockquote>
+<p>outer层设置固定大小且为挂载点，overflow:hidden,inner层就是随内容增加。</p>
+<h1 id="相关设置参数："><a href="#相关设置参数：" class="headerlink" title="相关设置参数："></a>相关设置参数：</h1><p><strong>bounce</strong>:当滚动器到达容器边界时他将执行一个小反弹动画，默认值为TRUE<br><strong>click:true</strong>    允许点击事件，在这里如果这个设置为TRUE的话，在触发点击事件时，有可能会两次触发（在pc端），这里我们就要通过如下判断<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(event._constructor)&#123;</div><div class="line">    <span class="keyword">return</span> ;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>通过better-scroll包装后的event事件对象会都一个<code>_constructor</code>属性，如果不进行判断，可能会触发两次点击事件。<br><strong>scrollX:true</strong>   横向滚动<br><strong>eventPassThrough:vertical</strong> 这个参数是在元素在横向滚动的同时，也是允许外层容器纵向滚动的<br><strong>mouseWheel</strong>:侦听鼠标滚轮事件<br><strong>scrollbars</strong>:是否显示为默认的滚动条<br>监听滚动事件，用于获取滚动高度<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> scroll = <span class="keyword">new</span> BScroll(<span class="built_in">document</span>.getElementById(<span class="string">'wrapper'</span>),&#123;</div><div class="line">   <span class="attr">probeType</span>: <span class="number">3</span>  <span class="comment">//调节在scroll事件触发中探针的活跃度</span></div><div class="line">&#125;)</div><div class="line"></div><div class="line">scroll.on(<span class="string">'scroll'</span>, (pos) =&gt; &#123;</div><div class="line">  <span class="built_in">console</span>.log(pos.x + <span class="string">'~'</span> + posx.y)</div><div class="line">  ...</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p><a href="https://iiunknown.gitbooks.io/iscroll-5-api-cn/content/basicfeatures.html" target="_blank" rel="external">更多配置</a></p>
+<h1 id="滚动"><a href="#滚动" class="headerlink" title="滚动"></a>滚动</h1><p><strong>滚动到某个元素</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> scroll = <span class="keyword">new</span> BScroll(<span class="built_in">document</span>.getElementById(<span class="string">'wrapper'</span>))</div><div class="line">scroll.scrollToElement(el, <span class="number">500</span>)</div><div class="line"><span class="comment">// 第一个参数为X轴，第二个参数为Y轴</span></div></pre></td></tr></table></figure></p>
+<p><strong>滚动到某个坐标</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> scroll = <span class="keyword">new</span> BScroll(<span class="built_in">document</span>.getElementById(<span class="string">'wrapper'</span>))</div><div class="line">scroll.scrollTo(<span class="number">0</span>, <span class="number">500</span>)</div><div class="line"><span class="comment">// 第一个参数为X轴，第二个参数为Y轴</span></div></pre></td></tr></table></figure></p>
+<h1 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h1><p>1 在使用b-scroll的时候，能够准确把握b-scroll初始化的时机是非常重要的。有些时候滚动是由于里面的内容撑开所导致，所以一定要保证里面的内容中的异步数据充分拿到之后进行b-srcoll初始化，所以我们必须要通过Vue的watch监听机制，在监听到数据变化的时候也进行一次b-scroll初始化，当然在ready时候也要进行初始化，因为当我们通过Vue-router进行切换时，整个DOM是重新加载的，但是watch监听数据变化是不会触发的，所以我们就必要在ready的时候进行一次初始化（当然这里也可以使用keep-alive属性阻止DOM重绘）。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">ready () &#123;</div><div class="line">    <span class="comment">// b-scroll 初始化</span></div><div class="line">&#125;,</div><div class="line"><span class="attr">watch</span>: &#123;</div><div class="line">    <span class="string">'seller'</span>() &#123;</div><div class="line">      <span class="comment">// 检测异步数据seller是否获取到，获取到则scroll 初始化</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>2 我们在获取滚动条位置时，一定要保证DOM已经重新绘制。在js中我们一般要这样<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ajax(<span class="string">'page.php'</span>, onCompletion);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">onCompletion</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// Update here your DOM</span></div><div class="line"></div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        myScroll.refresh();</div><div class="line">    &#125;, <span class="number">0</span>);</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>当然在vue中直接使用<code>this.$nextTick()</code>。当然我们不需要每次都来初始化b-scroll，我们只需要初始化一次，后面只需要刷新即可。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.hScroll) &#123;</div><div class="line">        <span class="keyword">this</span>.hScroll = <span class="keyword">new</span> BScroll(<span class="keyword">this</span>.$els.hScrollHook, &#123;</div><div class="line">            <span class="attr">scrollX</span>: <span class="literal">true</span>,</div><div class="line">            <span class="attr">eventPassthrough</span>: <span class="string">'vertical'</span></div><div class="line">        &#125;);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">this</span>.hScroll.refresh();</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h2 id="其他的一些scroll插件"><a href="#其他的一些scroll插件" class="headerlink" title="其他的一些scroll插件"></a>其他的一些scroll插件</h2><p><a href="https://github.com/mkay581/scroll-js" target="_blank" rel="external">scroll.js</a>  主要接口和better-scroll差不多，但是功能没有那么强大，不过容易使用</p>
+<p><a href="https://github.com/alicelieutier/smoothScroll" target="_blank" rel="external">smoothScroll</a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> smoothScroll = <span class="built_in">require</span>(<span class="string">'smoothscroll'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> exampleBtn = <span class="built_in">document</span>.querySelector(<span class="string">'.example-button'</span>);</div><div class="line"><span class="keyword">var</span> exampleDestination = <span class="built_in">document</span>.querySelector(<span class="string">'.example-destination'</span>);</div><div class="line"></div><div class="line"><span class="comment">// This function can easily be an onClick handler in React components</span></div><div class="line"><span class="keyword">var</span> handleClick = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">  event.preventDefault();</div><div class="line"></div><div class="line">  smoothScroll(exampleDestination);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">exampleBtn.addEventListener(<span class="string">'click'</span>, handleClick);</div></pre></td></tr></table></figure></p>
+<p>使用很简单就像锚点一样，直接跳到某个元素那里。</p>
+
       
     </div>
     
@@ -326,13 +348,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/01/17/Vue-js学习/">Vue.js学习</a></p>
+        <p><span>本文标题:</span><a href="/2017/02/13/better-scroll初探/">better-scroll初探</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">DJLXS</a></p>
-        <p><span>发布时间:</span>2017-01-17, 15:01:39</p>
-        <p><span>最后更新:</span>2017-01-17, 15:27:32</p>
+        <p><span>发布时间:</span>2017-02-13, 11:34:09</p>
+        <p><span>最后更新:</span>2017-02-13, 11:38:45</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/01/17/Vue-js学习/" title="Vue.js学习">http://djl.pub/2017/01/17/Vue-js学习/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://djl.pub/2017/01/17/Vue-js学习/　　作者: DJLXS" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/02/13/better-scroll初探/" title="better-scroll初探">http://djl.pub/2017/02/13/better-scroll初探/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://djl.pub/2017/02/13/better-scroll初探/　　作者: DJLXS" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -344,16 +366,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/01/21/Vue学习之生命周期/">
-                    Vue学习之生命周期
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/01/13/hexo初探---让写作飞起来/">
-                    hexo初探---让写作飞起来
+                <a href="/2017/02/12/vue-resource初探/">
+                    vue-resource初探
                 </a>
             </div>
         
@@ -365,7 +381,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#生命周期"><span class="toc-number">1.</span> <span class="toc-text">生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意事项"><span class="toc-number">2.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组件化开发"><span class="toc-number">3.</span> <span class="toc-text">组件化开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组件间通信"><span class="toc-number">4.</span> <span class="toc-text">组件间通信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见的用法"><span class="toc-number">5.</span> <span class="toc-text">常见的用法</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#文档资料"><span class="toc-number">1.</span> <span class="toc-text">文档资料</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基本使用"><span class="toc-number">2.</span> <span class="toc-text">基本使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#相关设置参数："><span class="toc-number">3.</span> <span class="toc-text">相关设置参数：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#滚动"><span class="toc-number">4.</span> <span class="toc-text">滚动</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#坑"><span class="toc-number">5.</span> <span class="toc-text">坑</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#其他的一些scroll插件"><span class="toc-number">5.1.</span> <span class="toc-text">其他的一些scroll插件</span></a></li></ol></li></ol>
         
     </div>
     <style>
@@ -401,7 +417,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Vue.js学习　| DJLXS　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"better-scroll初探　| DJLXS　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -417,7 +433,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2017/01/17/Vue-js学习/" data-title="Vue.js学习" data-url="http://djl.pub/2017/01/17/Vue-js学习/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/02/13/better-scroll初探/" data-title="better-scroll初探" data-url="http://djl.pub/2017/02/13/better-scroll初探/"></div>
     <script>
         var duoshuoQuery = {short_name:"djlxs"};
         var loadComment = function(){
@@ -440,15 +456,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/01/21/Vue学习之生命周期/" title="上一篇: Vue学习之生命周期">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/01/13/hexo初探---让写作飞起来/" title="下一篇: hexo初探---让写作飞起来">
+            <a href="/2017/02/12/vue-resource初探/" title="下一篇: vue-resource初探">
                 <i class="fa fa-angle-right"></i>
             </a>
         
