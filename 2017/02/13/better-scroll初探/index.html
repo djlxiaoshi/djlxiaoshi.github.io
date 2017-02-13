@@ -21,7 +21,7 @@
 <meta property="og:url" content="http://djl.pub/2017/02/13/better-scroll初探/index.html">
 <meta property="og:site_name" content="DJLXS">
 <meta property="og:description" content="在做外卖APP项目时，用到了better-scroll这个插件，接口基本和iscroll一致，功能非常强大。">
-<meta property="og:updated_time" content="2017-02-13T03:40:29.819Z">
+<meta property="og:updated_time" content="2017-02-13T03:41:28.617Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="better-scroll初探">
 <meta name="twitter:description" content="在做外卖APP项目时，用到了better-scroll这个插件，接口基本和iscroll一致，功能非常强大。">
@@ -143,13 +143,13 @@
                 <div class="tips-box hide">
                     <div class="tips-arrow"></div>
                     <ul class="tips-inner">
-                        <li>Menu</li>
-                        <li>Tags</li>
+                        <li>菜单</li>
+                        <li>标签</li>
                         
-                        <li>Friends</li>
+                        <li>友情链接</li>
                         
                         
-                        <li>About Me</li>
+                        <li>关于我</li>
                         
                     </ul>
                 </div>
@@ -273,7 +273,7 @@
             </nav>
         </header>                
     </div>
-    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
       <div class="body-wrap"><article id="post-better-scroll初探" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -328,7 +328,7 @@
 <h1 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h1><p>1 在使用b-scroll的时候，能够准确把握b-scroll初始化的时机是非常重要的。有些时候滚动是由于里面的内容撑开所导致，所以一定要保证里面的内容中的异步数据充分拿到之后进行b-srcoll初始化，所以我们必须要通过Vue的watch监听机制，在监听到数据变化的时候也进行一次b-scroll初始化，当然在ready时候也要进行初始化，因为当我们通过Vue-router进行切换时，整个DOM是重新加载的，但是watch监听数据变化是不会触发的，所以我们就必要在ready的时候进行一次初始化（当然这里也可以使用keep-alive属性阻止DOM重绘）。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">ready () &#123;</div><div class="line">    <span class="comment">// b-scroll 初始化</span></div><div class="line">&#125;,</div><div class="line"><span class="attr">watch</span>: &#123;</div><div class="line">    <span class="string">'seller'</span>() &#123;</div><div class="line">      <span class="comment">// 检测异步数据seller是否获取到，获取到则scroll 初始化</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>2 我们在获取滚动条位置时，一定要保证DOM已经重新绘制。在js中我们一般要这样<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ajax(<span class="string">'page.php'</span>, onCompletion);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">onCompletion</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// Update here your DOM</span></div><div class="line"></div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        myScroll.refresh();</div><div class="line">    &#125;, <span class="number">0</span>);</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
 <p>当然在vue中直接使用<code>this.$nextTick()</code>。当然我们不需要每次都来初始化b-scroll，我们只需要初始化一次，后面只需要刷新即可。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.hScroll) &#123;</div><div class="line">        <span class="keyword">this</span>.hScroll = <span class="keyword">new</span> BScroll(<span class="keyword">this</span>.$els.hScrollHook, &#123;</div><div class="line">            <span class="attr">scrollX</span>: <span class="literal">true</span>,</div><div class="line">            <span class="attr">eventPassthrough</span>: <span class="string">'vertical'</span></div><div class="line">        &#125;);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">this</span>.hScroll.refresh();</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<h2 id="其他的一些scroll插件"><a href="#其他的一些scroll插件" class="headerlink" title="其他的一些scroll插件"></a>其他的一些scroll插件</h2><p><a href="https://github.com/mkay581/scroll-js" target="_blank" rel="external">scroll.js</a>  主要接口和better-scroll差不多，但是功能没有那么强大，不过容易使用</p>
+<h1 id="其他的一些scroll插件"><a href="#其他的一些scroll插件" class="headerlink" title="其他的一些scroll插件"></a>其他的一些scroll插件</h1><p><a href="https://github.com/mkay581/scroll-js" target="_blank" rel="external">scroll.js</a>  主要接口和better-scroll差不多，但是功能没有那么强大，不过容易使用</p>
 <p><a href="https://github.com/alicelieutier/smoothScroll" target="_blank" rel="external">smoothScroll</a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> smoothScroll = <span class="built_in">require</span>(<span class="string">'smoothscroll'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> exampleBtn = <span class="built_in">document</span>.querySelector(<span class="string">'.example-button'</span>);</div><div class="line"><span class="keyword">var</span> exampleDestination = <span class="built_in">document</span>.querySelector(<span class="string">'.example-destination'</span>);</div><div class="line"></div><div class="line"><span class="comment">// This function can easily be an onClick handler in React components</span></div><div class="line"><span class="keyword">var</span> handleClick = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">  event.preventDefault();</div><div class="line"></div><div class="line">  smoothScroll(exampleDestination);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">exampleBtn.addEventListener(<span class="string">'click'</span>, handleClick);</div></pre></td></tr></table></figure></p>
 <p>使用很简单就像锚点一样，直接跳到某个元素那里。</p>
 
@@ -339,17 +339,17 @@
   
     
     <div class="copyright">
-        <p><span>Title:</span><a href="/2017/02/13/better-scroll初探/">better-scroll初探</a></p>
-        <p><span>Author:</span><a href="/" title="Back to Homepage">DJLXS</a></p>
-        <p><span>Created:</span>2017-02-13, 11:34:09</p>
-        <p><span>Updated:</span>2017-02-13, 11:40:29</p>
+        <p><span>本文标题:</span><a href="/2017/02/13/better-scroll初探/">better-scroll初探</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">DJLXS</a></p>
+        <p><span>发布时间:</span>2017-02-13, 11:34:09</p>
+        <p><span>最后更新:</span>2017-02-13, 11:41:28</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2017/02/13/better-scroll初探/" title="better-scroll初探">http://djl.pub/2017/02/13/better-scroll初探/</a>
-            <span class="copy-path" data-clipboard-text="From http://djl.pub/2017/02/13/better-scroll初探/　　By DJLXS" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/02/13/better-scroll初探/" title="better-scroll初探">http://djl.pub/2017/02/13/better-scroll初探/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://djl.pub/2017/02/13/better-scroll初探/　　作者: DJLXS" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
-            <span>License:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"CC BY-NC-SA 4.0"</a> Keep Link &amp; Author if Distribute.
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
         </p>
     </div>
 
@@ -370,9 +370,9 @@
 </article>
 
     <div id="toc" class="toc-article">
-        <strong class="toc-title">Contents</strong>
+        <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#文档资料"><span class="toc-number">1.</span> <span class="toc-text">文档资料</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基本使用"><span class="toc-number">2.</span> <span class="toc-text">基本使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#相关设置参数："><span class="toc-number">3.</span> <span class="toc-text">相关设置参数：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#滚动"><span class="toc-number">4.</span> <span class="toc-text">滚动</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#坑"><span class="toc-number">5.</span> <span class="toc-text">坑</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#其他的一些scroll插件"><span class="toc-number">5.1.</span> <span class="toc-text">其他的一些scroll插件</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#文档资料"><span class="toc-number">1.</span> <span class="toc-text">文档资料</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基本使用"><span class="toc-number">2.</span> <span class="toc-text">基本使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#相关设置参数："><span class="toc-number">3.</span> <span class="toc-text">相关设置参数：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#滚动"><span class="toc-number">4.</span> <span class="toc-text">滚动</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#坑"><span class="toc-number">5.</span> <span class="toc-text">坑</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#其他的一些scroll插件"><span class="toc-number">6.</span> <span class="toc-text">其他的一些scroll插件</span></a></li></ol>
         
     </div>
     <style>
@@ -386,10 +386,10 @@
         }
     </style>
 
-    <input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
     <script>
-        yiliaConfig.toc = ["Hide", "Show", !!"false"];
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
     </script>
 
 
@@ -447,13 +447,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="Back to Homepage"><i class="fa fa-home"></i></a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
-        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/02/12/vue-resource初探/" title="Next: vue-resource初探">
+            <a href="/2017/02/12/vue-resource初探/" title="下一篇: vue-resource初探">
                 <i class="fa fa-angle-right"></i>
             </a>
         
@@ -476,14 +476,14 @@
                 2017 DJLXS
             </div>
             <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
             </div>
         </div>
         
             <div class="visit">
                 
                     <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" title="Site Visitors"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
                         </span>
                     </span>
                 
@@ -492,7 +492,7 @@
                 
                 
                     <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit"  title="Page Hits"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
                         </span>
                     </span>
                 
@@ -509,9 +509,9 @@
 
 
 <div class="scroll" id="scroll">
-    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
 </div>
 <script>
     // Open in New Window
