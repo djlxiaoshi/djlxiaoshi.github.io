@@ -4,6 +4,12 @@
   
     
     <entry>
+      <title><![CDATA[Vue2变化]]></title>
+      <url>http://djl.pub/2017/05/01/Vue2%E5%8F%98%E5%8C%96/</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[webpack引入插件的几种方法]]></title>
       <url>http://djl.pub/2017/05/01/webpack%E5%BC%95%E5%85%A5%E6%8F%92%E4%BB%B6%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/</url>
       <content type="html"><![CDATA[<p>通常webpack引入插件有4中方式：<br>1 安装后直接在某个模块中运用<br>2 使用webpack plugins功能加载ProvidePlugin插件<br>3 expose-loader加载器加载<br>4 包装插件<br><a id="more"></a></p>

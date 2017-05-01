@@ -15,16 +15,16 @@
 
 
 
-<meta name="description" content="最近在慕课网上面买了一套高仿饿了么APP视频,个人认为对于我这种没有实际经验（还没有正式工作），又在学习Vue.js的人来说，绝对是非常值得的（不是打广告）。而这套课程中主要用到了Vue、Vue-router、Vue-source、webpack、ES6、ESLint等等所以通过这次课程我对于这些都有了一个大致了解。而这篇文章主要讲解Vue的1.0版本。我将会接下来的时间利用Vue2.0来实现一遍">
+<meta name="description" content="DJL箫氏的博客">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vue.js学习">
-<meta property="og:url" content="http://djl.pub/2017/01/17/Vue-js学习/index.html">
+<meta property="og:title" content="Vue2变化">
+<meta property="og:url" content="http://djl.pub/2017/05/01/Vue2变化/index.html">
 <meta property="og:site_name" content="DJLXS">
-<meta property="og:description" content="最近在慕课网上面买了一套高仿饿了么APP视频,个人认为对于我这种没有实际经验（还没有正式工作），又在学习Vue.js的人来说，绝对是非常值得的（不是打广告）。而这套课程中主要用到了Vue、Vue-router、Vue-source、webpack、ES6、ESLint等等所以通过这次课程我对于这些都有了一个大致了解。而这篇文章主要讲解Vue的1.0版本。我将会接下来的时间利用Vue2.0来实现一遍">
-<meta property="og:updated_time" content="2017-01-17T07:27:32.093Z">
+<meta property="og:description" content="DJL箫氏的博客">
+<meta property="og:updated_time" content="2017-05-01T13:10:31.999Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Vue.js学习">
-<meta name="twitter:description" content="最近在慕课网上面买了一套高仿饿了么APP视频,个人认为对于我这种没有实际经验（还没有正式工作），又在学习Vue.js的人来说，绝对是非常值得的（不是打广告）。而这套课程中主要用到了Vue、Vue-router、Vue-source、webpack、ES6、ESLint等等所以通过这次课程我对于这些都有了一个大致了解。而这篇文章主要讲解Vue的1.0版本。我将会接下来的时间利用Vue2.0来实现一遍">
+<meta name="twitter:title" content="Vue2变化">
+<meta name="twitter:description" content="DJL箫氏的博客">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Vue.js学习 | DJLXS</title>
+<title>Vue2变化 | DJLXS</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -275,11 +275,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Vue-js学习" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Vue2变化" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/01/17/Vue-js学习/" class="article-date">
-      <time datetime="2017-01-17T07:01:39.000Z" itemprop="datePublished">2017-01-17</time>
+      <a href="/2017/05/01/Vue2变化/" class="article-date">
+      <time datetime="2017-05-01T13:09:03.000Z" itemprop="datePublished">2017-05-01</time>
 </a>
 
 
@@ -294,7 +294,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Vue.js学习
+      Vue2变化
     </h1>
   
 
@@ -304,10 +304,6 @@
         
 
         
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
-    </div>
-
         <div class="clearfix"></div>
       </div>
       
@@ -315,10 +311,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>最近在慕课网上面买了一套<a href="http://coding.imooc.com/class/74.html" target="_blank" rel="external">高仿饿了么APP</a>视频,个人认为<br>对于我这种没有实际经验（还没有正式工作），又在学习Vue.js的人来说，绝对是非常值得的（不是打广告）。<br>而这套课程中主要用到了<strong>Vue</strong>、<strong>Vue-router</strong>、<strong>Vue-source</strong>、<strong>webpack</strong>、<strong>ES6</strong>、<strong>ESLint</strong>等等<br>所以通过这次课程我对于这些都有了一个大致了解。而这篇文章主要讲解Vue的1.0版本。我将会接下来的时间利用Vue2.0来实现一遍。<br><a id="more"></a></p>
-<p><a href="http://v1-cn.vuejs.org/guide/" target="_blank" rel="external">官方文档</a></p>
-<p>Vue.js的两大特性：组件化开发、数据驱动。之前没有学习任何框架的时候，开发过一个H5的音乐播放器，里面涉及<br>了大量DOM操作，实在很费神，如果使用Vue来做的话应该简单很多。由于Vue的官方文档已经写的比较好了而且又有中文版，<br>所以这里我并不打算讲Vue的一些基本知识（相比官方文档也讲不出什么花出来）</p>
-<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><h2 id="组件化开发"><a href="#组件化开发" class="headerlink" title="组件化开发"></a>组件化开发</h2><h2 id="组件间通信"><a href="#组件间通信" class="headerlink" title="组件间通信"></a>组件间通信</h2><h2 id="常见的用法"><a href="#常见的用法" class="headerlink" title="常见的用法"></a>常见的用法</h2>
+        
       
     </div>
     
@@ -326,13 +319,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/01/17/Vue-js学习/">Vue.js学习</a></p>
+        <p><span>本文标题:</span><a href="/2017/05/01/Vue2变化/">Vue2变化</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">DJLXS</a></p>
-        <p><span>发布时间:</span>2017-01-17, 15:01:39</p>
-        <p><span>最后更新:</span>2017-01-17, 15:27:32</p>
+        <p><span>发布时间:</span>2017-05-01, 21:09:03</p>
+        <p><span>最后更新:</span>2017-05-01, 21:10:31</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/01/17/Vue-js学习/" title="Vue.js学习">http://djl.pub/2017/01/17/Vue-js学习/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://djl.pub/2017/01/17/Vue-js学习/　　作者: DJLXS" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/05/01/Vue2变化/" title="Vue2变化">http://djl.pub/2017/05/01/Vue2变化/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://djl.pub/2017/05/01/Vue2变化/　　作者: DJLXS" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -344,16 +337,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/01/21/Vue学习之生命周期/">
-                    Vue学习之生命周期
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/01/13/hexo初探---让写作飞起来/">
-                    hexo初探---让写作飞起来
+                <a href="/2017/05/01/webpack引入插件的几种方法/">
+                    webpack引入插件的几种方法
                 </a>
             </div>
         
@@ -365,7 +352,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#生命周期"><span class="toc-number">1.</span> <span class="toc-text">生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意事项"><span class="toc-number">2.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组件化开发"><span class="toc-number">3.</span> <span class="toc-text">组件化开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组件间通信"><span class="toc-number">4.</span> <span class="toc-text">组件间通信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见的用法"><span class="toc-number">5.</span> <span class="toc-text">常见的用法</span></a></li></ol>
+            
         
     </div>
     <style>
@@ -401,7 +388,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Vue.js学习　| DJLXS　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Vue2变化　| DJLXS　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -417,7 +404,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2017/01/17/Vue-js学习/" data-title="Vue.js学习" data-url="http://djl.pub/2017/01/17/Vue-js学习/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/05/01/Vue2变化/" data-title="Vue2变化" data-url="http://djl.pub/2017/05/01/Vue2变化/"></div>
     <script>
         var duoshuoQuery = {short_name:"djlxs"};
         var loadComment = function(){
@@ -440,15 +427,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/01/21/Vue学习之生命周期/" title="上一篇: Vue学习之生命周期">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/01/13/hexo初探---让写作飞起来/" title="下一篇: hexo初探---让写作飞起来">
+            <a href="/2017/05/01/webpack引入插件的几种方法/" title="下一篇: webpack引入插件的几种方法">
                 <i class="fa fa-angle-right"></i>
             </a>
         
