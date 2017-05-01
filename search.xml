@@ -4,6 +4,28 @@
   
     
     <entry>
+      <title><![CDATA[Vue2变化]]></title>
+      <url>http://djl.pub/2017/05/01/Vue2%E5%8F%98%E5%8C%96/</url>
+      <content type="html"><![CDATA[<p>之前学习的是Vue1.0，这次项目开发使用的Vue2.0，其中有一些不同和新功能在这里记录一下。<a href="http://cn.vuejs.org/v2/guide/migration.html" target="_blank" rel="external">迁移文档</a><br><a id="more"></a></p>
+<h2 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a><a href="https://cn.vuejs.org/v2/guide/migration.html#过滤器" target="_blank" rel="external">过滤器</a></h2><p>1 Vue2 filter只能使用在双花括号中,在v-for等等指令中已经不能使用过滤器，转而使用计算属性和第三方库方法（也可以原声js写）例如：filterBy</p>
+<p>2 现在Vue2已经移除了所有内置的过滤器，替代方案是使用第三方库（当然简单的也可以自己写一个）</p>
+<p>3 参数形式改变，不再是使用空格来分隔参数而是<br><code>&lt;p&gt;\{\{ date \| formatDate(&#39;YY-MM-DD&#39;, timeZone) \}\}&lt;/p&gt;</code></p>
+<p>当然如果你还是习惯Vue的那种内置过滤器，这里有一个比较好的filters库<a href="https://github.com/freearhey/vue2-filters" target="_blank" rel="external">vue2-filters</a>。</p>
+<h2 id="emit"><a href="#emit" class="headerlink" title="$emit"></a>$emit</h2><p>组件通信，在Vue1.0中采用的是<code>$dispatch</code>和<code>$boradcast</code>,Vue2.0弃用了，同一使用了$emit，但是并没有使得兄弟组件之间的通信变得简单，对于简单的兄弟组件间的通信，我们可以通过创建一个空的Vue实例作为中央事件总线。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> bus = <span class="keyword">new</span> Vue()</div><div class="line"><span class="comment">// 触发组件 A 中的事件</span></div><div class="line">bus.$emit(<span class="string">'id-selected'</span>, <span class="number">1</span>)</div><div class="line"><span class="comment">// 在组件 B 创建的钩子中监听事件</span></div><div class="line">bus.$on(<span class="string">'id-selected'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">id</span>) </span>&#123;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>对于夸层级的组件（不是父子组件而是爷孙组件）通信，$emit并不能直接像事件冒泡一样，被爷爷组件监听到，这里我们也可以建立一个空的Vue实例作为中央事件总线，来进行通信。例如:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 将在各处使用该事件中心</span></div><div class="line"><span class="comment">// 组件通过它来通信</span></div><div class="line"><span class="keyword">var</span> eventHub = <span class="keyword">new</span> Vue()</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Son 孙子组件</span></div><div class="line"><span class="comment">// ...</span></div><div class="line">methods: &#123;</div><div class="line">  <span class="attr">addTodo</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    eventHub.$emit(<span class="string">'add-todo'</span>, &#123; <span class="attr">text</span>: <span class="keyword">this</span>.newTodoText &#125;)</div><div class="line">    <span class="keyword">this</span>.newTodoText = <span class="string">''</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 爷爷组件</span></div><div class="line">created: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  eventHub.$on(<span class="string">'add-todo'</span>, <span class="keyword">this</span>.addTodo)</div><div class="line">  eventHub.$on(<span class="string">'delete-todo'</span>, <span class="keyword">this</span>.deleteTodo)</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<p>以上主要针对于简单的组件通信，当然如果情况变得更加复杂，还是推荐使用Vuex。</p>
+<h2 id="v-for"><a href="#v-for" class="headerlink" title="v-for"></a>v-for</h2><p>1 遍历对象时的参数顺序：原来是(key, value)，现在是 (value, key)<br>2 v-for=”number in 10” 的 number 从 0 开始到 9 结束，现在从 1 开始，到 10 结束。<br>3 track-by 已经替换为 key</p>
+<h2 id="props"><a href="#props" class="headerlink" title="props"></a>props</h2><p>1 现在只允许单项传递（父传子），如果子组件要改变props传递过来的值，并且使得父组件相应的得到改变，就必须利用$emit触发事件。当然还有一种情况就是子组件要求更改props传递过来的值，不需要父组件随之改变，这样貌似不会有什么影响，实际开发中也是一不小心就这样做了，但是这样是反模式的，更好的方式就是在data属性中建立一个字段dataA，然后props值来初始化这个dataA</p>
+<p>2v-bind 的 .once和.sync 修饰符 </p>
+<h2 id="v-on"><a href="#v-on" class="headerlink" title="v-on"></a>v-on</h2><p>只能监听自定义事件，如果要监听根元素原生事件，添加.native修饰符<br><code>&lt;my-component v-on:click.native=&quot;doSomething&quot;&gt;&lt;/my-component&gt;</code></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[webpack引入插件的几种方法]]></title>
       <url>http://djl.pub/2017/05/01/webpack%E5%BC%95%E5%85%A5%E6%8F%92%E4%BB%B6%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/</url>
       <content type="html"><![CDATA[<p>通常webpack引入插件有4中方式：<br>1 安装后直接在某个模块中运用<br>2 使用webpack plugins功能加载ProvidePlugin插件<br>3 expose-loader加载器加载<br>4 包装插件<br><a id="more"></a></p>

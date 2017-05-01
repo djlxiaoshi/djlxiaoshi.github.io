@@ -15,19 +15,16 @@
 
 
 
-<meta name="description" content="生命周期在组件开发总非常重要，尤其是能在适当的时机取得数据,做一些初始化准备。下面我们来简单的聊聊Vue生命周期。">
+<meta name="description" content="之前学习的是Vue1.0，这次项目开发使用的Vue2.0，其中有一些不同和新功能在这里记录一下。迁移文档">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vue学习之生命周期">
-<meta property="og:url" content="http://djl.pub/2017/01/21/Vue学习之生命周期/index.html">
+<meta property="og:title" content="Vue2变化">
+<meta property="og:url" content="http://djl.pub/2017/05/01/Vue2变化/index.html">
 <meta property="og:site_name" content="DJLXS">
-<meta property="og:description" content="生命周期在组件开发总非常重要，尤其是能在适当的时机取得数据,做一些初始化准备。下面我们来简单的聊聊Vue生命周期。">
-<meta property="og:image" content="http://ok3x4ia9b.bkt.clouddn.com/17-1-21/75404643-file_1484986273994_1820a.png">
-<meta property="og:image" content="http://ok3x4ia9b.bkt.clouddn.com/17-1-21/56048235-file_1484985260986_9fc2.jpg">
-<meta property="og:updated_time" content="2017-01-24T00:51:16.147Z">
+<meta property="og:description" content="之前学习的是Vue1.0，这次项目开发使用的Vue2.0，其中有一些不同和新功能在这里记录一下。迁移文档">
+<meta property="og:updated_time" content="2017-05-01T13:23:14.796Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Vue学习之生命周期">
-<meta name="twitter:description" content="生命周期在组件开发总非常重要，尤其是能在适当的时机取得数据,做一些初始化准备。下面我们来简单的聊聊Vue生命周期。">
-<meta name="twitter:image" content="http://ok3x4ia9b.bkt.clouddn.com/17-1-21/75404643-file_1484986273994_1820a.png">
+<meta name="twitter:title" content="Vue2变化">
+<meta name="twitter:description" content="之前学习的是Vue1.0，这次项目开发使用的Vue2.0，其中有一些不同和新功能在这里记录一下。迁移文档">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -59,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Vue学习之生命周期 | DJLXS</title>
+<title>Vue2变化 | DJLXS</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -278,11 +275,11 @@
     </div>
     <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
-      <div class="body-wrap"><article id="post-Vue学习之生命周期" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Vue2变化" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/01/21/Vue学习之生命周期/" class="article-date">
-      <time datetime="2017-01-21T08:19:44.000Z" itemprop="datePublished">2017-01-21</time>
+      <a href="/2017/05/01/Vue2变化/" class="article-date">
+      <time datetime="2017-05-01T13:09:03.000Z" itemprop="datePublished">2017-05-01</time>
 </a>
 
 
@@ -297,7 +294,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Vue学习之生命周期
+      Vue2变化
     </h1>
   
 
@@ -305,16 +302,8 @@
       
       <div class="article-info article-info-post">
         
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Vue学习/">Vue学习</a>
-    </div>
-
 
         
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/生命周期/">生命周期</a></li></ul>
-    </div>
-
         <div class="clearfix"></div>
       </div>
       
@@ -322,19 +311,22 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>生命周期在组件开发总非常重要，尤其是能在适当的时机取得数据,做一些初始化准备。下面我们来简单的聊聊Vue生命周期。<br><a id="more"></a><br>这里首先来看看Vue官方文档给出的生命周期示意图。</p>
-<p><img src="http://ok3x4ia9b.bkt.clouddn.com/17-1-21/75404643-file_1484986273994_1820a.png" alt="Vue生命周期"></p>
-<p>在这里我主要讨论init、created、beforeCompile、compiled、ready、beforeDestroy、destroyed这几个生命周期钩子函数。</p>
-<p>init：在实例开始初始化时同步调用。此时数据观测、事件和 watcher 都尚未初始化。也是说在这里this.$el和this.$data都是拿不到的。</p>
-<p>created:在实例创建之后同步调用。此时实例已经结束解析选项，这意味着已建立：数据绑定，计算属性，方法，watcher/事件回调。但是还没有开始 DOM 编译，$el还不存在。也就是在这里已经可以访问this.$data了了。但是此时还没有进行模板编译。</p>
-<p>beforeCompile：编译模板前，$el已经存在了。</p>
-<p>compiled：模板编译完成，此时Vue指令已经生效，但是不能保证此时已经插入到文档中。</p>
-<p>ready：在编译结束后和$el第一次插入到文档中的时候。这时可以从整个文档中获取到模板中的元素。</p>
-<p>beforeDestroy：在销毁实例时调用，所有功能都还保持。</p>
-<p>destroyed：在实例被销毁之后调用。此时所有的绑定和实例的指令已经解绑，所有的子实例也已经被销毁。如果有离开过渡，destroyed 钩子在过渡完成之后调用。与挂载元素解除绑定</p>
-<p>代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">init: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'-----init----'</span>)</div><div class="line">    <span class="comment">//  也就是说在这里$el获取不到，数据观测也没有建立，事件绑定等等都没有完成  实例初始化时同步调用</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$el);</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$data.msg);</div><div class="line">    <span class="built_in">console</span>.log(<span class="built_in">document</span>.getElementById(<span class="string">"title"</span>))</div><div class="line">&#125;,</div><div class="line"><span class="attr">created</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// 这里$el依然获取不到，但是数据观测已经建立，也就是说可以获得数据了，但是依然没有开始编译，也就是说Vue</span></div><div class="line">    <span class="comment">// 的一些指令是不起作用的</span></div><div class="line">    <span class="comment">// 实例创建后同步调用</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'----created---'</span>)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$el);</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$data.msg);</div><div class="line">    <span class="built_in">console</span>.log(<span class="built_in">document</span>.getElementById(<span class="string">"title"</span>))</div><div class="line">&#125;,</div><div class="line"><span class="attr">beforeCompile</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'---beforeCompile---'</span>)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$el);</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$data.msg);</div><div class="line">    <span class="built_in">console</span>.log(<span class="built_in">document</span>.getElementById(<span class="string">"title"</span>))</div><div class="line">&#125;,</div><div class="line"><span class="attr">compiled</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'---compiled---'</span>)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$el);</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$data.msg);</div><div class="line">    <span class="comment">// 此时指令已经生效，但是不确保插入到文档中</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="built_in">document</span>.getElementById(<span class="string">"title"</span>))</div><div class="line">&#125;,</div><div class="line"><span class="attr">ready</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'---ready---'</span>)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$el);</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$data.msg);</div><div class="line">    <span class="comment">// 在编译结束后和$el第一次插入到文档中的时候</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="built_in">document</span>.getElementById(<span class="string">"title"</span>))  <span class="comment">//这时可以从整个文档中获取到模板中的元素</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'--在ready钩子函数中销毁实例--'</span>)</div><div class="line">    <span class="keyword">this</span>.$destroy(<span class="literal">true</span>);</div><div class="line">&#125;,</div><div class="line"><span class="attr">beforeDestroy</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// 在销毁实例时调用，所有功能都还保持</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'---beforeDestroy---'</span>)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$el);</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$data.msg);</div><div class="line">    <span class="built_in">console</span>.log(<span class="built_in">document</span>.getElementById(<span class="string">"title"</span>))</div><div class="line">&#125;,</div><div class="line"><span class="attr">destroyed</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">//在实例被销毁之后调用。此时所有的绑定和实例的指令已经解绑，所有的子实例也已经被销毁。</span></div><div class="line">    <span class="comment">// 与挂载元素解除绑定</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'---destroyed---'</span>)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$el);</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$data.msg);</div><div class="line">    <span class="built_in">console</span>.log(<span class="built_in">document</span>.getElementById(<span class="string">"title"</span>))</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><img src="http://ok3x4ia9b.bkt.clouddn.com/17-1-21/56048235-file_1484985260986_9fc2.jpg" alt="结果"></p>
-<p>生命周期在组件开发总非常重要，尤其是能在适当的时机取得数据。</p>
+        <p>之前学习的是Vue1.0，这次项目开发使用的Vue2.0，其中有一些不同和新功能在这里记录一下。<a href="http://cn.vuejs.org/v2/guide/migration.html" target="_blank" rel="external">迁移文档</a><br><a id="more"></a></p>
+<h2 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a><a href="https://cn.vuejs.org/v2/guide/migration.html#过滤器" target="_blank" rel="external">过滤器</a></h2><p>1 Vue2 filter只能使用在双花括号中,在v-for等等指令中已经不能使用过滤器，转而使用计算属性和第三方库方法（也可以原声js写）例如：filterBy</p>
+<p>2 现在Vue2已经移除了所有内置的过滤器，替代方案是使用第三方库（当然简单的也可以自己写一个）</p>
+<p>3 参数形式改变，不再是使用空格来分隔参数而是<br><code>&lt;p&gt;\{\{ date \| formatDate(&#39;YY-MM-DD&#39;, timeZone) \}\}&lt;/p&gt;</code></p>
+<p>当然如果你还是习惯Vue的那种内置过滤器，这里有一个比较好的filters库<a href="https://github.com/freearhey/vue2-filters" target="_blank" rel="external">vue2-filters</a>。</p>
+<h2 id="emit"><a href="#emit" class="headerlink" title="$emit"></a>$emit</h2><p>组件通信，在Vue1.0中采用的是<code>$dispatch</code>和<code>$boradcast</code>,Vue2.0弃用了，同一使用了$emit，但是并没有使得兄弟组件之间的通信变得简单，对于简单的兄弟组件间的通信，我们可以通过创建一个空的Vue实例作为中央事件总线。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> bus = <span class="keyword">new</span> Vue()</div><div class="line"><span class="comment">// 触发组件 A 中的事件</span></div><div class="line">bus.$emit(<span class="string">'id-selected'</span>, <span class="number">1</span>)</div><div class="line"><span class="comment">// 在组件 B 创建的钩子中监听事件</span></div><div class="line">bus.$on(<span class="string">'id-selected'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">id</span>) </span>&#123;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>对于夸层级的组件（不是父子组件而是爷孙组件）通信，$emit并不能直接像事件冒泡一样，被爷爷组件监听到，这里我们也可以建立一个空的Vue实例作为中央事件总线，来进行通信。例如:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 将在各处使用该事件中心</span></div><div class="line"><span class="comment">// 组件通过它来通信</span></div><div class="line"><span class="keyword">var</span> eventHub = <span class="keyword">new</span> Vue()</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Son 孙子组件</span></div><div class="line"><span class="comment">// ...</span></div><div class="line">methods: &#123;</div><div class="line">  <span class="attr">addTodo</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    eventHub.$emit(<span class="string">'add-todo'</span>, &#123; <span class="attr">text</span>: <span class="keyword">this</span>.newTodoText &#125;)</div><div class="line">    <span class="keyword">this</span>.newTodoText = <span class="string">''</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 爷爷组件</span></div><div class="line">created: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  eventHub.$on(<span class="string">'add-todo'</span>, <span class="keyword">this</span>.addTodo)</div><div class="line">  eventHub.$on(<span class="string">'delete-todo'</span>, <span class="keyword">this</span>.deleteTodo)</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<p>以上主要针对于简单的组件通信，当然如果情况变得更加复杂，还是推荐使用Vuex。</p>
+<h2 id="v-for"><a href="#v-for" class="headerlink" title="v-for"></a>v-for</h2><p>1 遍历对象时的参数顺序：原来是(key, value)，现在是 (value, key)<br>2 v-for=”number in 10” 的 number 从 0 开始到 9 结束，现在从 1 开始，到 10 结束。<br>3 track-by 已经替换为 key</p>
+<h2 id="props"><a href="#props" class="headerlink" title="props"></a>props</h2><p>1 现在只允许单项传递（父传子），如果子组件要改变props传递过来的值，并且使得父组件相应的得到改变，就必须利用$emit触发事件。当然还有一种情况就是子组件要求更改props传递过来的值，不需要父组件随之改变，这样貌似不会有什么影响，实际开发中也是一不小心就这样做了，但是这样是反模式的，更好的方式就是在data属性中建立一个字段dataA，然后props值来初始化这个dataA</p>
+<p>2v-bind 的 .once和.sync 修饰符 </p>
+<h2 id="v-on"><a href="#v-on" class="headerlink" title="v-on"></a>v-on</h2><p>只能监听自定义事件，如果要监听根元素原生事件，添加.native修饰符<br><code>&lt;my-component v-on:click.native=&quot;doSomething&quot;&gt;&lt;/my-component&gt;</code></p>
 
       
     </div>
@@ -343,13 +335,13 @@
   
     
     <div class="copyright">
-        <p><span>Title:</span><a href="/2017/01/21/Vue学习之生命周期/">Vue学习之生命周期</a></p>
+        <p><span>Title:</span><a href="/2017/05/01/Vue2变化/">Vue2变化</a></p>
         <p><span>Author:</span><a href="/" title="Back to Homepage">DJLXS</a></p>
-        <p><span>Created:</span>2017-01-21, 16:19:44</p>
-        <p><span>Updated:</span>2017-01-24, 08:51:16</p>
+        <p><span>Created:</span>2017-05-01, 21:09:03</p>
+        <p><span>Updated:</span>2017-05-01, 21:23:14</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2017/01/21/Vue学习之生命周期/" title="Vue学习之生命周期">http://djl.pub/2017/01/21/Vue学习之生命周期/</a>
-            <span class="copy-path" data-clipboard-text="From http://djl.pub/2017/01/21/Vue学习之生命周期/　　By DJLXS" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>Full URL:</span><a class="post-url" href="/2017/05/01/Vue2变化/" title="Vue2变化">http://djl.pub/2017/05/01/Vue2变化/</a>
+            <span class="copy-path" data-clipboard-text="From http://djl.pub/2017/05/01/Vue2变化/　　By DJLXS" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -361,16 +353,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/01/21/Vue学习之组件/">
-                    Vue学习之组件
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/01/17/Vue-js学习/">
-                    Vue.js学习
+                <a href="/2017/05/01/webpack引入插件的几种方法/">
+                    webpack引入插件的几种方法
                 </a>
             </div>
         
@@ -382,7 +368,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#过滤器"><span class="toc-number">1.</span> <span class="toc-text">过滤器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#emit"><span class="toc-number">2.</span> <span class="toc-text">$emit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#v-for"><span class="toc-number">3.</span> <span class="toc-text">v-for</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#props"><span class="toc-number">4.</span> <span class="toc-text">props</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#v-on"><span class="toc-number">5.</span> <span class="toc-text">v-on</span></a></li></ol>
         
     </div>
     <style>
@@ -418,7 +404,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Vue学习之生命周期　| DJLXS　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Vue2变化　| DJLXS　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -434,7 +420,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2017/01/21/Vue学习之生命周期/" data-title="Vue学习之生命周期" data-url="http://djl.pub/2017/01/21/Vue学习之生命周期/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/05/01/Vue2变化/" data-title="Vue2变化" data-url="http://djl.pub/2017/05/01/Vue2变化/"></div>
     <script>
         var duoshuoQuery = {short_name:"djlxs"};
         var loadComment = function(){
@@ -457,15 +443,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/01/21/Vue学习之组件/" title="Pre: Vue学习之组件">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="Back to Homepage"><i class="fa fa-home"></i></a>
         
 
         <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/01/17/Vue-js学习/" title="Next: Vue.js学习">
+            <a href="/2017/05/01/webpack引入插件的几种方法/" title="Next: webpack引入插件的几种方法">
                 <i class="fa fa-angle-right"></i>
             </a>
         
