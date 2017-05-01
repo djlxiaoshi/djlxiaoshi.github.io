@@ -15,16 +15,19 @@
 
 
 
-<meta name="description" content="最近在慕课网上面买了一套高仿饿了么APP视频,个人认为对于我这种没有实际经验（还没有正式工作），又在学习Vue.js的人来说，绝对是非常值得的（不是打广告）。而这套课程中主要用到了Vue、Vue-router、Vue-source、webpack、ES6、ESLint等等所以通过这次课程我对于这些都有了一个大致了解。而这篇文章主要讲解Vue的1.0版本。我将会接下来的时间利用Vue2.0来实现一遍">
+<meta name="description" content="直接使用在需要使用的js文件中引入：var  $  = require(&amp;#39;jquery&amp;#39;)或者import $ form &amp;#39;jquery&amp;#39;
+使用plugins123456plugins: [    new webpack.ProvidePlugin(&amp;#123;      $: &quot;jquery&quot;,      jQuery: &quot;jquery&quot;    &amp;#125;)]">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vue.js学习">
-<meta property="og:url" content="http://djl.pub/2017/01/17/Vue-js学习/index.html">
+<meta property="og:title" content="webpack引入插件的几种方法">
+<meta property="og:url" content="http://djl.pub/2017/05/01/webpack引入插件的几种方法/index.html">
 <meta property="og:site_name" content="DJLXS">
-<meta property="og:description" content="最近在慕课网上面买了一套高仿饿了么APP视频,个人认为对于我这种没有实际经验（还没有正式工作），又在学习Vue.js的人来说，绝对是非常值得的（不是打广告）。而这套课程中主要用到了Vue、Vue-router、Vue-source、webpack、ES6、ESLint等等所以通过这次课程我对于这些都有了一个大致了解。而这篇文章主要讲解Vue的1.0版本。我将会接下来的时间利用Vue2.0来实现一遍">
-<meta property="og:updated_time" content="2017-01-17T07:27:32.093Z">
+<meta property="og:description" content="直接使用在需要使用的js文件中引入：var  $  = require(&amp;#39;jquery&amp;#39;)或者import $ form &amp;#39;jquery&amp;#39;
+使用plugins123456plugins: [    new webpack.ProvidePlugin(&amp;#123;      $: &quot;jquery&quot;,      jQuery: &quot;jquery&quot;    &amp;#125;)]">
+<meta property="og:updated_time" content="2017-05-01T12:29:46.194Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Vue.js学习">
-<meta name="twitter:description" content="最近在慕课网上面买了一套高仿饿了么APP视频,个人认为对于我这种没有实际经验（还没有正式工作），又在学习Vue.js的人来说，绝对是非常值得的（不是打广告）。而这套课程中主要用到了Vue、Vue-router、Vue-source、webpack、ES6、ESLint等等所以通过这次课程我对于这些都有了一个大致了解。而这篇文章主要讲解Vue的1.0版本。我将会接下来的时间利用Vue2.0来实现一遍">
+<meta name="twitter:title" content="webpack引入插件的几种方法">
+<meta name="twitter:description" content="直接使用在需要使用的js文件中引入：var  $  = require(&amp;#39;jquery&amp;#39;)或者import $ form &amp;#39;jquery&amp;#39;
+使用plugins123456plugins: [    new webpack.ProvidePlugin(&amp;#123;      $: &quot;jquery&quot;,      jQuery: &quot;jquery&quot;    &amp;#125;)]">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +59,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Vue.js学习 | DJLXS</title>
+<title>webpack引入插件的几种方法 | DJLXS</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -275,11 +278,11 @@
     </div>
     <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
-      <div class="body-wrap"><article id="post-Vue-js学习" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-webpack引入插件的几种方法" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/01/17/Vue-js学习/" class="article-date">
-      <time datetime="2017-01-17T07:01:39.000Z" itemprop="datePublished">2017-01-17</time>
+      <a href="/2017/05/01/webpack引入插件的几种方法/" class="article-date">
+      <time datetime="2017-05-01T12:23:36.000Z" itemprop="datePublished">2017-05-01</time>
 </a>
 
 
@@ -294,7 +297,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Vue.js学习
+      webpack引入插件的几种方法
     </h1>
   
 
@@ -305,7 +308,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -315,10 +318,20 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>最近在慕课网上面买了一套<a href="http://coding.imooc.com/class/74.html" target="_blank" rel="external">高仿饿了么APP</a>视频,个人认为<br>对于我这种没有实际经验（还没有正式工作），又在学习Vue.js的人来说，绝对是非常值得的（不是打广告）。<br>而这套课程中主要用到了<strong>Vue</strong>、<strong>Vue-router</strong>、<strong>Vue-source</strong>、<strong>webpack</strong>、<strong>ES6</strong>、<strong>ESLint</strong>等等<br>所以通过这次课程我对于这些都有了一个大致了解。而这篇文章主要讲解Vue的1.0版本。我将会接下来的时间利用Vue2.0来实现一遍。<br><a id="more"></a></p>
-<p><a href="http://v1-cn.vuejs.org/guide/" target="_blank" rel="external">官方文档</a></p>
-<p>Vue.js的两大特性：组件化开发、数据驱动。之前没有学习任何框架的时候，开发过一个H5的音乐播放器，里面涉及<br>了大量DOM操作，实在很费神，如果使用Vue来做的话应该简单很多。由于Vue的官方文档已经写的比较好了而且又有中文版，<br>所以这里我并不打算讲Vue的一些基本知识（相比官方文档也讲不出什么花出来）</p>
-<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><h2 id="组件化开发"><a href="#组件化开发" class="headerlink" title="组件化开发"></a>组件化开发</h2><h2 id="组件间通信"><a href="#组件间通信" class="headerlink" title="组件间通信"></a>组件间通信</h2><h2 id="常见的用法"><a href="#常见的用法" class="headerlink" title="常见的用法"></a>常见的用法</h2>
+        <a id="more"></a>
+<h2 id="直接使用"><a href="#直接使用" class="headerlink" title="直接使用"></a>直接使用</h2><p>在需要使用的js文件中引入：<br><code>var  $  = require(&#39;jquery&#39;)</code>或者<code>import $ form &#39;jquery&#39;</code></p>
+<h2 id="使用plugins"><a href="#使用plugins" class="headerlink" title="使用plugins"></a>使用plugins</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">plugins: [</div><div class="line">    <span class="keyword">new</span> webpack.ProvidePlugin(&#123;</div><div class="line">      <span class="attr">$</span>: <span class="string">"jquery"</span>,</div><div class="line">      <span class="attr">jQuery</span>: <span class="string">"jquery"</span></div><div class="line">    &#125;)</div><div class="line">]</div></pre></td></tr></table></figure>
+<p>使用这种方式，就可以全局使用jQuery，但是对于使用了ESlint就会报错：<code>&#39;$&#39; is not defined</code></p>
+<blockquote>
+<p>ProvidePlugin: Automatically loaded modules. Module (value) is loaded when the identifier (key) is used as free variable in a module. The identifier is filled with the exports of the loaded module.</p>
+</blockquote>
+<p>也就是说jQuery模块只会在使用<code>$</code>的模块中加载，并不是真正的全局加载</p>
+<h2 id="expose-loader"><a href="#expose-loader" class="headerlink" title="expose-loader"></a><a href="https://github.com/webpack-contrib/expose-loader" target="_blank" rel="external">expose-loader</a></h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">test</span>: <span class="built_in">require</span>.resolve(<span class="string">'jquery'</span>),</div><div class="line">    <span class="attr">use</span>: [&#123;</div><div class="line">        <span class="attr">loader</span>: <span class="string">'expose-loader'</span>,</div><div class="line">        <span class="attr">options</span>: <span class="string">'$'</span></div><div class="line">    &#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在任意模块中引入<code>require(&quot;expose-loader?$!jquery&quot;);</code></p>
+<h2 id="包装jQuery"><a href="#包装jQuery" class="headerlink" title="包装jQuery"></a>包装jQuery</h2><p>vendor.js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> $ <span class="keyword">from</span> <span class="string">'jquery'</span></div><div class="line"><span class="built_in">window</span>.$ = $</div><div class="line"><span class="built_in">window</span>.jQuery = $</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> $</div></pre></td></tr></table></figure></p>
+<p>模块引入：<code>import $ from &#39;../assets/vendor.js&#39;</code><br>webpakck中设置别名：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">alias: &#123;</div><div class="line">    <span class="comment">//将其指向vendor.js所在位置</span></div><div class="line">    jquery : <span class="string">'src/assets/jquery-vendor.js'</span> </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://blog.csdn.net/yiifaa/article/details/51916560" target="_blank" rel="external">参考文章</a></p>
+
       
     </div>
     
@@ -326,13 +339,13 @@
   
     
     <div class="copyright">
-        <p><span>Title:</span><a href="/2017/01/17/Vue-js学习/">Vue.js学习</a></p>
+        <p><span>Title:</span><a href="/2017/05/01/webpack引入插件的几种方法/">webpack引入插件的几种方法</a></p>
         <p><span>Author:</span><a href="/" title="Back to Homepage">DJLXS</a></p>
-        <p><span>Created:</span>2017-01-17, 15:01:39</p>
-        <p><span>Updated:</span>2017-01-17, 15:27:32</p>
+        <p><span>Created:</span>2017-05-01, 20:23:36</p>
+        <p><span>Updated:</span>2017-05-01, 20:29:46</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2017/01/17/Vue-js学习/" title="Vue.js学习">http://djl.pub/2017/01/17/Vue-js学习/</a>
-            <span class="copy-path" data-clipboard-text="From http://djl.pub/2017/01/17/Vue-js学习/　　By DJLXS" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>Full URL:</span><a class="post-url" href="/2017/05/01/webpack引入插件的几种方法/" title="webpack引入插件的几种方法">http://djl.pub/2017/05/01/webpack引入插件的几种方法/</a>
+            <span class="copy-path" data-clipboard-text="From http://djl.pub/2017/05/01/webpack引入插件的几种方法/　　By DJLXS" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -344,16 +357,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/01/21/Vue学习之生命周期/">
-                    Vue学习之生命周期
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/01/13/hexo初探---让写作飞起来/">
-                    hexo初探---让写作飞起来
+                <a href="/2017/02/13/better-scroll初探/">
+                    better-scroll初探
                 </a>
             </div>
         
@@ -365,7 +372,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#生命周期"><span class="toc-number">1.</span> <span class="toc-text">生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意事项"><span class="toc-number">2.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组件化开发"><span class="toc-number">3.</span> <span class="toc-text">组件化开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组件间通信"><span class="toc-number">4.</span> <span class="toc-text">组件间通信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见的用法"><span class="toc-number">5.</span> <span class="toc-text">常见的用法</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#直接使用"><span class="toc-number">1.</span> <span class="toc-text">直接使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用plugins"><span class="toc-number">2.</span> <span class="toc-text">使用plugins</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#expose-loader"><span class="toc-number">3.</span> <span class="toc-text">expose-loader</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#包装jQuery"><span class="toc-number">4.</span> <span class="toc-text">包装jQuery</span></a></li></ol>
         
     </div>
     <style>
@@ -401,7 +408,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Vue.js学习　| DJLXS　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"webpack引入插件的几种方法　| DJLXS　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -417,7 +424,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2017/01/17/Vue-js学习/" data-title="Vue.js学习" data-url="http://djl.pub/2017/01/17/Vue-js学习/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/05/01/webpack引入插件的几种方法/" data-title="webpack引入插件的几种方法" data-url="http://djl.pub/2017/05/01/webpack引入插件的几种方法/"></div>
     <script>
         var duoshuoQuery = {short_name:"djlxs"};
         var loadComment = function(){
@@ -440,15 +447,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/01/21/Vue学习之生命周期/" title="Pre: Vue学习之生命周期">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="Back to Homepage"><i class="fa fa-home"></i></a>
         
 
         <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/01/13/hexo初探---让写作飞起来/" title="Next: hexo初探---让写作飞起来">
+            <a href="/2017/02/13/better-scroll初探/" title="Next: better-scroll初探">
                 <i class="fa fa-angle-right"></i>
             </a>
         

@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title><![CDATA[webpack引入插件的几种方法]]></title>
+      <url>http://djl.pub/2017/05/01/webpack%E5%BC%95%E5%85%A5%E6%8F%92%E4%BB%B6%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/</url>
+      <content type="html"><![CDATA[<a id="more"></a>
+<h2 id="直接使用"><a href="#直接使用" class="headerlink" title="直接使用"></a>直接使用</h2><p>在需要使用的js文件中引入：<br><code>var  $  = require(&#39;jquery&#39;)</code>或者<code>import $ form &#39;jquery&#39;</code></p>
+<h2 id="使用plugins"><a href="#使用plugins" class="headerlink" title="使用plugins"></a>使用plugins</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">plugins: [</div><div class="line">    <span class="keyword">new</span> webpack.ProvidePlugin(&#123;</div><div class="line">      <span class="attr">$</span>: <span class="string">"jquery"</span>,</div><div class="line">      <span class="attr">jQuery</span>: <span class="string">"jquery"</span></div><div class="line">    &#125;)</div><div class="line">]</div></pre></td></tr></table></figure>
+<p>使用这种方式，就可以全局使用jQuery，但是对于使用了ESlint就会报错：<code>&#39;$&#39; is not defined</code></p>
+<blockquote>
+<p>ProvidePlugin: Automatically loaded modules. Module (value) is loaded when the identifier (key) is used as free variable in a module. The identifier is filled with the exports of the loaded module.</p>
+</blockquote>
+<p>也就是说jQuery模块只会在使用<code>$</code>的模块中加载，并不是真正的全局加载</p>
+<h2 id="expose-loader"><a href="#expose-loader" class="headerlink" title="expose-loader"></a><a href="https://github.com/webpack-contrib/expose-loader" target="_blank" rel="external">expose-loader</a></h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">test</span>: <span class="built_in">require</span>.resolve(<span class="string">'jquery'</span>),</div><div class="line">    <span class="attr">use</span>: [&#123;</div><div class="line">        <span class="attr">loader</span>: <span class="string">'expose-loader'</span>,</div><div class="line">        <span class="attr">options</span>: <span class="string">'$'</span></div><div class="line">    &#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在任意模块中引入<code>require(&quot;expose-loader?$!jquery&quot;);</code></p>
+<h2 id="包装jQuery"><a href="#包装jQuery" class="headerlink" title="包装jQuery"></a>包装jQuery</h2><p>vendor.js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> $ <span class="keyword">from</span> <span class="string">'jquery'</span></div><div class="line"><span class="built_in">window</span>.$ = $</div><div class="line"><span class="built_in">window</span>.jQuery = $</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> $</div></pre></td></tr></table></figure></p>
+<p>模块引入：<code>import $ from &#39;../assets/vendor.js&#39;</code><br>webpakck中设置别名：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">alias: &#123;</div><div class="line">    <span class="comment">//将其指向vendor.js所在位置</span></div><div class="line">    jquery : <span class="string">'src/assets/jquery-vendor.js'</span> </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://blog.csdn.net/yiifaa/article/details/51916560" target="_blank" rel="external">参考文章</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[better-scroll初探]]></title>
       <url>http://djl.pub/2017/02/13/better-scroll%E5%88%9D%E6%8E%A2/</url>
       <content type="html"><![CDATA[<p>在做外卖APP项目时，用到了better-scroll这个插件，接口基本和iscroll一致，功能非常强大。<br><a id="more"></a></p>
