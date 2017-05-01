@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="DJLXS" />
+
+
+
+<meta name="description" content="作为只学过Vue的前端来说，angular的概念还真是比较多的，但是每接触一个概念我都会和Vue相关概念做一个对比，这样的对比对我理解angular起了非常大的作用。这节主要讲解directive，类比Vue就好比Vue里面的组件。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="angular1学习之directive">
+<meta property="og:url" content="http://djl.pub/2017/04/06/angular1学习之directive/index.html">
+<meta property="og:site_name" content="DJLXS">
+<meta property="og:description" content="作为只学过Vue的前端来说，angular的概念还真是比较多的，但是每接触一个概念我都会和Vue相关概念做一个对比，这样的对比对我理解angular起了非常大的作用。这节主要讲解directive，类比Vue就好比Vue里面的组件。">
+<meta property="og:image" content="http://ok3x4ia9b.bkt.clouddn.com/17-4-6/52136146-file_1491473056558_dddc.png">
+<meta property="og:image" content="http://ok3x4ia9b.bkt.clouddn.com/17-4-6/30517686-file_1491472930303_7e1e.png">
+<meta property="og:updated_time" content="2017-04-06T10:54:47.812Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="angular1学习之directive">
+<meta name="twitter:description" content="作为只学过Vue的前端来说，angular的概念还真是比较多的，但是每接触一个概念我都会和Vue相关概念做一个对比，这样的对比对我理解angular起了非常大的作用。这节主要讲解directive，类比Vue就好比Vue里面的组件。">
+<meta name="twitter:image" content="http://ok3x4ia9b.bkt.clouddn.com/17-4-6/52136146-file_1491473056558_dddc.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="DJLXS" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>angular1学习之directive | DJLXS</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">DJLXS</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/随笔">随笔</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" href="http://www.weibo.com/u/3687140617/home" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/djlxiaoshi/" title="GitHub"></a>
+                            
+                                <a class="fa 简书" href="http://www.jianshu.com/u/d8657fcf1678" title="简书"></a>
+                            
+                                <a class="fa 博客园" href="http://www.cnblogs.com/djlxs/" title="博客园"></a>
+                            
+                                <a class="fa QQ" href="/1281233206" title="QQ"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AMD/">AMD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CORS/">CORS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue组件/">Vue组件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/directive/">directive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jsop/">jsop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/require-js/">require.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-resource/">vue-resource</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-router/">vue-router</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex/">vuex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/插件/">插件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生命周期/">生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/跨域/">跨域</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/转载/">转载</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">大家好，欢迎来到DJL箫氏的个人博客，目前大四，即将工作于深圳博雅互动，专注于前端，喜欢羽毛球、健身等等，如果愿意交流欢迎加我的QQ：1281233206（注明来自博客）</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">DJLXS</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">DJLXS</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/随笔">随笔</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://www.weibo.com/u/3687140617/home" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/djlxiaoshi/" title="GitHub"></a>
+                            
+                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/u/d8657fcf1678" title="简书"></a>
+                            
+                                <a class="fa 博客园" target="_blank" href="http://www.cnblogs.com/djlxs/" title="博客园"></a>
+                            
+                                <a class="fa QQ" target="_blank" href="/1281233206" title="QQ"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-angular1学习之directive" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/06/angular1学习之directive/" class="article-date">
+      <time datetime="2017-04-06T10:53:24.000Z" itemprop="datePublished">2017-04-06</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      angular1学习之directive
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/directive/">directive</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>作为只学过Vue的前端来说，angular的概念还真是比较多的，但是每接触一个概念我都会和Vue相关概念做一个对比，这样的对比对我理解angular起了非常大的作用。这节主要讲解directive，类比Vue就好比Vue里面的组件。<br><a id="more"></a></p>
+<h1 id="自定义一个指令"><a href="#自定义一个指令" class="headerlink" title="自定义一个指令"></a>自定义一个指令</h1><p>首先angular定义一个指令的方式如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> app = angular.module(<span class="string">'container'</span>,[])</div><div class="line">app.controller(<span class="string">'wrap'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">    $scope.nickName = <span class="string">'DJL箫氏'</span></div><div class="line">&#125;)</div><div class="line">app.directive(<span class="string">'myDirective'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="attr">restrict</span>: <span class="string">'A'</span>,</div><div class="line">        <span class="attr">template</span> : <span class="string">'&lt;h1&gt;自定义指令&#123;&#123;nickName&#125;&#125;&lt;/h1&gt;'</span></div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>我们通过app.directive方法来创建指令，指令名称遵从驼峰命名规则，在使用的时候用<code>-</code>分开<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">my-directive</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>作为刚学angular的人来说，为什么有时候使用<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">app.controller(<span class="string">'wrap'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">    $scope.nickName = <span class="string">'DJL箫氏'</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>有时候<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">app.controller(<span class="string">'wrap'</span>, [<span class="string">'$scope'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">    $scope.nickName = <span class="string">'DJL箫氏'</span></div><div class="line">&#125;])</div></pre></td></tr></table></figure></p>
+<p>如果服务名和function中的参数名一致，则可以不写成数组的形式，如果要更换名字则写成数组的形式。例如：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">app.controller(<span class="string">'wrap'</span>, [<span class="string">'$scope'</span>,<span class="string">'myService'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">a,b</span>) </span>&#123;</div><div class="line">    $scope.nickName = <span class="string">'DJL箫氏'</span></div><div class="line">&#125;])</div></pre></td></tr></table></figure></p>
+<p>那么a即<code>$scope</code>服务，b即<code>myService</code>服务</p>
+<h1 id="常用属性介绍"><a href="#常用属性介绍" class="headerlink" title="常用属性介绍"></a>常用属性介绍</h1><h2 id="restrict"><a href="#restrict" class="headerlink" title="restrict"></a>restrict</h2><p>自定义指令会返回一个对象，里面有很多属性<code>restrict:A</code>属性表示在html代码中调用这个属性只能通过属性的形式来调用，当然值还有E（只能通过标签元素的方式调用）,C(只能通过class的方式调用)，EAC（以上三种方式都可以）<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">my-directive</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>  </div><div class="line"><span class="tag">&lt;<span class="name">my-directive</span>&gt;</span><span class="tag">&lt;/<span class="name">my-directive</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"my-directive"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h2 id="template-amp-templateUrl"><a href="#template-amp-templateUrl" class="headerlink" title="template &amp; templateUrl"></a>template &amp; templateUrl</h2><p>template属性则是这个指令的DOM结构，也就是说指令适用于与DOM有关的场景。我们可以看到在指令中可以拿到包含它的controller中的数据（$scope）。当然如果指令的DOM结构非常复杂，这个时候我们可以使用templateUrl属性来替代template属性，templateUrl的值为dom模板的地址。当然我们可以使用<code>ng-template</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/ng-template&quot; id=&quot;part.html&quot;&gt;</div><div class="line">    &lt;h1&gt;通过ng-template封装的part.html&lt;/h1&gt;</div><div class="line">    &lt;p&gt;这里是part.html中的内容&lt;/p&gt;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">templateUrl: <span class="string">'part.html'</span></div></pre></td></tr></table></figure>
+<h2 id="replace"><a href="#replace" class="headerlink" title="replace"></a>replace</h2><p>该属性表明这个指令是直接插入到DOM结构中（值为TRUE），还是先把<code>&lt;my-directive&gt;&lt;/my-directive&gt;</code>这个标签去除后只插入指令中template或者templateUrl中的内容。<br><img src="http://ok3x4ia9b.bkt.clouddn.com/17-4-6/52136146-file_1491473056558_dddc.png" alt="值为false"><br><img src="http://ok3x4ia9b.bkt.clouddn.com/17-4-6/30517686-file_1491472930303_7e1e.png" alt="值为true"></p>
+<h2 id="scope"><a href="#scope" class="headerlink" title="scope"></a>scope</h2><p>在前面我们知道directive可以直接拿到所在controller中的数据，但是如果在同一个controller中有多个directive，我们希望通过传入directive不同的值来展示不同的结果，这时我们就要使用scope属性，这个属性类似于Vue组件中props属性。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">my-directive</span> <span class="attr">user</span>=<span class="string">"userA"</span>&gt;</span><span class="tag">&lt;/<span class="name">my-directive</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">scope:&#123;</div><div class="line">    <span class="attr">user</span>: <span class="string">"="</span></div><div class="line">&#125;,</div><div class="line"><span class="attr">template</span> : <span class="string">"&lt;p&gt;姓名:&#123;&#123;user.name&#125;&#125;&lt;/p&gt;&lt;p&gt;性别：&#123;&#123;user.sex&#125;&#125;&lt;/p&gt;"</span></div><div class="line"></div><div class="line">App.controller(<span class="string">"wrap"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">    $scope.userA = &#123;</div><div class="line">        <span class="attr">name</span>: <span class="string">"DJL箫氏"</span>,</div><div class="line">        <span class="attr">sex</span> : <span class="string">"男"</span></div><div class="line">    &#125;;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>在这里<code>user: &#39;=&#39;</code>,其中‘=’表示传入一个引用值（如果在directive中改变数据，controller中的数据也会跟随改变），当然值还可以是‘@’（传入一个字符串，那么此时传入的就是userA这个字符串了），&amp;（传入一个回调函数）</p>
+<h2 id="link"><a href="#link" class="headerlink" title="link"></a>link</h2><p>link属性就类似于Vue里面的生命周期钩子函数，是会自动执行的，所以可以把一些初始化任务放在里面。link函数有3个参数scope（暂时理解为directive中scope属性）,element（指令中template对应的DOM）,attrs。</p>
+<p>由于Angular几乎照搬了jQuery的DOM操作源码，所以我们在操作DOM时，可以基本舒勇jQuery的语法，当然如果我们要使用jQuery来操作也非常简单，我们只需要安装jQuery然后在index.html中引入jQuery（注意顺序）<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;!-- 保证在angular.js之前引入jquery.js --&gt;</div><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"components/jquery/dist/jquery.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></div><div class="line">&lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"components/angular/angular.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></div></pre></td></tr></table></figure></p>
+<h2 id="transclude"><a href="#transclude" class="headerlink" title="transclude"></a>transclude</h2><p>有时候我们想在指令中添加一些自定义的元素，例如：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">my-directive</span> <span class="attr">user</span>=<span class="string">"userA"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>hello world<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">my-directive</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>这时我们就需要设置transclude属性值为true。<br>同时在指令的DOM结构合适的位置中加入<code>&lt;ng-transclude&gt;&lt;/ng-transclude&gt;</code>或者以属性的方式<code>&lt;div ng-transclude&gt;&lt;/div&gt;</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">template : <span class="string">'&lt;h1&gt;自定义指令&lt;ng-transclude&gt;&lt;/ng-transclude&gt;&lt;/h1&gt;'</span></div></pre></td></tr></table></figure></p>
+<p>所以我们会发现ng-app这些指令的transclude属性都设置成了true</p>
+<p>ok 目前常用的就是这些，下节会讲directive之间的通信问题。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/04/06/angular1学习之directive/">angular1学习之directive</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">DJLXS</a></p>
+        <p><span>发布时间:</span>2017-04-06, 18:53:24</p>
+        <p><span>最后更新:</span>2017-04-06, 18:54:47</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/04/06/angular1学习之directive/" title="angular1学习之directive">http://djl.pub/2017/04/06/angular1学习之directive/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://djl.pub/2017/04/06/angular1学习之directive/　　作者: DJLXS" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2017/04/07/angular1学习之控制器通信/">
+                    angular1学习之控制器通信
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/04/04/JavaScript模块加载 - AMD/">
+                    JavaScript模块加载 - AMD
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#自定义一个指令"><span class="toc-number">1.</span> <span class="toc-text">自定义一个指令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常用属性介绍"><span class="toc-number">2.</span> <span class="toc-text">常用属性介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#restrict"><span class="toc-number">2.1.</span> <span class="toc-text">restrict</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#template-amp-templateUrl"><span class="toc-number">2.2.</span> <span class="toc-text">template & templateUrl</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#replace"><span class="toc-number">2.3.</span> <span class="toc-text">replace</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#scope"><span class="toc-number">2.4.</span> <span class="toc-text">scope</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#link"><span class="toc-number">2.5.</span> <span class="toc-text">link</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#transclude"><span class="toc-number">2.6.</span> <span class="toc-text">transclude</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"angular1学习之directive　| DJLXS　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/04/06/angular1学习之directive/" data-title="angular1学习之directive" data-url="http://djl.pub/2017/04/06/angular1学习之directive/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"djlxs"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/04/07/angular1学习之控制器通信/" title="上一篇: angular1学习之控制器通信">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/04/04/JavaScript模块加载 - AMD/" title="下一篇: JavaScript模块加载 - AMD">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/05/01/webpack引入插件的几种方法/">webpack引入插件的几种方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/07/angular1学习之控制器通信/">angular1学习之控制器通信</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/angular1学习之directive/">angular1学习之directive</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/04/JavaScript模块加载 - AMD/">JavaScript模块加载 - AMD</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/NODE使用小插件/">NODE使用小插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/CORS跨域/">CORS跨域</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/11/前端跨域请求原理及实现/">前端跨域请求原理及实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/13/better-scroll初探/">better-scroll初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/12/vue-resource初探/">vue-resource初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/08/vue-router初探/">vue-router初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/07/webpack1.0初探/">webpack1.0初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/29/Vuex初探/">Vuex初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之组件/">Vue学习之组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之生命周期/">Vue学习之生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/17/Vue-js学习/">Vue.js学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/13/hexo初探---让写作飞起来/">hexo初探---让写作飞起来</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017 DJLXS
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

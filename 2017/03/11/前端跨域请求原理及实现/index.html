@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="DJLXS" />
+
+
+
+<meta name="description" content="跨域请求的含义浏览器的同源策略，出于防范跨站脚本的攻击，禁止客户端脚本（如JavaScript）对不同域的服务进行跨站调用。一般的，只要网站的 协议名protocol、主机host、端口号port这三个中的任意一个不同，网站间的数据请求与传输便构成了跨域调用。这也是我们下面实践的理论基础。我们利用NodeJs创建了两个服务器，分别监听3000、3001端口（下面简称服务器3000与服务器3001）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端跨域请求原理及实践">
+<meta property="og:url" content="http://djl.pub/2017/03/11/前端跨域请求原理及实现/index.html">
+<meta property="og:site_name" content="DJLXS">
+<meta property="og:description" content="跨域请求的含义浏览器的同源策略，出于防范跨站脚本的攻击，禁止客户端脚本（如JavaScript）对不同域的服务进行跨站调用。一般的，只要网站的 协议名protocol、主机host、端口号port这三个中的任意一个不同，网站间的数据请求与传输便构成了跨域调用。这也是我们下面实践的理论基础。我们利用NodeJs创建了两个服务器，分别监听3000、3001端口（下面简称服务器3000与服务器3001）">
+<meta property="og:image" content="http://oab2ph6pv.bkt.clouddn.com/cross_origin/3001_page.png">
+<meta property="og:image" content="http://oab2ph6pv.bkt.clouddn.com/cross_origin/3000_to_3000.png">
+<meta property="og:image" content="http://oab2ph6pv.bkt.clouddn.com/cross_origin/3000_to_3001_error.png">
+<meta property="og:image" content="http://oab2ph6pv.bkt.clouddn.com/cross_origin/3000_to_3001_ajax_jsonp.png">
+<meta property="og:image" content="http://oab2ph6pv.bkt.clouddn.com/cross_origin/3000_to_3001_jsonp.png">
+<meta property="og:image" content="http://oab2ph6pv.bkt.clouddn.com/cross_origin/3000_to_3001_cors.png">
+<meta property="og:updated_time" content="2017-03-11T09:57:50.208Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端跨域请求原理及实践">
+<meta name="twitter:description" content="跨域请求的含义浏览器的同源策略，出于防范跨站脚本的攻击，禁止客户端脚本（如JavaScript）对不同域的服务进行跨站调用。一般的，只要网站的 协议名protocol、主机host、端口号port这三个中的任意一个不同，网站间的数据请求与传输便构成了跨域调用。这也是我们下面实践的理论基础。我们利用NodeJs创建了两个服务器，分别监听3000、3001端口（下面简称服务器3000与服务器3001）">
+<meta name="twitter:image" content="http://oab2ph6pv.bkt.clouddn.com/cross_origin/3001_page.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="DJLXS" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>前端跨域请求原理及实践 | DJLXS</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">DJLXS</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/随笔">随笔</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" href="http://www.weibo.com/u/3687140617/home" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/djlxiaoshi/" title="GitHub"></a>
+                            
+                                <a class="fa 简书" href="http://www.jianshu.com/u/d8657fcf1678" title="简书"></a>
+                            
+                                <a class="fa 博客园" href="http://www.cnblogs.com/djlxs/" title="博客园"></a>
+                            
+                                <a class="fa QQ" href="/1281233206" title="QQ"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AMD/">AMD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CORS/">CORS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue组件/">Vue组件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/directive/">directive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jsop/">jsop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/require-js/">require.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-resource/">vue-resource</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-router/">vue-router</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex/">vuex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/插件/">插件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生命周期/">生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/跨域/">跨域</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/转载/">转载</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">大家好，欢迎来到DJL箫氏的个人博客，目前大四，即将工作于深圳博雅互动，专注于前端，喜欢羽毛球、健身等等，如果愿意交流欢迎加我的QQ：1281233206（注明来自博客）</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">DJLXS</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">DJLXS</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/随笔">随笔</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://www.weibo.com/u/3687140617/home" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/djlxiaoshi/" title="GitHub"></a>
+                            
+                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/u/d8657fcf1678" title="简书"></a>
+                            
+                                <a class="fa 博客园" target="_blank" href="http://www.cnblogs.com/djlxs/" title="博客园"></a>
+                            
+                                <a class="fa QQ" target="_blank" href="/1281233206" title="QQ"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-前端跨域请求原理及实现" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/03/11/前端跨域请求原理及实现/" class="article-date">
+      <time datetime="2017-03-11T09:20:37.000Z" itemprop="datePublished">2017-03-11</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      前端跨域请求原理及实践
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jsop/">jsop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/跨域/">跨域</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="跨域请求的含义"><a href="#跨域请求的含义" class="headerlink" title="跨域请求的含义"></a>跨域请求的含义</h2><p>浏览器的同源策略，出于防范跨站脚本的攻击，禁止客户端脚本（如JavaScript）对不同域的服务进行跨站调用。一般的，只要网站的 协议名protocol、主机host、端口号port这三个中的任意一个不同，网站间的数据请求与传输便构成了跨域调用。这也是我们下面实践的理论基础。我们利用NodeJs创建了两个服务器，分别监听3000、3001端口（下面简称服务器3000与服务器3001），由于端口号不一样，这两个服务器以及服务器上页面通信构成了跨域请求。在服务器3000 上有如下的页面：<br><a id="more"></a></p>
+<p><img src="http://oab2ph6pv.bkt.clouddn.com/cross_origin/3001_page.png" alt=""></p>
+<p>服务器3000 上的请求页面中包含如下 JavaScript 代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    $(<span class="string">"#submit"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> data = &#123;</div><div class="line">            <span class="attr">name</span>: $(<span class="string">"#name"</span>).val(),</div><div class="line">            <span class="attr">id</span>: $(<span class="string">"#id"</span>).val()</div><div class="line">        &#125;;</div><div class="line">        $.ajax(&#123;</div><div class="line">            <span class="attr">type</span>: <span class="string">'POST'</span>,</div><div class="line">            <span class="attr">data</span>: data,</div><div class="line">            <span class="attr">url</span>: <span class="string">'http://localhost:3000/ajax/deal'</span>,</div><div class="line">            <span class="attr">dataType</span>: <span class="string">'json'</span>,</div><div class="line">            <span class="attr">cache</span>: <span class="literal">false</span>,</div><div class="line">            <span class="attr">timeout</span>: <span class="number">5000</span>,</div><div class="line">            <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">                <span class="built_in">console</span>.log(data)</div><div class="line">            &#125;,</div><div class="line">            <span class="attr">error</span>: <span class="function"><span class="keyword">function</span>(<span class="params">jqXHR, textStatus, errorThrown</span>) </span>&#123;</div><div class="line">                <span class="built_in">console</span>.log(<span class="string">'error '</span> + textStatus + <span class="string">' '</span> + errorThrown);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>服务器3000 对应的处理函数为</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">app.post(<span class="string">'/ajax/deal'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"server accept: "</span>, req.body.name, req.body.id)</div><div class="line">    <span class="keyword">var</span> data = &#123;</div><div class="line">        <span class="attr">name</span>: req.body.name + <span class="string">' - server 3000 process'</span>,</div><div class="line">        <span class="attr">id</span>: req.body.id + <span class="string">' - server 3000 process'</span></div><div class="line">    &#125;</div><div class="line">    res.send(data)</div><div class="line">    res.end()</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>请求页面返回结果：</p>
+<p><img src="http://oab2ph6pv.bkt.clouddn.com/cross_origin/3000_to_3000.png" alt=""></p>
+<p>此处数据处理成功。</p>
+<p>由于数据请求一般都是由页面发送数据字段，服务器根据这些字段作相应的处理，如数据库查询，字符串操作等等。所以我们这里简单的处理数据（在数据后面加上字符串‘server3000process’），并且返回给浏览器，表示数据经过服务器端处理。如果让服务器3000上的页面向服务器3001发起请求会怎样呢？将请求页面中的ajax请求路径改为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line">    ...</div><div class="line">    url: <span class="string">'http://localhost:3001/ajax/deal'</span>,</div><div class="line">    ...</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>服务器3001 对应的处理函数与 服务器3000 类似：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">app.post(<span class="string">'/ajax/deal'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"server accept: "</span>, req.body.name, req.body.id)</div><div class="line">    <span class="keyword">var</span> data = &#123;</div><div class="line">        <span class="attr">name</span>: req.body.name + <span class="string">' - server 3001 process'</span>,</div><div class="line">        <span class="attr">id</span>: req.body.id + <span class="string">' - server 3001 process'</span></div><div class="line">    &#125;</div><div class="line">    res.send(data)</div><div class="line">    res.end()</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<p><img src="http://oab2ph6pv.bkt.clouddn.com/cross_origin/3000_to_3001_error.png" alt=""></p>
+<p>结果证明了我们上面所说的端口号不同，发生了跨域请求的调用。需要注意的是，服务器 3001 控制台有输出：</p>
+<blockquote>
+<p>server accept:  chiaki 3001</p>
+</blockquote>
+<p>这说明跨域请求并非是浏览器限制了发起跨站请求，而是请求可以正常发起，到达服务器端，但是服务器返回的结果会被浏览器拦截。</p>
+<h2 id="利用-JSONP-实现跨域调用"><a href="#利用-JSONP-实现跨域调用" class="headerlink" title="利用 JSONP 实现跨域调用"></a>利用 JSONP 实现跨域调用</h2><p>说道跨域调用，可能大家首先想到的或者听说过的就是 JSONP 了。</p>
+<h3 id="什么是JSONP"><a href="#什么是JSONP" class="headerlink" title="什么是JSONP"></a>什么是JSONP</h3><blockquote>
+<p>JSONP (JSON with Padding or JSON-P) is a JSON extension used by web developers to overcome the cross-domain restrictions imposed by browsers’ same-origin policy that limits access to resources retrieved from origins other than the one the page was served by. In layman’s terms, one website cannot just simply access the data from another website.<br>It was developed because handling a browsers’ same origin policy can be difficult, so using JSONP abstracts the difficulties and makes it easier.<br>JSON stands for “JavaScript Object Notation”, a format by which object fields are represented as key-value pairs which is used to represent data.</p>
+</blockquote>
+<p>JSONP 是 JSON 的一种使用模式，可以解决主流浏览器的跨域数据访问问题。其原理是根据XmlHttpRequest对象受到同源策略的影响，而script标签元素却不受同源策略影响，可以加载跨域服务器上的脚本，网页可以从其他来源动态产生 JSON 资料。用 JSONP 获取的不是 JSON 数据,而是可以直接运行的 JavaScript 语句。</p>
+<h3 id="使用-jQuery-集成的-ajax-实现-JSONP-跨域调用"><a href="#使用-jQuery-集成的-ajax-实现-JSONP-跨域调用" class="headerlink" title="使用 jQuery 集成的 $.ajax 实现 JSONP 跨域调用"></a>使用 jQuery 集成的 $.ajax 实现 JSONP 跨域调用</h3><p>我们先从简单的实现开始，利用jQuery中的$.ajax来实现上诉的跨域调用。依然是上面的例子，我们将服务器 3000 上的请求页面的 JavaScript 代码改为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 回调函数</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">jsonpCallback</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"jsonpCallback: "</span> + data.name)</div><div class="line">&#125;</div><div class="line">$(<span class="string">"#submit"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> data = &#123;</div><div class="line">        <span class="attr">name</span>: $(<span class="string">"#name"</span>).val(),</div><div class="line">        <span class="attr">id</span>: $(<span class="string">"#id"</span>).val()</div><div class="line">    &#125;;</div><div class="line">    $.ajax(&#123;</div><div class="line">        <span class="attr">url</span>: <span class="string">'http://localhost:3001/ajax/deal'</span>,</div><div class="line">        <span class="attr">data</span>: data,</div><div class="line">        <span class="attr">dataType</span>: <span class="string">'jsonp'</span>,</div><div class="line">        <span class="attr">cache</span>: <span class="literal">false</span>,</div><div class="line">        <span class="attr">timeout</span>: <span class="number">5000</span>,</div><div class="line">        <span class="comment">// jsonp 字段含义为服务器通过什么字段获取回调函数的名称</span></div><div class="line">        jsonp: <span class="string">'callback'</span>,</div><div class="line">        <span class="comment">// 声明本地回调函数的名称，jquery 默认随机生成一个函数名称</span></div><div class="line">        jsonpCallback: <span class="string">'jsonpCallback'</span>,</div><div class="line">        <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">"ajax success callback: "</span> + data.name)</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">error</span>: <span class="function"><span class="keyword">function</span>(<span class="params">jqXHR, textStatus, errorThrown</span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(textStatus + <span class="string">' '</span> + errorThrown);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>服务器 3001 上对应的处理函数为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">app.get(<span class="string">'/ajax/deal'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"server accept: "</span>, req.query.name, req.query.id)</div><div class="line">    <span class="keyword">var</span> data = <span class="string">"&#123;"</span> + <span class="string">"name:'"</span> + req.query.name + <span class="string">" - server 3001 process',"</span> + <span class="string">"id:'"</span> + req.query.id + <span class="string">" - server 3001 process'"</span> + <span class="string">"&#125;"</span></div><div class="line">    <span class="keyword">var</span> callback = req.query.callback</div><div class="line">    <span class="keyword">var</span> jsonp = callback + <span class="string">'('</span> + data + <span class="string">')'</span></div><div class="line">    <span class="built_in">console</span>.log(jsonp)</div><div class="line">    res.send(jsonp)</div><div class="line">    res.end()</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>这里一定要注意 data 中字符串拼接，不能直接将 JSON 格式的data直接传给回调函数，否则会发生编译错误： <code>parsererror Error: jsonpCallback was not called。</code></p>
+<p><strong><em>其实脑海里应该有一个概念：利用 JSONP 格式返回的值一段要立即执行的 JavaScript 代码，所以不会像 ajax 的 XmlHttpRequest 那样可以监听不同事件对数据进行不同处理。</em></strong></p>
+<p>处理结果如下所示：</p>
+<p><img src="http://oab2ph6pv.bkt.clouddn.com/cross_origin/3000_to_3001_ajax_jsonp.png" alt=""></p>
+<h3 id="使用-script标签原生实现-JSONP"><a href="#使用-script标签原生实现-JSONP" class="headerlink" title="使用 script标签原生实现 JSONP"></a>使用 script标签原生实现 JSONP</h3><p>经过上面的事件，你是不是觉得JSONP的实现和Ajax大同小异？其实，由于实现的原理不同，由JSONP实现的跨域调用不是通过 XmlHttpRequset对象，而是通过script标签，所以在实现原理上，JSONP和Ajax已经一点关系都没有了。看上去形式相似只是由于 jQuery对JSONP做了封装和转换。比如在上面的例子中，我们假设要传输的数据 data 格式如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    name: "chiaki",</div><div class="line">    id": "3001"</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>那么数据是如何传输的呢？HTTP 请求头的第一行如下：</p>
+<blockquote>
+<p>GET /ajax/deal?callback=jsonpCallback&amp;name=chiaki&amp;id=3001&amp;_=1473164876032 HTTP/1.1</p>
+</blockquote>
+<p>可见，即使形式上是用 POST 传输一个 JSON 格式的数据，其实发送请求时还是转换成 GET请求。其实如果理解 JSONP的原理的话就不难理解为什么只能使用GET请求方法了。由于是通过script标签进行请求，所以上述传输过程根本上是以下的形式：</p>
+<p><code>&lt;script src = &#39;http://localhost:3001/ajax/deal?callback=jsonpCallback&amp;name=chiaki&amp;id=3001&amp;_=1473164876032&#39;&gt;&lt;/script&gt;</code></p>
+<p>这样从服务器返回的代码就可以直接在这个script标签中运行了。下面我们自己实现一个JSONP：服务器3000请求页面的 JavaScript 代码中，只有回调函数 jsonpCallback：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">jsonpCallback</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"jsonpCallback: "</span>+data.name)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>服务器 3000请求页面还包含一个 script 标签：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script src = <span class="string">'http://localhost:3001/jsonServerResponse?jsonp=jsonpCallback'</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></div></pre></td></tr></table></figure>
+<p>服务器 3001上对应的处理函数：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">app.get(<span class="string">'/jsonServerResponse'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> cb = req.query.jsonp</div><div class="line">    <span class="built_in">console</span>.log(cb)</div><div class="line">    <span class="keyword">var</span> data = <span class="string">'var data = &#123;'</span> + <span class="string">'name: $("#name").val() + " - server 3001 jsonp process",'</span> + <span class="string">'id: $("#id").val() + " - server 3001 jsonp process"'</span> + <span class="string">'&#125;;'</span></div><div class="line">    <span class="keyword">var</span> debug = <span class="string">'console.log(data);'</span></div><div class="line">    <span class="keyword">var</span> callback = <span class="string">'$("#submit").click(function() &#123;'</span> + data + cb + <span class="string">'(data);'</span> + debug + <span class="string">'&#125;);'</span></div><div class="line">    res.send(callback)</div><div class="line">    res.end()</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>与上面一样，我们在所获取的参数后面加上“-server 3001 jsonp process”<br>代表服务器对数据的操作。从代码中我么可以看到，处理函数除了根据参数做相应的处理，更多的也是进行字符串的拼接。最终的结果为：</p>
+<p><img src="http://oab2ph6pv.bkt.clouddn.com/cross_origin/3000_to_3001_jsonp.png" alt=""></p>
+<h3 id="JSONP-总结"><a href="#JSONP-总结" class="headerlink" title="JSONP 总结"></a>JSONP 总结</h3><p>至此，我们了解了 JSONP 的原理以及实现方式，它帮我们实现前端跨域请求，但是在实践的过程中，我们还是可以发现它的不足：</p>
+<p>只能使用 GET 方法发起请求，这是由于 script 标签自身的限制决定的。</p>
+<p>不能很好的发现错误，并进行处理。与 Ajax 对比，由于不是通过 XmlHttpRequest 进行传输，所以不能注册 success、 error 等事件监听函数。</p>
+<h2 id="使用-CORS-实现跨域调用"><a href="#使用-CORS-实现跨域调用" class="headerlink" title="使用 CORS 实现跨域调用"></a>使用 CORS 实现跨域调用</h2><h3 id="什么是-CORS？"><a href="#什么是-CORS？" class="headerlink" title="什么是 CORS？"></a>什么是 CORS？</h3><p>Cross-Origin Resource Sharing（CORS）跨域资源共享是一份浏览器技术的规范，提供了Web服务从不同域传来沙盒脚本的方法，以避开浏览器的同源策略，是JSONP模式的现代版。与JSONP不同，CORS除了GET要求方法以外也支持其他的 HTTP 要求。用 CORS 可以让网页设计师用一般的 XMLHttpRequest，这种方式的错误处理比JSONP 要来的好。另一方面，JSONP 可以在不支持 CORS 的老旧浏览器上运作。现代的浏览器都支持 CORS。</p>
+<h3 id="CORS-的实现"><a href="#CORS-的实现" class="headerlink" title="CORS 的实现"></a>CORS 的实现</h3><p>还是以 服务器 3000 上的请求页面向 服务器 3001 发送请求为例。<br>服务器 3000 上的请求页面 JavaScript 不变，如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    $(<span class="string">"#submit"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> data = &#123;</div><div class="line">            <span class="attr">name</span>: $(<span class="string">"#name"</span>).val(),</div><div class="line">            <span class="attr">id</span>: $(<span class="string">"#id"</span>).val()</div><div class="line">        &#125;;</div><div class="line">        $.ajax(&#123;</div><div class="line">            <span class="attr">type</span>: <span class="string">'POST'</span>,</div><div class="line">            <span class="attr">data</span>: data,</div><div class="line">            <span class="attr">url</span>: <span class="string">'http://localhost:3001/cors'</span>,</div><div class="line">            <span class="attr">dataType</span>: <span class="string">'json'</span>,</div><div class="line">            <span class="attr">cache</span>: <span class="literal">false</span>,</div><div class="line">            <span class="attr">timeout</span>: <span class="number">5000</span>,</div><div class="line">            <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">                <span class="built_in">console</span>.log(data)</div><div class="line">            &#125;,</div><div class="line">            <span class="attr">error</span>: <span class="function"><span class="keyword">function</span>(<span class="params">jqXHR, textStatus, errorThrown</span>) </span>&#123;</div><div class="line">                <span class="built_in">console</span>.log(<span class="string">'error '</span> + textStatus + <span class="string">' '</span> + errorThrown);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>服务器 3001上对应的处理函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">app.post(&apos;/cors&apos;, function(req, res) &#123;</div><div class="line">    res.header(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);</div><div class="line">    res.header(&quot;Access-Control-Allow-Headers&quot;, &quot;X-Requested-With&quot;);</div><div class="line">    res.header(&quot;Access-Control-Allow-Methods&quot;, &quot;PUT,POST,GET,DELETE,OPTIONS&quot;);</div><div class="line">    res.header(&quot;X-Powered-By&quot;, &apos; 3.2.1&apos;)</div><div class="line">    res.header(&quot;Content-Type&quot;, &quot;application/json;charset=utf-8&quot;);</div><div class="line">    var data = &#123;</div><div class="line">        name: req.body.name + &apos; - server 3001 cors process&apos;,</div><div class="line">        id: req.body.id + &apos; - server 3001 cors process&apos;</div><div class="line">    &#125;</div><div class="line">    console.log(data)</div><div class="line">    res.send(data)</div><div class="line">    res.end()</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>在服务器中对返回信息的请求头进行了设置。最终的结果为：</p>
+<p><img src="http://oab2ph6pv.bkt.clouddn.com/cross_origin/3000_to_3001_cors.png" alt=""></p>
+<h3 id="CORS-中属性的分析"><a href="#CORS-中属性的分析" class="headerlink" title="CORS 中属性的分析"></a>CORS 中属性的分析</h3><p>Access-Control-Allow-Origin</p>
+<blockquote>
+<p>The origin parameter specifies a URI that may access the resource. The browser must enforce this. For requests without credentials, the server may specify “*” as a wildcard, thereby allowing any origin to access the resource.</p>
+</blockquote>
+<p>Access-Control-Allow-Methods</p>
+<blockquote>
+<p>Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request. The conditions under which a request is preflighted are discussed above.</p>
+</blockquote>
+<p>Access-Control-Allow-Headers</p>
+<blockquote>
+<p>Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request.</p>
+</blockquote>
+<h3 id="3-4-CORS-与-JSONP-的对比"><a href="#3-4-CORS-与-JSONP-的对比" class="headerlink" title="3.4 CORS 与 JSONP 的对比"></a>3.4 CORS 与 JSONP 的对比</h3><p>CORS 除了 GET 方法外，也支持其它的 HTTP 请求方法如 POST、 PUT 等。<br>CORS 可以使用 XmlHttpRequest 进行传输，所以它的错误处理方式比 JSONP 好。<br>JSONP 可以在不支持 CORS 的老旧浏览器上运作。</p>
+<h2 id="一些其它的跨域调用方式"><a href="#一些其它的跨域调用方式" class="headerlink" title="一些其它的跨域调用方式"></a>一些其它的跨域调用方式</h2><h3 id="window-name"><a href="#window-name" class="headerlink" title="window.name"></a>window.name</h3><p>window对象有个name属性，该属性有个特征：即在一个窗口(window)的生命周期内，窗口载入的所有的页面都是共享一个 window.name 的，每个页面对window.name都有读写的权限，window.name是持久存在一个窗口载入过的所有页面中的，并不会因新页面的载入而进行重。</p>
+<h3 id="window-postMessage"><a href="#window-postMessage" class="headerlink" title="window.postMessage()"></a>window.postMessage()</h3><p>这个方法是 HTML5 的一个新特性，可以用来向其他所有的window对象发送消息。需要注意的是我们必须要保证所有的脚本执行完才发送MessageEvent，如果在函数执行的过程中调用了他，就会让后面的函数超时无法执行。</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage" target="_blank" rel="external">参考</a></p>
+<blockquote>
+<p>本文转自<a href="http://tingandpeng.com/2016/09/05/%E5%89%8D%E7%AB%AF%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E8%B7%B5/" target="_blank" rel="external">前端跨域请求原理及实践</a></p>
+</blockquote>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/03/11/前端跨域请求原理及实现/">前端跨域请求原理及实践</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">DJLXS</a></p>
+        <p><span>发布时间:</span>2017-03-11, 17:20:37</p>
+        <p><span>最后更新:</span>2017-03-11, 17:57:50</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/03/11/前端跨域请求原理及实现/" title="前端跨域请求原理及实践">http://djl.pub/2017/03/11/前端跨域请求原理及实现/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://djl.pub/2017/03/11/前端跨域请求原理及实现/　　作者: DJLXS" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2017/03/25/CORS跨域/">
+                    CORS跨域
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/02/13/better-scroll初探/">
+                    better-scroll初探
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#跨域请求的含义"><span class="toc-number">1.</span> <span class="toc-text">跨域请求的含义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用-JSONP-实现跨域调用"><span class="toc-number">2.</span> <span class="toc-text">利用 JSONP 实现跨域调用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是JSONP"><span class="toc-number">2.1.</span> <span class="toc-text">什么是JSONP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-jQuery-集成的-ajax-实现-JSONP-跨域调用"><span class="toc-number">2.2.</span> <span class="toc-text">使用 jQuery 集成的 $.ajax 实现 JSONP 跨域调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-script标签原生实现-JSONP"><span class="toc-number">2.3.</span> <span class="toc-text">使用 script标签原生实现 JSONP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JSONP-总结"><span class="toc-number">2.4.</span> <span class="toc-text">JSONP 总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-CORS-实现跨域调用"><span class="toc-number">3.</span> <span class="toc-text">使用 CORS 实现跨域调用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是-CORS？"><span class="toc-number">3.1.</span> <span class="toc-text">什么是 CORS？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CORS-的实现"><span class="toc-number">3.2.</span> <span class="toc-text">CORS 的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CORS-中属性的分析"><span class="toc-number">3.3.</span> <span class="toc-text">CORS 中属性的分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-CORS-与-JSONP-的对比"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 CORS 与 JSONP 的对比</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些其它的跨域调用方式"><span class="toc-number">4.</span> <span class="toc-text">一些其它的跨域调用方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#window-name"><span class="toc-number">4.1.</span> <span class="toc-text">window.name</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#window-postMessage"><span class="toc-number">4.2.</span> <span class="toc-text">window.postMessage()</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"前端跨域请求原理及实践　| DJLXS　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/03/11/前端跨域请求原理及实现/" data-title="前端跨域请求原理及实践" data-url="http://djl.pub/2017/03/11/前端跨域请求原理及实现/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"djlxs"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/03/25/CORS跨域/" title="上一篇: CORS跨域">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/02/13/better-scroll初探/" title="下一篇: better-scroll初探">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/05/01/webpack引入插件的几种方法/">webpack引入插件的几种方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/07/angular1学习之控制器通信/">angular1学习之控制器通信</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/angular1学习之directive/">angular1学习之directive</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/04/JavaScript模块加载 - AMD/">JavaScript模块加载 - AMD</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/NODE使用小插件/">NODE使用小插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/CORS跨域/">CORS跨域</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/11/前端跨域请求原理及实现/">前端跨域请求原理及实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/13/better-scroll初探/">better-scroll初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/12/vue-resource初探/">vue-resource初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/08/vue-router初探/">vue-router初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/07/webpack1.0初探/">webpack1.0初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/29/Vuex初探/">Vuex初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之组件/">Vue学习之组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之生命周期/">Vue学习之生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/17/Vue-js学习/">Vue.js学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/13/hexo初探---让写作飞起来/">hexo初探---让写作飞起来</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017 DJLXS
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
