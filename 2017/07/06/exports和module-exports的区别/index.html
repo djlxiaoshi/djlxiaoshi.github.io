@@ -15,16 +15,16 @@
 
 
 
-<meta name="description" content="随着js代码的增加，将所有的js代码放在一个js文件里面，会使得这个js代码非常臃肿，所以我们需要把js代码模块化。于是我们会按如下方法来做：">
+<meta name="description" content="之前一直比较困惑exports和module.exports有什么区别。这里做一个比较详细的解释">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript模块加载 - AMD">
-<meta property="og:url" content="http://djl.pub/2017/04/04/JavaScript模块加载 - AMD/index.html">
+<meta property="og:title" content="exports和module.exports的区别">
+<meta property="og:url" content="http://djl.pub/2017/07/06/exports和module-exports的区别/index.html">
 <meta property="og:site_name" content="DJLXS">
-<meta property="og:description" content="随着js代码的增加，将所有的js代码放在一个js文件里面，会使得这个js代码非常臃肿，所以我们需要把js代码模块化。于是我们会按如下方法来做：">
-<meta property="og:updated_time" content="2017-04-04T10:12:14.513Z">
+<meta property="og:description" content="之前一直比较困惑exports和module.exports有什么区别。这里做一个比较详细的解释">
+<meta property="og:updated_time" content="2017-07-06T09:59:14.961Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript模块加载 - AMD">
-<meta name="twitter:description" content="随着js代码的增加，将所有的js代码放在一个js文件里面，会使得这个js代码非常臃肿，所以我们需要把js代码模块化。于是我们会按如下方法来做：">
+<meta name="twitter:title" content="exports和module.exports的区别">
+<meta name="twitter:description" content="之前一直比较困惑exports和module.exports有什么区别。这里做一个比较详细的解释">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>JavaScript模块加载 - AMD | DJLXS</title>
+<title>exports和module.exports的区别 | DJLXS</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -275,11 +275,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-JavaScript模块加载 - AMD" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-exports和module-exports的区别" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/04/04/JavaScript模块加载 - AMD/" class="article-date">
-      <time datetime="2017-04-04T09:58:55.000Z" itemprop="datePublished">2017-04-04</time>
+      <a href="/2017/07/06/exports和module-exports的区别/" class="article-date">
+      <time datetime="2017-07-06T09:46:54.000Z" itemprop="datePublished">2017-07-06</time>
 </a>
 
 
@@ -294,7 +294,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      JavaScript模块加载 - AMD
+      exports和module.exports的区别
     </h1>
   
 
@@ -304,10 +304,6 @@
         
 
         
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AMD/">AMD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/require-js/">require.js</a></li></ul>
-    </div>
-
         <div class="clearfix"></div>
       </div>
       
@@ -315,27 +311,15 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>随着js代码的增加，将所有的js代码放在一个js文件里面，会使得这个js代码非常臃肿，所以我们需要把js代码模块化。于是我们会按如下方法来做：<br><a id="more"></a></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;script src=<span class="string">"a.js"</span>&gt;&lt;/script&gt;</div><div class="line">&lt;script src=<span class="string">"b.js"</span>&gt;&lt;/script&gt;</div><div class="line">&lt;script src=<span class="string">"c.js"</span>&gt;&lt;/script&gt;</div><div class="line">&lt;script src=<span class="string">"d.js"</span>&gt;&lt;/script&gt;</div></pre></td></tr></table></figure>
-<p>这样做有两个缺陷：1 随着js文件的增多，加载js文件会阻塞浏览器的渲染；2 这些js文件之间可能存在严格的依赖关系，导致js文件的加载必须遵从顺序。</p>
-<p>为了解决这个问题，JavaScript引入了模块的概念，目前分为浏览器端和服务器端。浏览器端模块加载规范一般有AMD（异步加载js文件）和CMD（同步加载js文件），服务器端就是common.js规范。而一般情况下，浏览器端更适合使用异步加载，因为在浏览器端，js文件的加载取决于网络状况，采用异步加载，可以避免因为网络问题带来的浏览器阻塞问题。在这里将简单介绍<a href="http://requirejs.org/" target="_blank" rel="external">require.js</a>,AMD规范的一种实现方式。</p>
-<h1 id="引入require-js"><a href="#引入require-js" class="headerlink" title="引入require.js"></a>引入require.js</h1><p>首先我们在页面中引入require.js，并且设置data-main属性。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script src=<span class="string">"js/require.js"</span> data-main=<span class="string">"js/main"</span>&gt;&lt;/script&gt;</div></pre></td></tr></table></figure>
-<p>其中data-main属性指定所有js文件的一个入口。为了在引入require.js的时候不阻塞浏览器的渲染，我们可以将<code>script</code>标签放在body底部，当然也可以利用script异步加载属性。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script src=<span class="string">"js/require.js"</span> defer <span class="keyword">async</span>=<span class="string">"true"</span> &gt;&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<p><code>defer</code>是为了兼容IE</p>
-<h1 id="引入模块"><a href="#引入模块" class="headerlink" title="引入模块"></a>引入模块</h1><p>现在我们就可以在main.js入口文件中书写自己的js代码了，一般情况下入口文件会依赖很多其他模块，那么我们在使用时需要引入这些模块：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>([<span class="string">'a'</span>, <span class="string">'b'</span>],<span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</div><div class="line">    alert(a.add(<span class="number">1</span>,<span class="number">2</span>))   <span class="comment">// 3</span></div><div class="line">    alert(b.dec(<span class="number">1</span>,<span class="number">2</span>))   <span class="comment">// -1</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>根据AMD规范引入模块的写法，我们在main.js这个模块中引入了a.js和b.js这两个模块。这两个模块和main.js在同一个目录之下，但是如果不在一个目录中，那么我们就需要通过require.config定义模块路径：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>.config(&#123;</div><div class="line">    <span class="attr">paths</span>: &#123;</div><div class="line">        <span class="string">'a'</span>: <span class="string">'test/a'</span>,</div><div class="line">        <span class="string">'b'</span>: <span class="string">'test/b'</span></div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="built_in">require</span>([<span class="string">'a'</span>, <span class="string">'b'</span>],<span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</div><div class="line">    <span class="built_in">window</span>.alert(a.add(<span class="number">1</span>,<span class="number">2</span>))</div><div class="line">    <span class="built_in">window</span>.alert(b.dec(<span class="number">1</span>,<span class="number">2</span>))</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>require.config要放在main.js的头部。当然也可以改变js文件路径的基目录<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>.config(&#123;</div><div class="line">    <span class="attr">baseUrl</span>:<span class="string">'js/lib'</span>,</div><div class="line">    <span class="attr">paths</span>: &#123;</div><div class="line">        <span class="string">'a'</span>: <span class="string">'a'</span>,</div><div class="line">        <span class="string">'b'</span>: <span class="string">'b'</span></div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="built_in">require</span>([<span class="string">'a'</span>, <span class="string">'b'</span>],<span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</div><div class="line">    <span class="built_in">window</span>.alert(a.add(<span class="number">1</span>,<span class="number">2</span>))</div><div class="line">    <span class="built_in">window</span>.alert(b.dec(<span class="number">1</span>,<span class="number">2</span>))</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<h1 id="定义模块"><a href="#定义模块" class="headerlink" title="定义模块"></a>定义模块</h1><p>根据AMD规范，我们定义模块要是<code>define</code>。例如a.js</p>
-<h2 id="定义键值对"><a href="#定义键值对" class="headerlink" title="定义键值对"></a>定义键值对</h2><p>如果一个模块不依赖于其他模块并且只是一些键值对的容器</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">define(&#123;</div><div class="line">    <span class="attr">color</span>: <span class="string">"black"</span>,</div><div class="line">    <span class="attr">size</span>: <span class="string">"unisize"</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<h2 id="定义函数"><a href="#定义函数" class="headerlink" title="定义函数"></a>定义函数</h2><p>如果一个模块不依赖于其他模块，但是又要做一些设置工作。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">define(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">//Do setup work here</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="attr">color</span>: <span class="string">"black"</span>,</div><div class="line">        <span class="attr">size</span>: <span class="string">"unisize"</span></div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<h2 id="定义有依赖的函数"><a href="#定义有依赖的函数" class="headerlink" title="定义有依赖的函数"></a>定义有依赖的函数</h2><p>一般情况下，一个模块都会依赖一个或者多个其他模块，在定义这些模块时，我们要首先引入它所依赖的模块。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">define([<span class="string">"a"</span>], <span class="function"><span class="keyword">function</span>(<span class="params">a</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">       <span class="attr">result</span> : a.add(<span class="number">1</span> + <span class="number">2</span>)</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<h1 id="加载不符合AMD规范的模块"><a href="#加载不符合AMD规范的模块" class="headerlink" title="加载不符合AMD规范的模块"></a>加载不符合AMD规范的模块</h1><p>有一些模块是不符合AMD规范的，我们在使用的时候，要进行如下配置<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>.config(&#123;</div><div class="line">　　<span class="attr">shim</span>: &#123;</div><div class="line">　　　<span class="string">'underscore'</span>:&#123;</div><div class="line">　　　　　<span class="attr">exports</span>: <span class="string">'_'</span></div><div class="line">　　　 &#125;,</div><div class="line">　　   <span class="string">'backbone'</span>: &#123;</div><div class="line">　　　　　　<span class="attr">deps</span>: [<span class="string">'underscore'</span>, <span class="string">'jquery'</span>],</div><div class="line">　　　　　　<span class="attr">exports</span>: <span class="string">'Backbone'</span></div><div class="line">　　　　&#125;</div><div class="line">　　&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>即要在shim属性中定义这个模块导出后的变量名和依赖。</p>
-<p>以上介绍的是require.js的最基本用法，当然目前也就用到了这么多。</p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="http://www.ruanyifeng.com/blog/2012/11/require_js.html" target="_blank" rel="external">Javascript模块化编程（三）：require.js的用法</a><br><a href="http://requirejs.org/" target="_blank" rel="external">require.js</a></p>
+        <p>之前一直比较困惑exports和module.exports有什么区别。这里做一个比较详细的解释<br><a id="more"></a></p>
+<h1 id="exports和module-exports的区别"><a href="#exports和module-exports的区别" class="headerlink" title="exports和module.exports的区别"></a>exports和module.exports的区别</h1><p>首先我们来看一段代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = &#123;<span class="attr">name</span>: <span class="number">1</span>&#125;;</div><div class="line"><span class="keyword">var</span> b = a;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line"><span class="built_in">console</span>.log(b);</div><div class="line"></div><div class="line">b.name = <span class="number">2</span>;</div><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line"><span class="built_in">console</span>.log(b);</div><div class="line"></div><div class="line"><span class="keyword">var</span> b = &#123;<span class="attr">name</span>: <span class="number">3</span>&#125;;</div><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line"><span class="built_in">console</span>.log(b);</div><div class="line"></div><div class="line">运行 test.js 结果为：</div><div class="line"></div><div class="line">&#123; <span class="attr">name</span>: <span class="number">1</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">1</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">2</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">2</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">2</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">3</span> &#125;</div></pre></td></tr></table></figure></p>
+<p><strong>解释</strong> ：a 是一个对象，b 是对 a 的引用，即 a 和 b 指向同一块内存，所以前两个输出一样。当对 b 作修改时，即 a 和 b 指向同一块内存地址的内容发生了改变，所以 a 也会体现出来，所以第三四个输出一样。当 b 被覆盖时，b 指向了一块新的内存，a 还是指向原来的内存，所以最后两个输出不一样。</p>
+<p>明白了上述例子后，我们只需知道三点就知道 exports 和 module.exports 的区别了：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = <span class="string">'ROCK IT!'</span>;</div><div class="line">exports.name = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'My name is Lemmy Kilmister'</span>);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> rocker = <span class="built_in">require</span>(<span class="string">'./rocker.js'</span>);</div><div class="line">rocker.name(); <span class="comment">// TypeError: Object ROCK IT! has no method 'name'</span></div></pre></td></tr></table></figure>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a href="http://www.hacksparrow.com/node-js-exports-vs-module-exports.html" target="_blank" rel="external">Node.js Module – exports vs module.exports</a></p>
+<p><a href="https://github.com/chemdemo/chemdemo.github.io/issues/2" target="_blank" rel="external">Node.js module.exports与exports</a></p>
+<p><a href="https://cnodejs.org/topic/5231a630101e574521e45ef8" target="_blank" rel="external">exports 和 module.exports 的区别</a></p>
 
       
     </div>
@@ -344,13 +328,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/04/04/JavaScript模块加载 - AMD/">JavaScript模块加载 - AMD</a></p>
+        <p><span>本文标题:</span><a href="/2017/07/06/exports和module-exports的区别/">exports和module.exports的区别</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">DJLXS</a></p>
-        <p><span>发布时间:</span>2017-04-04, 17:58:55</p>
-        <p><span>最后更新:</span>2017-04-04, 18:12:14</p>
+        <p><span>发布时间:</span>2017-07-06, 17:46:54</p>
+        <p><span>最后更新:</span>2017-07-06, 17:59:14</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/04/04/JavaScript模块加载 - AMD/" title="JavaScript模块加载 - AMD">http://djl.pub/2017/04/04/JavaScript模块加载 - AMD/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://djl.pub/2017/04/04/JavaScript模块加载 - AMD/　　作者: DJLXS" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/07/06/exports和module-exports的区别/" title="exports和module.exports的区别">http://djl.pub/2017/07/06/exports和module-exports的区别/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://djl.pub/2017/07/06/exports和module-exports的区别/　　作者: DJLXS" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -362,16 +346,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/04/06/angular1学习之directive/">
-                    angular1学习之directive
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/03/25/NODE使用小插件/">
-                    NODE使用小插件
+                <a href="/2017/05/01/Vue2变化/">
+                    Vue2变化
                 </a>
             </div>
         
@@ -383,7 +361,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#引入require-js"><span class="toc-number">1.</span> <span class="toc-text">引入require.js</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#引入模块"><span class="toc-number">2.</span> <span class="toc-text">引入模块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#定义模块"><span class="toc-number">3.</span> <span class="toc-text">定义模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义键值对"><span class="toc-number">3.1.</span> <span class="toc-text">定义键值对</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定义函数"><span class="toc-number">3.2.</span> <span class="toc-text">定义函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定义有依赖的函数"><span class="toc-number">3.3.</span> <span class="toc-text">定义有依赖的函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#加载不符合AMD规范的模块"><span class="toc-number">4.</span> <span class="toc-text">加载不符合AMD规范的模块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文章"><span class="toc-number">5.</span> <span class="toc-text">参考文章</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#exports和module-exports的区别"><span class="toc-number">1.</span> <span class="toc-text">exports和module.exports的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文章"><span class="toc-number">1.1.</span> <span class="toc-text">参考文章</span></a></li></ol></li></ol>
         
     </div>
     <style>
@@ -419,7 +397,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"JavaScript模块加载 - AMD　| DJLXS　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"exports和module.exports的区别　| DJLXS　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -471,15 +449,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/04/06/angular1学习之directive/" title="上一篇: angular1学习之directive">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/03/25/NODE使用小插件/" title="下一篇: NODE使用小插件">
+            <a href="/2017/05/01/Vue2变化/" title="下一篇: Vue2变化">
                 <i class="fa fa-angle-right"></i>
             </a>
         
