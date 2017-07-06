@@ -15,16 +15,16 @@
 
 
 
-<meta name="description" content="exports和module.exports的区别首先我们来看一段代码：12345678910111213141516171819202122var a = &amp;#123;name: 1&amp;#125;;var b = a;console.log(a);console.log(b);b.name = 2;console.log(a);console.log(b);var b = &amp;#123;name:">
+<meta name="description" content="之前一直比较困惑exports和module.exports有什么区别。这里做一个比较详细的解释">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DJLXS">
+<meta property="og:title" content="exports和module.exports的区别">
 <meta property="og:url" content="http://djl.pub/2017/07/06/exports和module.exports的区别/index.html">
 <meta property="og:site_name" content="DJLXS">
-<meta property="og:description" content="exports和module.exports的区别首先我们来看一段代码：12345678910111213141516171819202122var a = &amp;#123;name: 1&amp;#125;;var b = a;console.log(a);console.log(b);b.name = 2;console.log(a);console.log(b);var b = &amp;#123;name:">
-<meta property="og:updated_time" content="2017-07-06T09:43:02.000Z">
+<meta property="og:description" content="之前一直比较困惑exports和module.exports有什么区别。这里做一个比较详细的解释">
+<meta property="og:updated_time" content="2017-07-06T09:59:14.961Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DJLXS">
-<meta name="twitter:description" content="exports和module.exports的区别首先我们来看一段代码：12345678910111213141516171819202122var a = &amp;#123;name: 1&amp;#125;;var b = a;console.log(a);console.log(b);b.name = 2;console.log(a);console.log(b);var b = &amp;#123;name:">
+<meta name="twitter:title" content="exports和module.exports的区别">
+<meta name="twitter:description" content="之前一直比较困惑exports和module.exports有什么区别。这里做一个比较详细的解释">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>DJLXS</title>
+<title>exports和module.exports的区别 | DJLXS</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -143,13 +143,13 @@
                 <div class="tips-box hide">
                     <div class="tips-arrow"></div>
                     <ul class="tips-inner">
-                        <li>Menu</li>
-                        <li>Tags</li>
+                        <li>菜单</li>
+                        <li>标签</li>
                         
-                        <li>Friends</li>
+                        <li>友情链接</li>
                         
                         
-                        <li>About Me</li>
+                        <li>关于我</li>
                         
                     </ul>
                 </div>
@@ -273,13 +273,13 @@
             </nav>
         </header>                
     </div>
-    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
       <div class="body-wrap"><article id="post-exports和module.exports的区别" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2017/07/06/exports和module.exports的区别/" class="article-date">
-      <time datetime="2017-07-06T09:44:31.957Z" itemprop="datePublished">2017-07-06</time>
+      <time datetime="2017-07-06T09:46:54.000Z" itemprop="datePublished">2017-07-06</time>
 </a>
 
 
@@ -290,23 +290,33 @@
       <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      exports和module.exports的区别
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="exports和module-exports的区别"><a href="#exports和module-exports的区别" class="headerlink" title="exports和module.exports的区别"></a>exports和module.exports的区别</h1><p>首先我们来看一段代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = &#123;<span class="attr">name</span>: <span class="number">1</span>&#125;;</div><div class="line"><span class="keyword">var</span> b = a;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line"><span class="built_in">console</span>.log(b);</div><div class="line"></div><div class="line">b.name = <span class="number">2</span>;</div><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line"><span class="built_in">console</span>.log(b);</div><div class="line"></div><div class="line"><span class="keyword">var</span> b = &#123;<span class="attr">name</span>: <span class="number">3</span>&#125;;</div><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line"><span class="built_in">console</span>.log(b);</div><div class="line"></div><div class="line">运行 test.js 结果为：</div><div class="line"></div><div class="line">&#123; <span class="attr">name</span>: <span class="number">1</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">1</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">2</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">2</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">2</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">3</span> &#125;</div></pre></td></tr></table></figure></p>
-<p><strong>解释</strong>：a 是一个对象，b 是对 a 的引用，即 a 和 b 指向同一块内存，所以前两个输出一样。当对 b 作修改时，即 a 和 b 指向同一块内存地址的内容发生了改变，所以 a 也会体现出来，所以第三四个输出一样。当 b 被覆盖时，b 指向了一块新的内存，a 还是指向原来的内存，所以最后两个输出不一样。</p>
+        <p>之前一直比较困惑exports和module.exports有什么区别。这里做一个比较详细的解释<br><a id="more"></a></p>
+<h1 id="exports和module-exports的区别"><a href="#exports和module-exports的区别" class="headerlink" title="exports和module.exports的区别"></a>exports和module.exports的区别</h1><p>首先我们来看一段代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = &#123;<span class="attr">name</span>: <span class="number">1</span>&#125;;</div><div class="line"><span class="keyword">var</span> b = a;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line"><span class="built_in">console</span>.log(b);</div><div class="line"></div><div class="line">b.name = <span class="number">2</span>;</div><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line"><span class="built_in">console</span>.log(b);</div><div class="line"></div><div class="line"><span class="keyword">var</span> b = &#123;<span class="attr">name</span>: <span class="number">3</span>&#125;;</div><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line"><span class="built_in">console</span>.log(b);</div><div class="line"></div><div class="line">运行 test.js 结果为：</div><div class="line"></div><div class="line">&#123; <span class="attr">name</span>: <span class="number">1</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">1</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">2</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">2</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">2</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">3</span> &#125;</div></pre></td></tr></table></figure></p>
+<p><strong>解释</strong> ：a 是一个对象，b 是对 a 的引用，即 a 和 b 指向同一块内存，所以前两个输出一样。当对 b 作修改时，即 a 和 b 指向同一块内存地址的内容发生了改变，所以 a 也会体现出来，所以第三四个输出一样。当 b 被覆盖时，b 指向了一块新的内存，a 还是指向原来的内存，所以最后两个输出不一样。</p>
 <p>明白了上述例子后，我们只需知道三点就知道 exports 和 module.exports 的区别了：</p>
-<ul>
-<li><code>module.exports</code> 初始值为一个空对象 {}</li>
-<li><code>exports</code> 是指向的 <code>module.exports</code> 的引用</li>
-<li><code>require()</code> 返回的是 <code>module.exports</code> 而不是 <code>exports</code></li>
-<li><code>exports.xxx</code>，相当于在导出对象上挂属性，该属性对调用模块直接可见</li>
-<li><code>exports =</code> 相当于给exports对象重新赋值，调用模块不能访问exports对象及其属性,因为require返回的是<code>module.exports</code></li>
-<li>如果此模块是一个类，就应该直接赋值module.exports，这样调用者就是一个类构造器，可以直接new实例；如果要导出一个模块实例，那么就直接挂在exports上</li>
-<li>如果module.exports已经存在(即使是module.exports = {})，那么exports上面添加的任何属性都将被忽略</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = <span class="string">'ROCK IT!'</span>;</div><div class="line">exports.name = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'My name is Lemmy Kilmister'</span>);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> rocker = <span class="built_in">require</span>(<span class="string">'./rocker.js'</span>);</div><div class="line">rocker.name(); <span class="comment">// TypeError: Object ROCK IT! has no method 'name'</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = <span class="string">'ROCK IT!'</span>;</div><div class="line">exports.name = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'My name is Lemmy Kilmister'</span>);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> rocker = <span class="built_in">require</span>(<span class="string">'./rocker.js'</span>);</div><div class="line">rocker.name(); <span class="comment">// TypeError: Object ROCK IT! has no method 'name'</span></div></pre></td></tr></table></figure>
 <h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a href="http://www.hacksparrow.com/node-js-exports-vs-module-exports.html" target="_blank" rel="external">Node.js Module – exports vs module.exports</a></p>
 <p><a href="https://github.com/chemdemo/chemdemo.github.io/issues/2" target="_blank" rel="external">Node.js module.exports与exports</a></p>
 <p><a href="https://cnodejs.org/topic/5231a630101e574521e45ef8" target="_blank" rel="external">exports 和 module.exports 的区别</a></p>
@@ -318,17 +328,17 @@
   
     
     <div class="copyright">
-        <p><span>Title:</span><a href="/2017/07/06/exports和module.exports的区别/"></a></p>
-        <p><span>Author:</span><a href="/" title="Back to Homepage">DJLXS</a></p>
-        <p><span>Created:</span>2017-07-06, 17:44:31</p>
-        <p><span>Updated:</span>2017-07-06, 17:43:02</p>
+        <p><span>本文标题:</span><a href="/2017/07/06/exports和module.exports的区别/">exports和module.exports的区别</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">DJLXS</a></p>
+        <p><span>发布时间:</span>2017-07-06, 17:46:54</p>
+        <p><span>最后更新:</span>2017-07-06, 17:59:14</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2017/07/06/exports和module.exports的区别/" title="">http://djl.pub/2017/07/06/exports和module.exports的区别/</a>
-            <span class="copy-path" data-clipboard-text="From http://djl.pub/2017/07/06/exports和module.exports的区别/　　By DJLXS" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/07/06/exports和module.exports的区别/" title="exports和module.exports的区别">http://djl.pub/2017/07/06/exports和module.exports的区别/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://djl.pub/2017/07/06/exports和module.exports的区别/　　作者: DJLXS" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
-            <span>License:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"CC BY-NC-SA 4.0"</a> Keep Link &amp; Author if Distribute.
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
         </p>
     </div>
 
@@ -349,7 +359,7 @@
 </article>
 
     <div id="toc" class="toc-article">
-        <strong class="toc-title">Contents</strong>
+        <strong class="toc-title">文章目录</strong>
         
             <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#exports和module-exports的区别"><span class="toc-number">1.</span> <span class="toc-text">exports和module.exports的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文章"><span class="toc-number">1.1.</span> <span class="toc-text">参考文章</span></a></li></ol></li></ol>
         
@@ -365,10 +375,10 @@
         }
     </style>
 
-    <input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
     <script>
-        yiliaConfig.toc = ["Hide", "Show", !!"false"];
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
     </script>
 
 
@@ -387,7 +397,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"　| DJLXS　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"exports和module.exports的区别　| DJLXS　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -439,13 +449,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="Back to Homepage"><i class="fa fa-home"></i></a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
-        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/05/01/Vue2变化/" title="Next: Vue2变化">
+            <a href="/2017/05/01/Vue2变化/" title="下一篇: Vue2变化">
                 <i class="fa fa-angle-right"></i>
             </a>
         
@@ -468,14 +478,14 @@
                 2017 DJLXS
             </div>
             <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
             </div>
         </div>
         
             <div class="visit">
                 
                     <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" title="Site Visitors"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
                         </span>
                     </span>
                 
@@ -484,7 +494,7 @@
                 
                 
                     <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit"  title="Page Hits"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
                         </span>
                     </span>
                 
@@ -501,9 +511,9 @@
 
 
 <div class="scroll" id="scroll">
-    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
 </div>
 <script>
     // Open in New Window
