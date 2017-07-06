@@ -4,29 +4,6 @@
   
     
     <entry>
-      <title></title>
-      <url>http://djl.pub/2017/07/06/exports%E5%92%8Cmodule.exports%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-      <content type="html"><![CDATA[<h1 id="exports和module-exports的区别"><a href="#exports和module-exports的区别" class="headerlink" title="exports和module.exports的区别"></a>exports和module.exports的区别</h1><p>首先我们来看一段代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = &#123;<span class="attr">name</span>: <span class="number">1</span>&#125;;</div><div class="line"><span class="keyword">var</span> b = a;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line"><span class="built_in">console</span>.log(b);</div><div class="line"></div><div class="line">b.name = <span class="number">2</span>;</div><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line"><span class="built_in">console</span>.log(b);</div><div class="line"></div><div class="line"><span class="keyword">var</span> b = &#123;<span class="attr">name</span>: <span class="number">3</span>&#125;;</div><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line"><span class="built_in">console</span>.log(b);</div><div class="line"></div><div class="line">运行 test.js 结果为：</div><div class="line"></div><div class="line">&#123; <span class="attr">name</span>: <span class="number">1</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">1</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">2</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">2</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">2</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">3</span> &#125;</div></pre></td></tr></table></figure></p>
-<p><strong>解释</strong>：a 是一个对象，b 是对 a 的引用，即 a 和 b 指向同一块内存，所以前两个输出一样。当对 b 作修改时，即 a 和 b 指向同一块内存地址的内容发生了改变，所以 a 也会体现出来，所以第三四个输出一样。当 b 被覆盖时，b 指向了一块新的内存，a 还是指向原来的内存，所以最后两个输出不一样。</p>
-<p>明白了上述例子后，我们只需知道三点就知道 exports 和 module.exports 的区别了：</p>
-<ul>
-<li><code>module.exports</code> 初始值为一个空对象 {}</li>
-<li><code>exports</code> 是指向的 <code>module.exports</code> 的引用</li>
-<li><code>require()</code> 返回的是 <code>module.exports</code> 而不是 <code>exports</code></li>
-<li><code>exports.xxx</code>，相当于在导出对象上挂属性，该属性对调用模块直接可见</li>
-<li><code>exports =</code> 相当于给exports对象重新赋值，调用模块不能访问exports对象及其属性,因为require返回的是<code>module.exports</code></li>
-<li>如果此模块是一个类，就应该直接赋值module.exports，这样调用者就是一个类构造器，可以直接new实例；如果要导出一个模块实例，那么就直接挂在exports上</li>
-<li>如果module.exports已经存在(即使是module.exports = {})，那么exports上面添加的任何属性都将被忽略</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = <span class="string">'ROCK IT!'</span>;</div><div class="line">exports.name = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'My name is Lemmy Kilmister'</span>);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> rocker = <span class="built_in">require</span>(<span class="string">'./rocker.js'</span>);</div><div class="line">rocker.name(); <span class="comment">// TypeError: Object ROCK IT! has no method 'name'</span></div></pre></td></tr></table></figure>
-<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a href="http://www.hacksparrow.com/node-js-exports-vs-module-exports.html" target="_blank" rel="external">Node.js Module – exports vs module.exports</a></p>
-<p><a href="https://github.com/chemdemo/chemdemo.github.io/issues/2" target="_blank" rel="external">Node.js module.exports与exports</a></p>
-<p><a href="https://cnodejs.org/topic/5231a630101e574521e45ef8" target="_blank" rel="external">exports 和 module.exports 的区别</a></p>
-]]></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[Vue2变化]]></title>
       <url>http://djl.pub/2017/05/01/Vue2%E5%8F%98%E5%8C%96/</url>
       <content type="html"><![CDATA[<p>之前学习的是Vue1.0，这次项目开发使用的Vue2.0，其中有一些不同和新功能在这里记录一下。<a href="http://cn.vuejs.org/v2/guide/migration.html" target="_blank" rel="external">迁移文档</a><br><a id="more"></a></p>
