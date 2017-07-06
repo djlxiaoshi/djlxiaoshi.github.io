@@ -15,18 +15,16 @@
 
 
 
-<meta name="description" content="当访问其他域名或者同一域名不同端口上的资源时，就会产生跨域请求。而跨域请求确实是发起了，但是返回的结果却被浏览器拦截了，请求必须遵循的同源策略。但是在工作中不可避免的会进行跨域访问。现在用的最多的就是Jsonp和cors但是jsonp只能发起get请求，而且携带数据量较小，如果要发起post请求，那么就要采用cors方案。">
+<meta name="description" content="exports和module.exports的区别首先我们来看一段代码：12345678910111213141516171819202122var a = &amp;#123;name: 1&amp;#125;;var b = a;console.log(a);console.log(b);b.name = 2;console.log(a);console.log(b);var b = &amp;#123;name:">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CORS跨域">
-<meta property="og:url" content="http://djl.pub/2017/03/25/CORS跨域/index.html">
+<meta property="og:title" content="DJLXS">
+<meta property="og:url" content="http://djl.pub/2017/07/06/exports和module.exports的区别/index.html">
 <meta property="og:site_name" content="DJLXS">
-<meta property="og:description" content="当访问其他域名或者同一域名不同端口上的资源时，就会产生跨域请求。而跨域请求确实是发起了，但是返回的结果却被浏览器拦截了，请求必须遵循的同源策略。但是在工作中不可避免的会进行跨域访问。现在用的最多的就是Jsonp和cors但是jsonp只能发起get请求，而且携带数据量较小，如果要发起post请求，那么就要采用cors方案。">
-<meta property="og:image" content="https://mdn.mozillademos.org/files/14293/simple_req.png">
-<meta property="og:updated_time" content="2017-04-04T10:07:49.503Z">
+<meta property="og:description" content="exports和module.exports的区别首先我们来看一段代码：12345678910111213141516171819202122var a = &amp;#123;name: 1&amp;#125;;var b = a;console.log(a);console.log(b);b.name = 2;console.log(a);console.log(b);var b = &amp;#123;name:">
+<meta property="og:updated_time" content="2017-07-06T09:43:02.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CORS跨域">
-<meta name="twitter:description" content="当访问其他域名或者同一域名不同端口上的资源时，就会产生跨域请求。而跨域请求确实是发起了，但是返回的结果却被浏览器拦截了，请求必须遵循的同源策略。但是在工作中不可避免的会进行跨域访问。现在用的最多的就是Jsonp和cors但是jsonp只能发起get请求，而且携带数据量较小，如果要发起post请求，那么就要采用cors方案。">
-<meta name="twitter:image" content="https://mdn.mozillademos.org/files/14293/simple_req.png">
+<meta name="twitter:title" content="DJLXS">
+<meta name="twitter:description" content="exports和module.exports的区别首先我们来看一段代码：12345678910111213141516171819202122var a = &amp;#123;name: 1&amp;#125;;var b = a;console.log(a);console.log(b);b.name = 2;console.log(a);console.log(b);var b = &amp;#123;name:">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -58,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>CORS跨域 | DJLXS</title>
+<title>DJLXS</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -277,11 +275,11 @@
     </div>
     <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
-      <div class="body-wrap"><article id="post-CORS跨域" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-exports和module.exports的区别" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/03/25/CORS跨域/" class="article-date">
-      <time datetime="2017-03-25T07:41:42.000Z" itemprop="datePublished">2017-03-25</time>
+      <a href="/2017/07/06/exports和module.exports的区别/" class="article-date">
+      <time datetime="2017-07-06T09:44:31.957Z" itemprop="datePublished">2017-07-06</time>
 </a>
 
 
@@ -292,85 +290,26 @@
       <input type="hidden" class="isFancy" />
     
     
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      CORS跨域
-    </h1>
-  
-
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-
-        
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CORS/">CORS</a></li></ul>
-    </div>
-
-        <div class="clearfix"></div>
-      </div>
-      
-    
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>当访问其他域名或者同一域名不同端口上的资源时，就会产生跨域请求。而跨域请求确实是发起了，但是返回的结果却被浏览器拦截了，请求必须遵循的<a href="https://developer.mozilla.org/zh-CN/docs/Web/Security/Same-origin_policy" target="_blank" rel="external">同源策略</a>。但是在工作中不可避免的会进行跨域访问。现在用的最多的就是Jsonp和cors但是jsonp只能发起get请求，而且携带数据量较小，如果要发起post请求，那么就要采用cors方案。<br><a id="more"></a></p>
-<h2 id="允许跨域场景"><a href="#允许跨域场景" class="headerlink" title="允许跨域场景"></a>允许跨域场景</h2><p>跨源资源共享标准( cross-origin sharing standard ) 允许以下场景可以发起跨站 HTTP 请求：</p>
+        <h1 id="exports和module-exports的区别"><a href="#exports和module-exports的区别" class="headerlink" title="exports和module.exports的区别"></a>exports和module.exports的区别</h1><p>首先我们来看一段代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = &#123;<span class="attr">name</span>: <span class="number">1</span>&#125;;</div><div class="line"><span class="keyword">var</span> b = a;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line"><span class="built_in">console</span>.log(b);</div><div class="line"></div><div class="line">b.name = <span class="number">2</span>;</div><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line"><span class="built_in">console</span>.log(b);</div><div class="line"></div><div class="line"><span class="keyword">var</span> b = &#123;<span class="attr">name</span>: <span class="number">3</span>&#125;;</div><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line"><span class="built_in">console</span>.log(b);</div><div class="line"></div><div class="line">运行 test.js 结果为：</div><div class="line"></div><div class="line">&#123; <span class="attr">name</span>: <span class="number">1</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">1</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">2</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">2</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">2</span> &#125;</div><div class="line">&#123; <span class="attr">name</span>: <span class="number">3</span> &#125;</div></pre></td></tr></table></figure></p>
+<p><strong>解释</strong>：a 是一个对象，b 是对 a 的引用，即 a 和 b 指向同一块内存，所以前两个输出一样。当对 b 作修改时，即 a 和 b 指向同一块内存地址的内容发生了改变，所以 a 也会体现出来，所以第三四个输出一样。当 b 被覆盖时，b 指向了一块新的内存，a 还是指向原来的内存，所以最后两个输出不一样。</p>
+<p>明白了上述例子后，我们只需知道三点就知道 exports 和 module.exports 的区别了：</p>
 <ul>
-<li>使用 XMLHttpRequest 或 Fetch发起跨站 HTTP 请求。</li>
-<li>Web 字体 (CSS 中通过 @font-face使用跨站字体资源)</li>
-<li>WebGL 贴图</li>
-<li>使用drawImage 将 Images/video 画面绘制到canvas.</li>
-<li>样式表（使用 CSSOM）</li>
-<li>Scripts (未处理的异常)</li>
+<li><code>module.exports</code> 初始值为一个空对象 {}</li>
+<li><code>exports</code> 是指向的 <code>module.exports</code> 的引用</li>
+<li><code>require()</code> 返回的是 <code>module.exports</code> 而不是 <code>exports</code></li>
+<li><code>exports.xxx</code>，相当于在导出对象上挂属性，该属性对调用模块直接可见</li>
+<li><code>exports =</code> 相当于给exports对象重新赋值，调用模块不能访问exports对象及其属性,因为require返回的是<code>module.exports</code></li>
+<li>如果此模块是一个类，就应该直接赋值module.exports，这样调用者就是一个类构造器，可以直接new实例；如果要导出一个模块实例，那么就直接挂在exports上</li>
+<li>如果module.exports已经存在(即使是module.exports = {})，那么exports上面添加的任何属性都将被忽略</li>
 </ul>
-<p>cors通过增加一些HTTP头，让服务器声明哪些源可以通过浏览器访问该服务器上的资源。其实也就是设置’Access-Control-Allow-Origin’,’*‘这个响应头，当然这里是允许所有来源，我们也可以具体指定。注意设置了credentials = true,就不能设置’Access-Control-Allow-Origin’, ‘*’,会报错。</p>
-<h2 id="预请求"><a href="#预请求" class="headerlink" title="预请求"></a>预请求</h2><p>一般发起的跨域请求都会先发送预请求，服务器允许后，浏览器才会以真正的HTTP请求方式发送请求，这是出于服务器的安全。那么如果同时满足一下几种情况是不会发送预请求（请求方式为OPTIONS，这是HTTP1.1中新增的方式）的。</p>
-<h3 id="请求方式必须是GET、POST、HEAD"><a href="#请求方式必须是GET、POST、HEAD" class="headerlink" title="请求方式必须是GET、POST、HEAD"></a>请求方式必须是GET、POST、HEAD</h3><h3 id="请求头除了是用户代理自动设置（例如：Connection-User-Agent）和如下请求头"><a href="#请求头除了是用户代理自动设置（例如：Connection-User-Agent）和如下请求头" class="headerlink" title="请求头除了是用户代理自动设置（例如：Connection, User-Agent）和如下请求头"></a>请求头除了是用户代理自动设置（例如：Connection, User-Agent）和如下请求头</h3><ul>
-<li>Accept</li>
-<li>Accept-Language</li>
-<li>Content-Language</li>
-<li>Content-Type (but note the additional requirements below)</li>
-<li>DPR</li>
-<li>Downlink</li>
-<li>Save-Data</li>
-<li>Viewport-Width</li>
-<li>Width</li>
-</ul>
-<h3 id="Content-type必须要是如下值"><a href="#Content-type必须要是如下值" class="headerlink" title="Content-type必须要是如下值"></a>Content-type必须要是如下值</h3><ul>
-<li>application/x-www-form-urlencoded</li>
-<li>multipart/form-data</li>
-<li>text/plain</li>
-</ul>
-<p><strong>注意上面三个条件必须是同时满足</strong></p>
-<p>例如POST请求，但是如果Content-type:application/json那么就会发起预请求。</p>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>域为<a href="http://foo.example向域为http://bar.other的发起请求" target="_blank" rel="external">http://foo.example向域为http://bar.other的发起请求</a></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> invocation = <span class="keyword">new</span> XMLHttpRequest();</div><div class="line"><span class="keyword">var</span> url = <span class="string">'http://bar.other/resources/public-data/'</span>;</div><div class="line">   </div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">callOtherDomain</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span>(invocation) &#123;    </div><div class="line">    invocation.open(<span class="string">'GET'</span>, url, <span class="literal">true</span>);</div><div class="line">    invocation.onreadystatechange = handler;</div><div class="line">    invocation.send(); </div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><img src="https://mdn.mozillademos.org/files/14293/simple_req.png" alt="示意图"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">GET /resources/public-data/ HTTP/1.1</div><div class="line">Host: bar.other</div><div class="line">User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; en-US; rv:1.9.1b3pre) Gecko/20081130 Minefield/3.1b3pre</div><div class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</div><div class="line">Accept-Language: en-us,en;q=0.5</div><div class="line">Accept-Encoding: gzip,deflate</div><div class="line">Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7</div><div class="line">Connection: keep-alive</div><div class="line">Referer: http://foo.example/examples/access-control/simpleXSInvocation.html</div><div class="line">Origin: http://foo.example</div><div class="line"></div><div class="line"></div><div class="line">HTTP/1.1 200 OK</div><div class="line">Date: Mon, 01 Dec 2008 00:23:53 GMT</div><div class="line">Server: Apache/2.0.61 </div><div class="line">Access-Control-Allow-Origin: *</div><div class="line">Keep-Alive: timeout=2, max=100</div><div class="line">Connection: Keep-Alive</div><div class="line">Transfer-Encoding: chunked</div><div class="line">Content-Type: application/xml</div></pre></td></tr></table></figure>
-<p>我们可以看到响应头中设置了<code>Access-Control-Allow-Origin: *</code>，那么此时是能够正常拿到数据的。</p>
-<h2 id="携带cookies"><a href="#携带cookies" class="headerlink" title="携带cookies"></a>携带cookies</h2><p>一般而言，对于跨站请求，浏览器是不会发送凭证信息的。但如果将XMLHttpRequest的一个特殊标志位设置为true，浏览器就将允许该请求的发送。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> invocation = <span class="keyword">new</span> XMLHttpRequest();</div><div class="line"><span class="keyword">var</span> url = <span class="string">'http://bar.other/resources/credentialed-content/'</span>;</div><div class="line">    </div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">callOtherDomain</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">if</span>(invocation) &#123;</div><div class="line">    invocation.open(<span class="string">'GET'</span>, url, <span class="literal">true</span>);</div><div class="line">    invocation.withCredentials = <span class="literal">true</span>;</div><div class="line">    invocation.onreadystatechange = handler;</div><div class="line">    invocation.send(); </div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-<p>这里只是设置了一个标志位，并不是一个请求头，所以这是一个简单请求，是不会发送预请求的。但是在服务器端一定要设置<code>Access-Control-Allow-Credentials:true</code>,不然浏览器不会把服务器端的结果返回给发起请求的script脚本，浏览器会报错。</p>
-<h2 id="发起跨域请求时，服务器返回的部分HTTP响应头"><a href="#发起跨域请求时，服务器返回的部分HTTP响应头" class="headerlink" title="发起跨域请求时，服务器返回的部分HTTP响应头"></a>发起跨域请求时，服务器返回的部分HTTP响应头</h2><ul>
-<li>Access-Control-Allow-Origin    设置允许的客户端代理。<strong>注意当设置值为*时，就不能在客户端设置withCredentials为TRUE</strong></li>
-<li>Access-Control-Expose-Headers：设置浏览器可以的访问到的服务器头信息的白名单，如果设置，那么在浏览器端是可以看到服务器设置了哪些头信息。<blockquote>
-<p>Access-Control-Expose-Headers: X-My-Custom-Header, X-Another-Custom-Header</p>
-</blockquote>
-</li>
-<li>Access-Control-Max-Age：允许这个预请求可以缓存的时间，在设置时间内，将不再发送这个预请求</li>
-<li>Access-Control-Allow-Credentials：设置服务器响应数据是否可以被<code>credentials</code>设置为TRUE的客户端拿到，如果为FALSE，那么响应数据客户端script脚本是拿不到的。</li>
-<li>Access-Control-Allow-Methods：设置客户端发起请求的方式</li>
-</ul>
-<h2 id="HTTP-请求头"><a href="#HTTP-请求头" class="headerlink" title="HTTP 请求头"></a>HTTP 请求头</h2><ul>
-<li>origin ：表明发起跨域请求的域</li>
-<li>Access-Control-Request-Method ：这个是在发送预请求时，告诉服务器，真实请求的请求方式。</li>
-<li>Access-Control-Request-Headers ：当发送预请求时，告诉服务器，发送真实请求时，所包含的请求头信息。</li>
-</ul>
-<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS" target="_blank" rel="external">HTTP access control (CORS)</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>.exports = <span class="string">'ROCK IT!'</span>;</div><div class="line">exports.name = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'My name is Lemmy Kilmister'</span>);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> rocker = <span class="built_in">require</span>(<span class="string">'./rocker.js'</span>);</div><div class="line">rocker.name(); <span class="comment">// TypeError: Object ROCK IT! has no method 'name'</span></div></pre></td></tr></table></figure>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a href="http://www.hacksparrow.com/node-js-exports-vs-module-exports.html" target="_blank" rel="external">Node.js Module – exports vs module.exports</a></p>
+<p><a href="https://github.com/chemdemo/chemdemo.github.io/issues/2" target="_blank" rel="external">Node.js module.exports与exports</a></p>
+<p><a href="https://cnodejs.org/topic/5231a630101e574521e45ef8" target="_blank" rel="external">exports 和 module.exports 的区别</a></p>
 
       
     </div>
@@ -379,13 +318,13 @@
   
     
     <div class="copyright">
-        <p><span>Title:</span><a href="/2017/03/25/CORS跨域/">CORS跨域</a></p>
+        <p><span>Title:</span><a href="/2017/07/06/exports和module.exports的区别/"></a></p>
         <p><span>Author:</span><a href="/" title="Back to Homepage">DJLXS</a></p>
-        <p><span>Created:</span>2017-03-25, 15:41:42</p>
-        <p><span>Updated:</span>2017-04-04, 18:07:49</p>
+        <p><span>Created:</span>2017-07-06, 17:44:31</p>
+        <p><span>Updated:</span>2017-07-06, 17:43:02</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2017/03/25/CORS跨域/" title="CORS跨域">http://djl.pub/2017/03/25/CORS跨域/</a>
-            <span class="copy-path" data-clipboard-text="From http://djl.pub/2017/03/25/CORS跨域/　　By DJLXS" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>Full URL:</span><a class="post-url" href="/2017/07/06/exports和module.exports的区别/" title="">http://djl.pub/2017/07/06/exports和module.exports的区别/</a>
+            <span class="copy-path" data-clipboard-text="From http://djl.pub/2017/07/06/exports和module.exports的区别/　　By DJLXS" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -397,16 +336,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/03/25/NODE使用小插件/">
-                    NODE使用小插件
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/03/11/前端跨域请求原理及实现/">
-                    前端跨域请求原理及实践
+                <a href="/2017/05/01/Vue2变化/">
+                    Vue2变化
                 </a>
             </div>
         
@@ -418,7 +351,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#允许跨域场景"><span class="toc-number">1.</span> <span class="toc-text">允许跨域场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#预请求"><span class="toc-number">2.</span> <span class="toc-text">预请求</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#请求方式必须是GET、POST、HEAD"><span class="toc-number">2.1.</span> <span class="toc-text">请求方式必须是GET、POST、HEAD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#请求头除了是用户代理自动设置（例如：Connection-User-Agent）和如下请求头"><span class="toc-number">2.2.</span> <span class="toc-text">请求头除了是用户代理自动设置（例如：Connection, User-Agent）和如下请求头</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Content-type必须要是如下值"><span class="toc-number">2.3.</span> <span class="toc-text">Content-type必须要是如下值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例"><span class="toc-number">3.</span> <span class="toc-text">示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#携带cookies"><span class="toc-number">4.</span> <span class="toc-text">携带cookies</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#发起跨域请求时，服务器返回的部分HTTP响应头"><span class="toc-number">5.</span> <span class="toc-text">发起跨域请求时，服务器返回的部分HTTP响应头</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP-请求头"><span class="toc-number">6.</span> <span class="toc-text">HTTP 请求头</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文章"><span class="toc-number">7.</span> <span class="toc-text">参考文章</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#exports和module-exports的区别"><span class="toc-number">1.</span> <span class="toc-text">exports和module.exports的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文章"><span class="toc-number">1.1.</span> <span class="toc-text">参考文章</span></a></li></ol></li></ol>
         
     </div>
     <style>
@@ -454,7 +387,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"CORS跨域　| DJLXS　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"　| DJLXS　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -506,15 +439,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/03/25/NODE使用小插件/" title="Pre: NODE使用小插件">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="Back to Homepage"><i class="fa fa-home"></i></a>
         
 
         <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/03/11/前端跨域请求原理及实现/" title="Next: 前端跨域请求原理及实践">
+            <a href="/2017/05/01/Vue2变化/" title="Next: Vue2变化">
                 <i class="fa fa-angle-right"></i>
             </a>
         
