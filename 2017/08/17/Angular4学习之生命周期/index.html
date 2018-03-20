@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="DJLXS" />
+
+
+
+<meta name="description" content="组件生命周期就是组件从创建到销毁过程中的一些关键点，Angular为我们提供了一些钩子函数，允许我们在组件的相应生命周期到来时进行必要操作。首先我们来看看Angular的生命周期示意图：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular4学习之生命周期">
+<meta property="og:url" content="http://djl.pub/2017/08/17/Angular4学习之生命周期/index.html">
+<meta property="og:site_name" content="DJLXS">
+<meta property="og:description" content="组件生命周期就是组件从创建到销毁过程中的一些关键点，Angular为我们提供了一些钩子函数，允许我们在组件的相应生命周期到来时进行必要操作。首先我们来看看Angular的生命周期示意图：">
+<meta property="og:image" content="http://ok3x4ia9b.bkt.clouddn.com/17-8-5/94857391.jpg">
+<meta property="og:updated_time" content="2018-03-20T15:10:19.894Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Angular4学习之生命周期">
+<meta name="twitter:description" content="组件生命周期就是组件从创建到销毁过程中的一些关键点，Angular为我们提供了一些钩子函数，允许我们在组件的相应生命周期到来时进行必要操作。首先我们来看看Angular的生命周期示意图：">
+<meta name="twitter:image" content="http://ok3x4ia9b.bkt.clouddn.com/17-8-5/94857391.jpg">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="DJLXS" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Angular4学习之生命周期 | DJLXS</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">DJLXS</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜單</li>
+                        <li>標籤</li>
+                        
+                        <li>友情鏈接</li>
+                        
+                        
+                        <li>關於我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/随笔">随笔</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" href="http://www.weibo.com/u/3687140617/home" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/djlxiaoshi/" title="GitHub"></a>
+                            
+                                <a class="fa 简书" href="http://www.jianshu.com/u/d8657fcf1678" title="简书"></a>
+                            
+                                <a class="fa 博客园" href="http://www.cnblogs.com/djlxs/" title="博客园"></a>
+                            
+                                <a class="fa QQ" href="/1281233206" title="QQ"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AMD/">AMD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular4/">Angular4</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CORS/">CORS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/This/">This</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue组件/">Vue组件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/async-await/">async/await</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/directive/">directive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/generator/">generator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jsop/">jsop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/promise/">promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/require-js/">require.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-resource/">vue-resource</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-router/">vue-router</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex/">vuex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/依赖注入/">依赖注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/响应式布局/">响应式布局</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/异步编程/">异步编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/插件/">插件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生命周期/">生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚手架/">脚手架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/跨域/">跨域</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/转载/">转载</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">大家好，欢迎来到DJL箫氏的个人博客，目前大四，即将工作于深圳博雅互动，专注于前端，喜欢羽毛球、健身等等，如果愿意交流欢迎加我的QQ：1281233206（注明来自博客）</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">DJLXS</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">DJLXS</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/随笔">随笔</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://www.weibo.com/u/3687140617/home" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/djlxiaoshi/" title="GitHub"></a>
+                            
+                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/u/d8657fcf1678" title="简书"></a>
+                            
+                                <a class="fa 博客园" target="_blank" href="http://www.cnblogs.com/djlxs/" title="博客园"></a>
+                            
+                                <a class="fa QQ" target="_blank" href="/1281233206" title="QQ"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="標籤" friends="友情鏈接" about="關於我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Angular4学习之生命周期" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/08/17/Angular4学习之生命周期/" class="article-date">
+      <time datetime="2017-08-17T02:47:46.000Z" itemprop="datePublished">2017-08-17</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Angular4学习之生命周期
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular4/">Angular4</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/生命周期/">生命周期</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>组件生命周期就是组件从创建到销毁过程中的一些关键点，Angular为我们提供了一些钩子函数，允许我们在组件的相应生命周期到来时进行必要操作。首先我们来看看Angular的生命周期示意图：<br><a id="more"></a><br><img src="http://ok3x4ia9b.bkt.clouddn.com/17-8-5/94857391.jpg" alt="Angular生命周期示意图"></p>
+<p>从上图我们可以发现组件在构建过程中最先执行的是<code>constructor</code>构造函数，但是在构造函数中我们不应该来进行一些比较复杂的初始化操作（一般进行变量初始化操作）。下面我们来一一解释一下每个钩子函数所代表的意义和作用。</p>
+<ul>
+<li><p>ngOnChanges: 该方法在ngOnInit方法之前调用，或者由@input装饰器装饰的输入数据变化时调用。但是注意如果这里输入数据是一个引用类型，那么它检测的是这个对象的引用。也就是说你改变对象的某一个属性值并不会触发这个钩子函数的执行，同样你调用数组的splice等等方法也是不会改变数组的引用（这里和Vue有所不同），至于如何达到我们所想的结果，我们下面说。ngOnChanges(changes)会有一个参数格式如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	<span class="attr">changeData1</span>: &#123;</div><div class="line">		<span class="attr">currentValue</span>: XXX,</div><div class="line">		<span class="attr">firstChange</span>: <span class="literal">false</span>/<span class="literal">true</span>,</div><div class="line">		<span class="attr">previousValue</span>: XXX</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">changeData2</span>: &#123;</div><div class="line">		<span class="attr">currentValue</span>: XXX,</div><div class="line">		<span class="attr">firstChange</span>: <span class="literal">false</span>/<span class="literal">true</span>,</div><div class="line">		<span class="attr">previousValue</span>: XXX</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>ngOnInit:  用于数据绑定输入属性之后初始化组件。在第一次ngOnChanges调用之后调用，一般在这里进行一些组件较复杂的初始化操作。</p>
+</li>
+<li><p>ngDoCheck: 在每次变化监测之后调用。在一个变化监测周期内，不论数据是否变化都会执行。也就是说Angular监测的并不是数据的变动，而是可能引起数据发送变化的行为（例如：用户的各种操作，ajax请求，定时器等等）。相比ngOnChanges而言，ngDoCheck监测粒度更加小，所以在前面讲到的对象单个属性值变化时不会触发ngOnChanges钩子执行，那么我们可以通过ngDoCheck来进行监听，因为数据的变动一定会伴随相应的行为（且都是一些异步操作），但是我们也要注意像mousemove这些事件可能会频发触发调用ngDoCheck。而且在一个组件中我们一般不会同时实现ngOnchanges和ngDoCheck这两个接口。</p>
+</li>
+<li><p>ngAfterContentInit: 在组件中使用<code>&lt;ng-content&gt;</code>将外部内容嵌入到组件视图后调用，它在第一次ngDoCheck执行后调用，且只调用一次。</p>
+</li>
+<li>ngAfterContentChecked: 在组件使用<code>&lt;ng-content&gt;</code>引入外部元素的情况下，Angular在这些外部内容嵌入到组件视图之后调用，或者每次变化监测时候调用。</li>
+<li>ngAfterViewInit: 当Angular创建了视图及其子视图之后调用</li>
+<li>ngAfterViewChecked: 在创建了组件视图及其子视图之后被调用一次，并且在每次子组件变化监测时会被调用</li>
+<li>ngOnDestroy: 在销毁指令/组件之前调用，用来销毁一些不会被垃圾回收器回收的资源（已订阅的观察者事件、绑定的DOM事件，定时器等等）。</li>
+</ul>
+<p>在前面说到通过@input绑定的输入值如果是一个对象，那么单纯的改变对象的某个属性值是不会触发ngOnChanges钩子函数的，那么解决办法有如下几种：</p>
+<ul>
+<li>实现ngDoCheck钩子函数 </li>
+<li>可以改变对象的引用例如： <code>object = Object.assign({}, object)</code>、<code>arr = [].concat(arr)</code></li>
+<li>使用Immutable对象来传值 （具体使用看下面的示例代码）</li>
+</ul>
+<p>在通常情况我们单纯改变对象的某个属性值或者对象结构，对象的引用是不会改变的，但是Immutable能够保证只要当对象的值或者结构改变时，对象的引用必定发生改变。</p>
+<p>下面我们通过一段示例代码来验证一下Angular的生命周期钩子函数的运行情况<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;!--child.html---&gt;</div><div class="line">&lt;ng-container&gt;</div><div class="line">  &lt;h1&gt;lifecircle test&lt;/h1&gt;</div><div class="line">  &lt;h3&gt;姓名：&#123;&#123;obj.get(&apos;name&apos;)&#125;&#125;&lt;/h3&gt;</div><div class="line">  &lt;h3&gt;年龄：&#123;&#123;obj.age&#125;&#125;&lt;/h3&gt;</div><div class="line">  &lt;ng-content&gt;&lt;/ng-content&gt;</div><div class="line">&lt;/ng-container&gt;</div></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// child.component.ts</span></div><div class="line"><span class="keyword">import</span> &#123;</div><div class="line">  Component, OnInit, OnChanges, DoCheck, AfterViewInit, AfterViewChecked, AfterContentInit,</div><div class="line">  AfterContentChecked, OnDestroy, SimpleChanges, Input</div><div class="line">&#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</div><div class="line"></div><div class="line">@Component(&#123;</div><div class="line">  <span class="attr">selector</span>: <span class="string">'app-lifecircle'</span>,</div><div class="line">  <span class="attr">templateUrl</span>: <span class="string">'./lifecircle.component.html'</span>,</div><div class="line">  <span class="attr">styleUrls</span>: [<span class="string">'./lifecircle.component.scss'</span>]</div><div class="line">&#125;)</div><div class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">LifecircleComponent</span> <span class="title">implements</span> <span class="title">OnChanges</span>,<span class="title">OnInit</span>, <span class="title">DoCheck</span>, <span class="title">AfterContentInit</span>, <span class="title">AfterContentChecked</span> ,<span class="title">AfterViewInit</span>, <span class="title">AfterViewChecked</span>, <span class="title">OnDestroy</span> </span>&#123;</div><div class="line">  @Input() obj;</div><div class="line">  <span class="keyword">constructor</span>() &#123; &#125;</div><div class="line"></div><div class="line">  ngOnChanges(changes: SimpleChanges): <span class="keyword">void</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'ngOnChanges'</span>, changes)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  ngOnInit() &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'ngOnInit'</span>)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  ngDoCheck(): <span class="keyword">void</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'ngDoCheck'</span>)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  ngAfterContentInit(): <span class="keyword">void</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'ngAfterContentInit'</span>)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  ngAfterContentChecked(): <span class="keyword">void</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'ngAfterContentChecked'</span>)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  ngAfterViewInit(): <span class="keyword">void</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'ngAfterViewInit'</span>)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  ngAfterViewChecked(): <span class="keyword">void</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'ngAfterViewChecked'</span>)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  ngOnDestroy(): <span class="keyword">void</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'ngOnDestroy'</span>)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;!--parent.html--&gt;</div><div class="line">&lt;ng-container&gt;</div><div class="line">  &lt;h1&gt;生命周期示例&lt;/h1&gt;</div><div class="line">  &lt;app-lifecircle [obj]=&quot;obj&quot;&gt;</div><div class="line">    &lt;h4&gt;这是插入的内容&lt;/h4&gt;</div><div class="line">  &lt;/app-lifecircle&gt;</div><div class="line"></div><div class="line">  &lt;button pButton type=&quot;button&quot; (click)=&quot;changeObj()&quot; label=&quot;ngAfterViewChecked&quot;&gt;&lt;/button&gt;</div><div class="line">&lt;/ng-container&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// parent.component.ts</span></div><div class="line"><span class="keyword">import</span> &#123;<span class="built_in">Map</span>&#125; <span class="keyword">from</span> <span class="string">'immutable'</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> &#123; Component, OnInit &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</div><div class="line"></div><div class="line">@Component(&#123;</div><div class="line">  <span class="attr">selector</span>: <span class="string">'app-blog'</span>,</div><div class="line">  <span class="attr">templateUrl</span>: <span class="string">'./blog.component.html'</span>,</div><div class="line">  <span class="attr">styleUrls</span>: [<span class="string">'./blog.component.scss'</span>]</div><div class="line">&#125;)</div><div class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">BlogComponent</span> <span class="title">implements</span> <span class="title">OnInit</span> </span>&#123;</div><div class="line">   obj</div><div class="line"></div><div class="line">  <span class="keyword">constructor</span>() &#123; &#125;</div><div class="line">  ngOnInit() &#123;</div><div class="line">    <span class="keyword">this</span>.obj = <span class="built_in">Map</span>(&#123;<span class="attr">name</span>: <span class="string">'djlxs'</span>, <span class="attr">habits</span>: &#123;<span class="attr">item</span>: <span class="string">'羽毛球'</span>&#125;&#125;)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  changeObj() &#123;</div><div class="line">    <span class="keyword">this</span>.obj = <span class="keyword">this</span>.obj.set(<span class="string">'name'</span>, <span class="string">'djl'</span>);</div><div class="line">  &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文標題:</span><a href="/2017/08/17/Angular4学习之生命周期/">Angular4学习之生命周期</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主頁">DJLXS</a></p>
+        <p><span>發布時間:</span>2017-08-17, 10:47:46</p>
+        <p><span>最後更新:</span>2018-03-20, 23:10:19</p>
+        <p>
+            <span>原始鏈接:</span><a class="post-url" href="/2017/08/17/Angular4学习之生命周期/" title="Angular4学习之生命周期">http://djl.pub/2017/08/17/Angular4学习之生命周期/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://djl.pub/2017/08/17/Angular4学习之生命周期/　　作者: DJLXS" title="點擊複製文章鏈接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>許可協議:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"姓名標示-非商業性-相同方式分享 4.0 國際"</a> 轉載請保留原文鏈接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2017/08/21/Angular学习之视图节点和内容节点/">
+                    Angular4学习之视图节点和内容节点
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/07/26/webpack2实战/">
+                    webpack2实战
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目錄</strong>
+        
+            
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隱藏目錄"  title="點擊按鈕隱藏或者顯示文章目錄">
+
+    <script>
+        yiliaConfig.toc = ["隱藏目錄", "顯示目錄", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Angular4学习之生命周期　| DJLXS　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+	<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+	<script>
+		var cloudTieConfig = {
+		  url: document.location.href, 
+		  sourceId: "",
+		  productKey: "4083e72582aa4614afbc7e732937bafc",
+		  target: "cloud-tie-wrapper"
+		};
+		var yunManualLoad = true;
+		Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+	</script>
+	<a class="cloud-tie-join-count" href="javascript:void(0);">
+	  <span class="icon-comment"></span>
+	  <span class="join-count">0</span>
+	  <span class="join-text">人参与</span>
+	</a>
+	<!-- DOM元素 -->
+<!-- 根据站点情况，配置data-url或data-sourceId中的一个即可 -->
+<span 
+  lang="join-count" 
+  class="join-count" 
+  data-url="" 
+  data-sourceId=""
+>0</span>
+
+<!-- JavaScript 配置 -->
+<script>var yunModuleEnv = true;</script>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+  var yunTieProductKey = "4083e72582aa4614afbc7e732937bafc";
+  Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vZXh0ZW5kL2xpc3Rfam9pbl9zY3JpcHQuaHRtbA==", true);
+</script>
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/08/21/Angular学习之视图节点和内容节点/" title="上一篇: Angular4学习之视图节点和内容节点">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/07/26/webpack2实战/" title="下一篇: webpack2实战">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/基于React的脚手架搭建/">基于React的脚手架搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/13/This解读/">This解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/26/Angular4学习之依赖注入/">Angular4学习之依赖注入</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/13/Javascript 异步编程/">Javascript 异步编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/11/响应式布局/">响应式布局</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/21/Angular学习之视图节点和内容节点/">Angular4学习之视图节点和内容节点</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/17/Angular4学习之生命周期/">Angular4学习之生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/webpack2实战/">webpack2实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/06/exports和module-exports的区别/">exports和module.exports的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/01/Vue2变化/">Vue2变化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/01/webpack引入插件的几种方法/">webpack引入插件的几种方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/15/自定义多选框/">自定义多选框</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/07/angular1学习之控制器通信/">angular1学习之控制器通信</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/angular1学习之directive/">angular1学习之directive</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/04/JavaScript模块加载 - AMD/">JavaScript模块加载 - AMD</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/NODE开发小工具/">Node开发小工具</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/CORS跨域/">CORS跨域</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/11/前端跨域请求原理及实现/">前端跨域请求原理及实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/13/better-scroll初探/">better-scroll初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/12/vue-resource初探/">vue-resource初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/08/vue-router初探/">vue-router初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/07/webpack1.0初探/">webpack1.0初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/29/Vuex初探/">Vuex初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之组件/">Vue学习之组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之生命周期/">Vue学习之生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/17/Vue-js学习/">Vue.js学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/13/hexo初探---让写作飞起来/">hexo初探---让写作飞起来</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017-2018 DJLXS
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、簡單且強大的網誌框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="簡而不減 Hexo 雙欄網誌主題  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到訪數"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本頁閱讀量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回頂部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看評論"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="轉到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
