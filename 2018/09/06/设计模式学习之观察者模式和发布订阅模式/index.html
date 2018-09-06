@@ -15,16 +15,19 @@
 
 
 
-<meta name="description" content="由于最近想开发一款响应式系统，之前对于响应式都只是略有了解，没有怎么归纳整理，现在来做一个总结。">
+<meta name="description" content="要说起学习设计模式的动机实际上是为了准备面试，惭愧脸，但是也正是因为要面试所以促使我去学习，今天学习的就是观察者模式和发布订阅模式。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="响应式布局">
-<meta property="og:url" content="http://djl.pub/2017/09/11/响应式布局/index.html">
+<meta property="og:title" content="设计模式学习之观察者模式和发布订阅模式">
+<meta property="og:url" content="http://djl.pub/2018/09/06/设计模式学习之观察者模式和发布订阅模式/index.html">
 <meta property="og:site_name" content="DJL箫氏">
-<meta property="og:description" content="由于最近想开发一款响应式系统，之前对于响应式都只是略有了解，没有怎么归纳整理，现在来做一个总结。">
-<meta property="og:updated_time" content="2018-03-24T12:32:39.573Z">
+<meta property="og:description" content="要说起学习设计模式的动机实际上是为了准备面试，惭愧脸，但是也正是因为要面试所以促使我去学习，今天学习的就是观察者模式和发布订阅模式。">
+<meta property="og:image" content="http://on-img.com/chart_image/5b8ffcdfe4b06fc64ae6969e.png">
+<meta property="og:image" content="http://on-img.com/chart_image/5b8ffe03e4b0534c9bcd459d.png">
+<meta property="og:updated_time" content="2018-09-06T00:29:04.964Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="响应式布局">
-<meta name="twitter:description" content="由于最近想开发一款响应式系统，之前对于响应式都只是略有了解，没有怎么归纳整理，现在来做一个总结。">
+<meta name="twitter:title" content="设计模式学习之观察者模式和发布订阅模式">
+<meta name="twitter:description" content="要说起学习设计模式的动机实际上是为了准备面试，惭愧脸，但是也正是因为要面试所以促使我去学习，今天学习的就是观察者模式和发布订阅模式。">
+<meta name="twitter:image" content="http://on-img.com/chart_image/5b8ffcdfe4b06fc64ae6969e.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +59,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>响应式布局 | DJL箫氏</title>
+<title>设计模式学习之观察者模式和发布订阅模式 | DJL箫氏</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -275,11 +278,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-响应式布局" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-设计模式学习之观察者模式和发布订阅模式" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/09/11/响应式布局/" class="article-date">
-      <time datetime="2017-09-11T10:06:25.000Z" itemprop="datePublished">2017-09-11</time>
+      <a href="/2018/09/06/设计模式学习之观察者模式和发布订阅模式/" class="article-date">
+      <time datetime="2018-09-06T00:28:37.000Z" itemprop="datePublished">2018-09-06</time>
 </a>
 
 
@@ -294,7 +297,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      响应式布局
+      设计模式学习之观察者模式和发布订阅模式
     </h1>
   
 
@@ -305,7 +308,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/响应式布局/">响应式布局</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -315,27 +318,21 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>由于最近想开发一款响应式系统，之前对于响应式都只是略有了解，没有怎么归纳整理，现在来做一个总结。<br><a id="more"></a></p>
-<h2 id="media媒体查询"><a href="#media媒体查询" class="headerlink" title="@media媒体查询"></a>@media媒体查询</h2><p>响应式布局一定离不开媒体查询。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">media mediatype and|not|only (media feature) &#123;</div><div class="line">    CSS-Code;</div><div class="line">&#125;</div><div class="line">@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) &#123; ... &#125;</div></pre></td></tr></table></figure>
-<p>在这里mediatype一般是<code>screen</code>，在这里media feature一般是<code>max-width</code>、<code>min-width</code>定义的是可见区域。你也可以针对不同的媒体使用不同 stylesheets :<br><figure class="highlight vbscript-html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">media</span>=<span class="string">"mediatype and|not|only (media feature)"</span> <span class="attr">href</span>=<span class="string">"mystylesheet.css"</span>&gt;</span></span></div></pre></td></tr></table></figure></p>
-<p>当然在手机端我们一般是会禁止缩放的</p>
-<figure class="highlight vbscript-html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"</span>&gt;</span></span></div></pre></td></tr></table></figure>
-<h2 id="bootstrap-栅格系统实现"><a href="#bootstrap-栅格系统实现" class="headerlink" title="bootstrap 栅格系统实现"></a>bootstrap 栅格系统实现</h2><p><a href="http://v3.bootcss.com/css/#grid" target="_blank" rel="external">http://v3.bootcss.com/css/#grid</a></p>
-<p>这个开发工具是基于bootstrap的<a href="http://www.layoutit.com" target="_blank" rel="external">http://www.layoutit.com</a>的布局工具</p>
-<p>bootstrap中是使用float来进行布局，然后通过伪元素来进行浮动清除<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">media</span> (min-width: <span class="number">992px</span>)</div><div class="line">.col-md-<span class="number">4</span> &#123;</div><div class="line">    <span class="selector-tag">width</span>: 33<span class="selector-class">.33333333</span>%;</div><div class="line">&#125;</div><div class="line">@<span class="keyword">media</span> (min-width: <span class="number">992px</span>)</div><div class="line">.col-md-<span class="number">1</span>, .col-md-<span class="number">10</span>, .col-md-<span class="number">11</span>, .col-md-<span class="number">12</span>, .col-md-<span class="number">2</span>, .col-md-<span class="number">3</span>, .col-md-<span class="number">4</span>, .col-md-<span class="number">5</span>, .col-md-<span class="number">6</span>, .col-md-<span class="number">7</span>, .col-md-<span class="number">8</span>, .col-md-<span class="number">9</span> &#123;</div><div class="line">    <span class="selector-tag">float</span>: <span class="selector-tag">left</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.row</span><span class="selector-pseudo">:after</span>, <span class="selector-class">.row</span><span class="selector-pseudo">:before</span> &#123;</div><div class="line">    <span class="attribute">clear</span>: both;</div><div class="line">    <span class="attribute">display</span>: table;</div><div class="line">    <span class="attribute">content</span>: <span class="string">" "</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="主流屏幕尺寸定义"><a href="#主流屏幕尺寸定义" class="headerlink" title="主流屏幕尺寸定义"></a>主流屏幕尺寸定义</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 超小屏幕（手机，小于 768px） */</span></div><div class="line"><span class="comment">/* 没有任何媒体查询相关的代码，因为这在 Bootstrap 中是默认的（还记得 Bootstrap 是移动设备优先的吗？） */</span></div><div class="line"></div><div class="line"><span class="comment">/* 小屏幕（平板，大于等于 768px） */</span></div><div class="line">@<span class="keyword">media</span> (min-width: @screen-sm-min) &#123; ... &#125;</div><div class="line"></div><div class="line"><span class="comment">/* 中等屏幕（桌面显示器，大于等于 992px） */</span></div><div class="line">@<span class="keyword">media</span> (min-width: @screen-md-min) &#123; ... &#125;</div><div class="line"></div><div class="line"><span class="comment">/* 大屏幕（大桌面显示器，大于等于 1200px） */</span></div><div class="line">@<span class="keyword">media</span> (min-width: @screen-lg-min) &#123; ... &#125;</div></pre></td></tr></table></figure>
-<h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">img</span> &#123; <span class="attribute">max-width</span>: <span class="number">100%</span>; &#125;</div></pre></td></tr></table></figure>
-<p>当然还有一种比较巧妙的方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&quot;image.jpg&quot; data-src-600px=&quot;image-600px.jpg&quot; data-src-800px=&quot;image-800px.jpg&quot; alt=&quot;&quot;&gt;</div></pre></td></tr></table></figure></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">media</span> (min-device-width:<span class="number">600px</span>) &#123;</div><div class="line">    <span class="selector-tag">img</span><span class="selector-attr">[data-src-600px]</span> &#123;</div><div class="line">        <span class="attribute">content</span>: <span class="built_in">attr</span>(data-src-600px, url);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">@<span class="keyword">media</span> (min-device-width:<span class="number">800px</span>) &#123;</div><div class="line">    <span class="selector-tag">img</span><span class="selector-attr">[data-src-800px]</span> &#123;</div><div class="line">        <span class="attribute">content</span>: <span class="built_in">attr</span>(data-src-800px, url);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>也就是会根据不同尺寸，加载不同的图片资源，这个方法非常巧妙。<code>data-*</code>允许我们可以在HTML元素中存储一些数据。而且我们可以很方便的通过<code>el.dataset</code>来进行存取删除等等。</p>
-<h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><p>另一个比较重要的就是字体的运用，<code>em</code>是根据父元素的<code>font-size</code>来进行计算，<code>rem</code>是根据根元素<code>html</code>的<code>font-size</code>来进行计算。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">html</span> &#123; <span class="attribute">font-size</span>:<span class="number">100%</span>; &#125;</div></pre></td></tr></table></figure></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">media</span> (min-width: <span class="number">640px</span>) &#123; <span class="selector-tag">body</span> &#123;<span class="attribute">font-size</span>:<span class="number">1rem</span>;&#125; &#125;</div><div class="line">@<span class="keyword">media</span> (min-width:<span class="number">960px</span>) &#123; <span class="selector-tag">body</span> &#123;<span class="attribute">font-size</span>:<span class="number">1.2rem</span>;&#125; &#125;</div><div class="line">@<span class="keyword">media</span> (min-width:<span class="number">1100px</span>) &#123; <span class="selector-tag">body</span> &#123;<span class="attribute">font-size</span>:<span class="number">1.5rem</span>;&#125; &#125;</div></pre></td></tr></table></figure>
-<h2 id="移动端1px效果"><a href="#移动端1px效果" class="headerlink" title="移动端1px效果"></a>移动端1px效果</h2><p>css中的1px并不总是等于物理像素1px。<br>在移动端浏览器中以及某些桌面浏览器中，window对象有一个devicePixelRatio属性，它的官方的定义为：设备物理像素和设备独立像素的比例，也就是 devicePixelRatio = 物理像素 / 独立像素。css中的px就可以看做是设备的独立像素，所以通过devicePixelRatio，我们可以知道该设备上一个css像素代表多少个物理像素。例如，在Retina屏的iphone上，devicePixelRatio的值为2，也就是说1个css像素相当于2个物理像素。例如在devicePixelRatio为2的设备中，我们设置1px，实际上是有两个物理像素的，关于移动端的1px解决办法，可以参考这篇文章。<br><a href="http://www.cnblogs.com/lunarorbitx/p/5287309.html" target="_blank" rel="external">http://www.cnblogs.com/lunarorbitx/p/5287309.html</a><br><a href="http://blog.csdn.net/yuhk231/article/details/53976295" target="_blank" rel="external">http://blog.csdn.net/yuhk231/article/details/53976295</a></p>
-<p>调试技巧：我们可以通过<a href="https://cli.im/" target="_blank" rel="external">]草料二维码生成器</a>生成二维码。然后手机扫码，就可以在手机上看到电脑上的页面。当然手机和电脑必须要在同一局域网。而且要用IP访问，也就是将localhost换成你的电脑IP地址。由于我使用的是webpack构建的项目，需要进行如下配置：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">"dev"</span>: <span class="string">"webpack-dev-server -d --hot --inline --colors --progress --env.dev --public --host 0.0.0.0"</span>,</div></pre></td></tr></table></figure></p>
-<p>然后在<code>webpack-dev-server</code>中配置<code>disableHostCheck: true</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">devServer: &#123;</div><div class="line">    <span class="comment">// 配置监听端口</span></div><div class="line">    port: <span class="number">8080</span>,</div><div class="line">    <span class="attr">disableHostCheck</span>: <span class="literal">true</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="http://www.cnblogs.com/lhb25/archive/2013/03/06/making-a-website-responsive-in-3-easy-steps.html" target="_blank" rel="external">http://www.cnblogs.com/lhb25/archive/2013/03/06/making-a-website-responsive-in-3-easy-steps.html</a></p>
+        <p>要说起学习设计模式的动机实际上是为了准备面试，惭愧脸，但是也正是因为要面试所以促使我去学习，今天学习的就是观察者模式和发布订阅模式。<br><a id="more"></a></p>
+<p>说起这两个模式确实很像，为了弄懂其中的不同点确实也花了不少功夫，主要参考了这篇博文<a href="https://www.cnblogs.com/lovesong/p/5272752.html" target="_blank" rel="external">观察者模式与发布/订阅模式区别</a>，另外一篇就是曾探的《JavaScript设计模式与开发实践》一书中的《发布订阅模式》。两者结合大有所获。</p>
+<h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><p>首先来谈谈观察者模式，在观察者模式中，有两个角色一个是Subject，用来维护一个observer列表，另一个角色就是Observer（观察者），在Observer中定义了一个具体的update方法，用来执行相关操作。整个过程就是当某个值发生变化后，Subject调用notify方法（实际就是循环调用observerList中每个observer的update方法，并把新的值作为update的参数传递进去）。从中我们可以看出在Subject中直接调用了Observer中的方法，也就是说Subject和Observer的联系实际上是非常紧密的。</p>
+<p>举个例子，现在有一个房东他要租房子，当有空房子的时候，他就会去通知曾经来询问的租户，那么这个时候房东就是直接知道租客的电话和需求（要住什么样的房子）的，也就是此时房东和租客之间实际上是存在联系的。</p>
+<p>大致的流向图就像下面。<br><img src="http://on-img.com/chart_image/5b8ffcdfe4b06fc64ae6969e.png" alt="观察者模式"></p>
+<p>代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//观察者列表</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">ObserverList</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">this</span>.observerList = [];</div><div class="line">&#125;</div><div class="line">ObserverList.prototype.add = <span class="function"><span class="keyword">function</span>(<span class="params"> obj </span>)</span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.observerList.push( obj );</div><div class="line">&#125;;</div><div class="line">ObserverList.prototype.count = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.observerList.length;</div><div class="line">&#125;;</div><div class="line">ObserverList.prototype.get = <span class="function"><span class="keyword">function</span>(<span class="params"> index </span>)</span>&#123;</div><div class="line">  <span class="keyword">if</span>( index &gt; <span class="number">-1</span> &amp;&amp; index &lt; <span class="keyword">this</span>.observerList.length )&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.observerList[ index ];</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">ObserverList.prototype.indexOf = <span class="function"><span class="keyword">function</span>(<span class="params"> obj, startIndex </span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> i = startIndex;</div><div class="line">  <span class="keyword">while</span>( i &lt; <span class="keyword">this</span>.observerList.length )&#123;</div><div class="line">    <span class="keyword">if</span>( <span class="keyword">this</span>.observerList[i] === obj )&#123;</div><div class="line">      <span class="keyword">return</span> i;</div><div class="line">    &#125;</div><div class="line">    i++;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">&#125;;</div><div class="line">ObserverList.prototype.removeAt = <span class="function"><span class="keyword">function</span>(<span class="params"> index </span>)</span>&#123;</div><div class="line">  <span class="keyword">this</span>.observerList.splice( index, <span class="number">1</span> );</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">//目标</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Subject</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">this</span>.observers = <span class="keyword">new</span> ObserverList();</div><div class="line">&#125;</div><div class="line">Subject.prototype.addObserver = <span class="function"><span class="keyword">function</span>(<span class="params"> observer </span>)</span>&#123;</div><div class="line">  <span class="keyword">this</span>.observers.add( observer );</div><div class="line">&#125;;</div><div class="line">Subject.prototype.removeObserver = <span class="function"><span class="keyword">function</span>(<span class="params"> observer </span>)</span>&#123;</div><div class="line">  <span class="keyword">this</span>.observers.removeAt( <span class="keyword">this</span>.observers.indexOf( observer, <span class="number">0</span> ) );</div><div class="line">&#125;;</div><div class="line">Subject.prototype.notify = <span class="function"><span class="keyword">function</span>(<span class="params"> context </span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> observerCount = <span class="keyword">this</span>.observers.count();</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i &lt; observerCount; i++)&#123;</div><div class="line">    <span class="keyword">this</span>.observers.get(i).update( context );</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">//观察者</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Observer</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">this</span>.update = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">  &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="发布订阅模式"><a href="#发布订阅模式" class="headerlink" title="发布订阅模式"></a>发布订阅模式</h2><p>前面说到Subject和Observer联系是非常紧密的，因为我们要在Subject中调用Observer中的方法。那么发布订阅模式就可以解耦合，把调用的任务交给一个调度中心（中介），让调度中心去通知各个订阅者。</p>
+<p>接着上面的例子。房东有钱后，自己变懒了，他不想每次有房源后，自己还要亲自打电话通知之前预留电话想要租房的租客，因为自己还要记住那些的租客的电话和需求（有钱了不想干这些活，我要躺着赚钱）。于是他就找到了中介，每次空出房子后，直接告诉中介我这里有什么样的房子，中介这里记录着哪些租客有着什么样的需求，中介再去联系有这样需求的租客。那么这里房东和未来可能的租客之间是没有联系的，房东从此不用自己再去亲自打电话去通知每一个有着这样需求的租客，只需要告诉中介一个人就行，中介去通知。那么整个过程就如下面这样</p>
+<p><img src="http://on-img.com/chart_image/5b8ffe03e4b0534c9bcd459d.png" alt="发布订阅模式"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> pubsub = &#123;&#125;;</div><div class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">myObject</span>) </span>&#123;</div><div class="line">    <span class="comment">// Storage for topics that can be broadcast</span></div><div class="line">    <span class="comment">// or listened to</span></div><div class="line">    <span class="keyword">var</span> topics = &#123;&#125;;</div><div class="line">    <span class="comment">// An topic identifier</span></div><div class="line">    <span class="keyword">var</span> subUid = <span class="number">-1</span>;</div><div class="line">    <span class="comment">// Publish or broadcast events of interest</span></div><div class="line">    <span class="comment">// with a specific topic name and arguments</span></div><div class="line">    <span class="comment">// such as the data to pass along</span></div><div class="line">    myObject.publish = <span class="function"><span class="keyword">function</span>(<span class="params"> topic, args </span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> ( !topics[topic] ) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">var</span> subscribers = topics[topic],</div><div class="line">            len = subscribers ? subscribers.length : <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span> (len--) &#123;</div><div class="line">            subscribers[len].func( topic, args );</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">    &#125;;</div><div class="line">    <span class="comment">// Subscribe to events of interest</span></div><div class="line">    <span class="comment">// with a specific topic name and a</span></div><div class="line">    <span class="comment">// callback function, to be executed</span></div><div class="line">    <span class="comment">// when the topic/event is observed</span></div><div class="line">    myObject.subscribe = <span class="function"><span class="keyword">function</span>(<span class="params"> topic, func </span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (!topics[topic]) &#123;</div><div class="line">            topics[topic] = [];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">var</span> token = ( ++subUid ).toString();</div><div class="line">        topics[topic].push(&#123;</div><div class="line">            <span class="attr">token</span>: token,</div><div class="line">            <span class="attr">func</span>: func</div><div class="line">        &#125;);</div><div class="line">        <span class="keyword">return</span> token;</div><div class="line">    &#125;;</div><div class="line">    <span class="comment">// Unsubscribe from a specific</span></div><div class="line">    <span class="comment">// topic, based on a tokenized reference</span></div><div class="line">    <span class="comment">// to the subscription</span></div><div class="line">    myObject.unsubscribe = <span class="function"><span class="keyword">function</span>(<span class="params"> token </span>) </span>&#123;</div><div class="line">        <span class="keyword">for</span> ( <span class="keyword">var</span> m <span class="keyword">in</span> topics ) &#123;</div><div class="line">            <span class="keyword">if</span> ( topics[m] ) &#123;</div><div class="line">                <span class="keyword">for</span> ( <span class="keyword">var</span> i = <span class="number">0</span>, j = topics[m].length; i &lt; j; i++ ) &#123;</div><div class="line">                    <span class="keyword">if</span> ( topics[m][i].token === token ) &#123;</div><div class="line">                        topics[m].splice( i, <span class="number">1</span> );</div><div class="line">                        <span class="keyword">return</span> token;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">    &#125;;</div><div class="line">&#125;( pubsub ));</div></pre></td></tr></table></figure>
+<p>这里为什么要用一个立即执行函数传递一个对象进去，因为我们可能房东有很多个，如果每多一个房东，中介都要去告诉房东中介的电话号码，那么中介也很累，中介也很聪明，直接把自己的电话写在墙上，房东来到中介所看墙上的中介联系方式就可以直接获得。subUid就是用于方便取消订阅操作的，假如有一天你租到了自己满意的房子，你就要打电话告诉中介，不要再给我这个号码打电话了，我已经租到房子了。（不然天天都要被中介骚扰了）</p>
+<p>总结：观察者模式和发布订阅模式的区别应该就是当有房源消息的时候，到底是谁来通知租客，观察者是房东自己本人，而发布订阅则是中介。</p>
+<h2 id="最后（欢迎大家关注我）"><a href="#最后（欢迎大家关注我）" class="headerlink" title="最后（欢迎大家关注我）"></a>最后（欢迎大家关注我）</h2><p><a href="http://djl.pub/">DJL箫氏个人博客</a><br><a href="https://github.com/djlxiaoshi/blog/issues" target="_blank" rel="external">博客GitHub地址</a><br><a href="https://www.jianshu.com/u/d8657fcf1678" target="_blank" rel="external">简书</a><br><a href="https://juejin.im/user/57183fcac4c9710054bc2fcf" target="_blank" rel="external">掘金</a></p>
+<p>如果你觉得有所收获的话，欢迎点赞，欢迎到我的github上面star一下。</p>
 
       
     </div>
@@ -344,13 +341,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/09/11/响应式布局/">响应式布局</a></p>
+        <p><span>本文标题:</span><a href="/2018/09/06/设计模式学习之观察者模式和发布订阅模式/">设计模式学习之观察者模式和发布订阅模式</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">DJL箫氏</a></p>
-        <p><span>发布时间:</span>2017-09-11, 18:06:25</p>
-        <p><span>最后更新:</span>2018-03-24, 20:32:39</p>
+        <p><span>发布时间:</span>2018-09-06, 08:28:37</p>
+        <p><span>最后更新:</span>2018-09-06, 08:29:04</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/09/11/响应式布局/" title="响应式布局">http://djl.pub/2017/09/11/响应式布局/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://djl.pub/2017/09/11/响应式布局/　　作者: DJL箫氏" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/09/06/设计模式学习之观察者模式和发布订阅模式/" title="设计模式学习之观察者模式和发布订阅模式">http://djl.pub/2018/09/06/设计模式学习之观察者模式和发布订阅模式/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://djl.pub/2018/09/06/设计模式学习之观察者模式和发布订阅模式/　　作者: DJL箫氏" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -362,16 +359,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/12/13/Javascript 异步编程/">
-                    Javascript 异步编程
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/08/21/Angular学习之视图节点和内容节点/">
-                    Angular4学习之视图节点和内容节点
+                <a href="/2018/03/20/基于React的脚手架搭建/">
+                    基于React的脚手架搭建
                 </a>
             </div>
         
@@ -383,7 +374,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#media媒体查询"><span class="toc-number">1.</span> <span class="toc-text">@media媒体查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bootstrap-栅格系统实现"><span class="toc-number">2.</span> <span class="toc-text">bootstrap 栅格系统实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#主流屏幕尺寸定义"><span class="toc-number">3.</span> <span class="toc-text">主流屏幕尺寸定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#图片"><span class="toc-number">4.</span> <span class="toc-text">图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字体"><span class="toc-number">5.</span> <span class="toc-text">字体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#移动端1px效果"><span class="toc-number">6.</span> <span class="toc-text">移动端1px效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">7.</span> <span class="toc-text">参考资料</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#观察者模式"><span class="toc-number">1.</span> <span class="toc-text">观察者模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#发布订阅模式"><span class="toc-number">2.</span> <span class="toc-text">发布订阅模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后（欢迎大家关注我）"><span class="toc-number">3.</span> <span class="toc-text">最后（欢迎大家关注我）</span></a></li></ol>
         
     </div>
     <style>
@@ -419,7 +410,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"响应式布局　| DJL箫氏　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"设计模式学习之观察者模式和发布订阅模式　| DJL箫氏　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -464,15 +455,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/12/13/Javascript 异步编程/" title="上一篇: Javascript 异步编程">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/08/21/Angular学习之视图节点和内容节点/" title="下一篇: Angular4学习之视图节点和内容节点">
+            <a href="/2018/03/20/基于React的脚手架搭建/" title="下一篇: 基于React的脚手架搭建">
                 <i class="fa fa-angle-right"></i>
             </a>
         
