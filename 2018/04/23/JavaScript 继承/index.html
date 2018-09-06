@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="DJL箫氏" />
+
+
+
+<meta name="description" content="继承是JS中非常内容，原因就是JS没有地道的继承方式，我们只能通过各种方式来模拟面向对象中的继承。下面介绍几种常见的继承方式及其不足。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 继承">
+<meta property="og:url" content="http://djl.pub/2018/04/23/JavaScript 继承/index.html">
+<meta property="og:site_name" content="DJL箫氏">
+<meta property="og:description" content="继承是JS中非常内容，原因就是JS没有地道的继承方式，我们只能通过各种方式来模拟面向对象中的继承。下面介绍几种常见的继承方式及其不足。">
+<meta property="og:updated_time" content="2018-09-06T01:11:13.716Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript 继承">
+<meta name="twitter:description" content="继承是JS中非常内容，原因就是JS没有地道的继承方式，我们只能通过各种方式来模拟面向对象中的继承。下面介绍几种常见的继承方式及其不足。">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="DJL箫氏" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>JavaScript 继承 | DJL箫氏</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">DJL箫氏</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>Menu</li>
+                        <li>Tags</li>
+                        
+                        <li>Friends</li>
+                        
+                        
+                        <li>About Me</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/随笔">随笔</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" href="http://www.weibo.com/u/3687140617/home" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/djlxiaoshi/" title="GitHub"></a>
+                            
+                                <a class="fa 简书" href="http://www.jianshu.com/u/d8657fcf1678" title="简书"></a>
+                            
+                                <a class="fa 博客园" href="http://www.cnblogs.com/djlxs/" title="博客园"></a>
+                            
+                                <a class="fa QQ" href="/1281233206" title="QQ"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AMD/">AMD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular4/">Angular4</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CORS/">CORS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/This/">This</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue组件/">Vue组件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/async-await/">async/await</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/directive/">directive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/generator/">generator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jsop/">jsop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/promise/">promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/require-js/">require.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-resource/">vue-resource</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-router/">vue-router</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex/">vuex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/依赖注入/">依赖注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原型/">原型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/响应式布局/">响应式布局</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/异步编程/">异步编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/插件/">插件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生命周期/">生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/继承/">继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚手架/">脚手架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/跨域/">跨域</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/转载/">转载</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">大家好，欢迎来到DJL箫氏的个人博客，目前大四，即将工作于深圳博雅互动，专注于前端，喜欢羽毛球、健身等等，如果愿意交流欢迎加我的QQ：1281233206（注明来自博客）</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">DJL箫氏</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">DJL箫氏</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/随笔">随笔</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://www.weibo.com/u/3687140617/home" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/djlxiaoshi/" title="GitHub"></a>
+                            
+                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/u/d8657fcf1678" title="简书"></a>
+                            
+                                <a class="fa 博客园" target="_blank" href="http://www.cnblogs.com/djlxs/" title="博客园"></a>
+                            
+                                <a class="fa QQ" target="_blank" href="/1281233206" title="QQ"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
+</nav>
+      <div class="body-wrap"><article id="post-JavaScript 继承" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/04/23/JavaScript 继承/" class="article-date">
+      <time datetime="2018-04-23T12:24:08.000Z" itemprop="datePublished">2018-04-23</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaScript 继承
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/继承/">继承</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>继承是JS中非常内容，原因就是JS没有地道的继承方式，我们只能通过各种方式来模拟面向对象中的继承。下面介绍几种常见的继承方式及其不足。<br><a id="more"></a></p>
+<h3 id="构造函数继承"><a href="#构造函数继承" class="headerlink" title="构造函数继承"></a>构造函数继承</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent1</span> (<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">this</span>.name = <span class="string">'parent'</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child1</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	Parent1.call(<span class="keyword">this</span>);</div><div class="line">	<span class="keyword">this</span>.type = <span class="string">'child1'</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>缺点：Parent1 原型链上的东西并不会继承，这种方式，所以只实现了部分继承，如果父类的属性都在构造函数中，没问题，但是如果有一部分在原型链上，那么就继承不了，为了解决这个不足我们就要使用原型链来进行原型继承。</p>
+<h3 id="原型继承"><a href="#原型继承" class="headerlink" title="原型继承"></a>原型继承</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent2</span>(<span class="params"></span>) </span>&#123;</div><div class="line"><span class="keyword">this</span>.name = <span class="string">'Parent2'</span>;</div><div class="line"><span class="keyword">this</span>.res = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child2</span> (<span class="params"></span>) </span>&#123;</div><div class="line"><span class="keyword">this</span>.type = <span class="string">'Child2'</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">Child2.prototype = <span class="keyword">new</span> Parent2()</div><div class="line"></div><div class="line"><span class="keyword">var</span> child2 = <span class="keyword">new</span> Child2();</div><div class="line"><span class="keyword">var</span> child3 = <span class="keyword">new</span> Child3();</div><div class="line"></div><div class="line">child2.res.push(<span class="number">4</span>);</div><div class="line"><span class="built_in">console</span>.log(child3.res) <span class="comment">// 1,2,3,4</span></div></pre></td></tr></table></figure>
+<p>缺点  : 这种方式缺点也很明显，实例的两个对象，如果一个对象改变res的值，那么另一个对象 的res属性也会被改变（这两个对象共享一个原型），这违背了独立性。</p>
+<h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent3</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">this</span>.name = <span class="string">'parent3'</span>;</div><div class="line">	<span class="keyword">this</span>.res = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child3</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	Parent3.call(<span class="keyword">this</span>);</div><div class="line">	<span class="keyword">this</span>.type = <span class="string">'child3'</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Child3.prototype = Parent3.prototype;</div><div class="line"><span class="keyword">var</span> child = <span class="keyword">new</span> Child3();</div></pre></td></tr></table></figure>
+<p>缺点：此时<code>child.constructor</code>并不是<code>Child3</code>；而是<code>Parent3</code>，这是因为当我们想获取<code>child.constructor</code>实际上是访问<code>Child3.prototype.constructor</code>（也就是说constructor这个属性是存在于原型上，并不是直接在child这个对象上），而<code>Child3.prototype</code>此时等于<code>Parent3.prototype</code>,所以最后<code>constructor</code>的属性值为<code>Parent3</code>。</p>
+<h3 id="组合优化"><a href="#组合优化" class="headerlink" title="组合优化"></a>组合优化</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent4</span>(<span class="params"></span>) </span>&#123;</div><div class="line"><span class="keyword">this</span>.name = <span class="string">'parent4'</span>;</div><div class="line"><span class="keyword">this</span>.res = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child4</span>(<span class="params"></span>) </span>&#123;</div><div class="line"> Parent4.call(<span class="keyword">this</span>);</div><div class="line"> <span class="keyword">this</span>.type = <span class="string">'child4'</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Child4.prototype = <span class="built_in">Object</span>.create(Parent4.prototype);</div><div class="line"><span class="comment">// Child4.prototype = Parent4.prototype;</span></div><div class="line">Child4.prototype.constructor = Child4;</div></pre></td></tr></table></figure>
+<p>在这里我们加上这句<code>Child4.prototype = Object.create(Parent4.prototype);</code>的目的是为了隔离子类原型和父类原型，现在就是<code>Child4.prototype.__proto__ === Parent4.prototype</code>，如果我们不加，直接修正子类的构造函数（<code>Child4.prototype.constructor = Child4;</code>）那么也会把父类的<code>Parent4.prototype.constructor</code>更改成<code>Child4</code>，因为此时<code>Child4.prototype</code>和<code>Parent4.prototype</code>指向同一地址。</p>
+<blockquote>
+<p>注: 如果这里不支持Object.create,我们可以采用下面的plolly<br><code>function F(){}
+F.prototype = Parent4.prototype
+Child4.prototype = new F()</code></p>
+</blockquote>
+<p>缺点：貌似还没有实现静态属性的继承</p>
+<h3 id="实现静态属性的继承"><a href="#实现静态属性的继承" class="headerlink" title="实现静态属性的继承"></a>实现静态属性的继承</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.age = <span class="number">20</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">Parent.sex = <span class="string">'male'</span>;</div><div class="line">Parent.habby = <span class="string">'badminton'</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  Parent.call(<span class="keyword">this</span>);</div><div class="line">  <span class="keyword">this</span>.type = <span class="string">'Child'</span>;</div><div class="line"></div><div class="line"> <span class="keyword">if</span> (<span class="built_in">Object</span>.setPrototypeOf) &#123;</div><div class="line">   <span class="built_in">Object</span>.setPrototypeOf(Child, Parent)</div><div class="line"> &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Child.__proto__) &#123;</div><div class="line">   Child.__proto__ = Parent</div><div class="line"> &#125; <span class="keyword">else</span> &#123;</div><div class="line">   <span class="keyword">for</span> (<span class="keyword">var</span> attr <span class="keyword">in</span> Parent) &#123;</div><div class="line">     <span class="keyword">if</span> (Parent.hasOwnProperty(attr) &amp;&amp; !(attr <span class="keyword">in</span> Child)) &#123;</div><div class="line">       Child[attr] = Parent[attr]</div><div class="line">     &#125;</div><div class="line">   &#125;</div><div class="line"> &#125;   </div><div class="line">&#125;</div><div class="line"></div><div class="line">Child.prototype = <span class="built_in">Object</span>.create(Parent.prototype);</div><div class="line">Child.prototype.constructor = Child;</div><div class="line"></div><div class="line"><span class="keyword">var</span> child = <span class="keyword">new</span> Child();</div><div class="line"><span class="keyword">var</span> parent = <span class="keyword">new</span> Parent();</div><div class="line"><span class="built_in">console</span>.log(child)</div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> Child) &#123;</div><div class="line">  <span class="built_in">console</span>.log(key)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(child.constructor)</div><div class="line"><span class="built_in">console</span>.log(parent.constructor)</div><div class="line"><span class="built_in">console</span>.log(child <span class="keyword">instanceof</span> Child)</div><div class="line"><span class="built_in">console</span>.log(child <span class="keyword">instanceof</span> Parent)</div></pre></td></tr></table></figure>
+<p>看似完美了，但是还有一个问题，就是如果后续父类继续添加一些静态的方法，是不会自动同步到子的静态方法上面去的。</p>
+<h4 id="最后（欢迎大家关注我）"><a href="#最后（欢迎大家关注我）" class="headerlink" title="最后（欢迎大家关注我）"></a>最后（欢迎大家关注我）</h4><p><a href="http://djl.pub/">DJL箫氏个人博客</a><br><a href="https://github.com/djlxiaoshi/blog/issues" target="_blank" rel="external">博客GitHub地址</a><br><a href="https://www.jianshu.com/u/d8657fcf1678" target="_blank" rel="external">简书</a><br><a href="https://juejin.im/user/57183fcac4c9710054bc2fcf" target="_blank" rel="external">掘金</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>Title:</span><a href="/2018/04/23/JavaScript 继承/">JavaScript 继承</a></p>
+        <p><span>Author:</span><a href="/" title="Back to Homepage">DJL箫氏</a></p>
+        <p><span>Created:</span>2018-04-23, 20:24:08</p>
+        <p><span>Updated:</span>2018-09-06, 09:11:13</p>
+        <p>
+            <span>Full URL:</span><a class="post-url" href="/2018/04/23/JavaScript 继承/" title="JavaScript 继承">http://djl.pub/2018/04/23/JavaScript 继承/</a>
+            <span class="copy-path" data-clipboard-text="From http://djl.pub/2018/04/23/JavaScript 继承/　　By DJL箫氏" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>License:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"CC BY-NC-SA 4.0"</a> Keep Link &amp; Author if Distribute.
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/09/06/设计模式学习之观察者模式和发布订阅模式/">
+                    设计模式学习之观察者模式和发布订阅模式
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/04/22/原型&原型链深度解读/">
+                    原型&amp;原型链深度解读
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#构造函数继承"><span class="toc-number">1.</span> <span class="toc-text">构造函数继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型继承"><span class="toc-number">2.</span> <span class="toc-text">原型继承</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组合"><span class="toc-number"></span> <span class="toc-text">组合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#组合优化"><span class="toc-number">1.</span> <span class="toc-text">组合优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现静态属性的继承"><span class="toc-number">2.</span> <span class="toc-text">实现静态属性的继承</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#最后（欢迎大家关注我）"><span class="toc-number">2.1.</span> <span class="toc-text">最后（欢迎大家关注我）</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
+
+    <script>
+        yiliaConfig.toc = ["Hide", "Show", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"JavaScript 继承　| DJL箫氏　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    <!-- 代码1：放在页面需要展示的位置  -->
+<!-- 如果您配置过sourceid，建议在div标签中配置sourceid、cid(分类id)，没有请忽略  -->
+<div id="cyReward" role="cylabs" data-use="reward"></div>
+<!-- 代码2：用来读取评论框配置，此代码需放置在代码1之后。 -->
+<!-- 如果当前页面有评论框，代码2请勿放置在评论框代码之前。 -->
+<!-- 如果页面同时使用多个实验室项目，以下代码只需要引入一次，只配置上面的div标签即可 -->
+<script type="text/javascript" charset="utf-8" src="https://changyan.itc.cn/js/lib/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="https://changyan.sohu.com/js/changyan.labs.https.js?appid=cyt9sxtmJ"></script>
+ 
+
+
+    
+        <section class="youyan" id="comments">
+    <div id="SOHUCS"></div>
+    <script type="text/javascript">
+        (function(){
+            var appid = 'cyt9sxtmJ';
+            var conf = 'f56c8c079d48297e7f6cc79683f3e36d';
+            var width = window.innerWidth || document.documentElement.clientWidth;
+            if (width < 960) {
+                window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
+            } else {
+                var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+    </script>
+</section>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/09/06/设计模式学习之观察者模式和发布订阅模式/" title="Pre: 设计模式学习之观察者模式和发布订阅模式">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/04/22/原型&原型链深度解读/" title="Next: 原型&amp;原型链深度解读">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/09/06/设计模式学习之观察者模式和发布订阅模式/">设计模式学习之观察者模式和发布订阅模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/23/JavaScript 继承/">JavaScript 继承</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/22/原型&原型链深度解读/">原型&原型链深度解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/基于React的脚手架搭建/">基于React的脚手架搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/13/This解读/">This解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/26/Angular4学习之依赖注入/">Angular4学习之依赖注入</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/13/Javascript 异步编程/">Javascript 异步编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/11/响应式布局/">响应式布局</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/21/Angular学习之视图节点和内容节点/">Angular4学习之视图节点和内容节点</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/17/Angular4学习之生命周期/">Angular4学习之生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/webpack2实战/">webpack2实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/06/exports和module-exports的区别/">exports和module.exports的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/01/Vue2变化/">Vue2变化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/01/webpack引入插件的几种方法/">webpack引入插件的几种方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/15/自定义多选框/">自定义多选框</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/07/angular1学习之控制器通信/">angular1学习之控制器通信</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/angular1学习之directive/">angular1学习之directive</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/04/JavaScript模块加载 - AMD/">JavaScript模块加载 - AMD</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/NODE开发小工具/">Node开发小工具</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/CORS跨域/">CORS跨域</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/11/前端跨域请求原理及实现/">前端跨域请求原理及实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/13/better-scroll初探/">better-scroll初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/12/vue-resource初探/">vue-resource初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/08/vue-router初探/">vue-router初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/07/webpack1.0初探/">webpack1.0初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/29/Vuex初探/">Vuex初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之组件/">Vue学习之组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之生命周期/">Vue学习之生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/17/Vue-js学习/">Vue.js学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/13/hexo初探---让写作飞起来/">hexo初探---让写作飞起来</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017-2018 DJL箫氏
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="Site Visitors"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="Page Hits"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
