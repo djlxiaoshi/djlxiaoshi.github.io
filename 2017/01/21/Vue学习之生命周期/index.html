@@ -21,13 +21,13 @@
 <meta property="og:url" content="http://djl.pub/2017/01/21/Vue学习之生命周期/index.html">
 <meta property="og:site_name" content="DJL箫氏">
 <meta property="og:description" content="生命周期在组件开发总非常重要，尤其是能在适当的时机取得数据,做一些初始化准备。下面我们来简单的聊聊Vue生命周期。">
-<meta property="og:image" content="http://ok3x4ia9b.bkt.clouddn.com/17-1-21/75404643-file_1484986273994_1820a.png">
-<meta property="og:image" content="http://ok3x4ia9b.bkt.clouddn.com/17-1-21/56048235-file_1484985260986_9fc2.jpg">
-<meta property="og:updated_time" content="2018-03-24T12:32:39.566Z">
+<meta property="og:image" content="http://images.djl.pub/17-1-21/75404643-file_1484986273994_1820a.png">
+<meta property="og:image" content="http://images.djl.pub/17-1-21/56048235-file_1484985260986_9fc2.jpg">
+<meta property="og:updated_time" content="2019-01-02T12:42:10.938Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue学习之生命周期">
 <meta name="twitter:description" content="生命周期在组件开发总非常重要，尤其是能在适当的时机取得数据,做一些初始化准备。下面我们来简单的聊聊Vue生命周期。">
-<meta name="twitter:image" content="http://ok3x4ia9b.bkt.clouddn.com/17-1-21/75404643-file_1484986273994_1820a.png">
+<meta name="twitter:image" content="http://images.djl.pub/17-1-21/75404643-file_1484986273994_1820a.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -146,13 +146,13 @@
                 <div class="tips-box hide">
                     <div class="tips-arrow"></div>
                     <ul class="tips-inner">
-                        <li>Menu</li>
-                        <li>Tags</li>
+                        <li>菜单</li>
+                        <li>标签</li>
                         
-                        <li>Friends</li>
+                        <li>友情链接</li>
                         
                         
-                        <li>About Me</li>
+                        <li>关于我</li>
                         
                     </ul>
                 </div>
@@ -276,7 +276,7 @@
             </nav>
         </header>                
     </div>
-    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
       <div class="body-wrap"><article id="post-Vue学习之生命周期" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -323,7 +323,7 @@
       
           
         <p>生命周期在组件开发总非常重要，尤其是能在适当的时机取得数据,做一些初始化准备。下面我们来简单的聊聊Vue生命周期。<br><a id="more"></a><br>这里首先来看看Vue官方文档给出的生命周期示意图。</p>
-<p><img src="http://ok3x4ia9b.bkt.clouddn.com/17-1-21/75404643-file_1484986273994_1820a.png" alt="Vue生命周期"></p>
+<p><img src="http://images.djl.pub/17-1-21/75404643-file_1484986273994_1820a.png" alt="Vue生命周期"></p>
 <p>在这里我主要讨论init、created、beforeCompile、compiled、ready、beforeDestroy、destroyed这几个生命周期钩子函数。</p>
 <p>init：在实例开始初始化时同步调用。此时数据观测、事件和 watcher 都尚未初始化。也是说在这里this.$el和this.$data都是拿不到的。</p>
 <p>created:在实例创建之后同步调用。此时实例已经结束解析选项，这意味着已建立：数据绑定，计算属性，方法，watcher/事件回调。但是还没有开始 DOM 编译，$el还不存在。也就是在这里已经可以访问this.$data了了。但是此时还没有进行模板编译。</p>
@@ -333,7 +333,7 @@
 <p>beforeDestroy：在销毁实例时调用，所有功能都还保持。</p>
 <p>destroyed：在实例被销毁之后调用。此时所有的绑定和实例的指令已经解绑，所有的子实例也已经被销毁。如果有离开过渡，destroyed 钩子在过渡完成之后调用。与挂载元素解除绑定</p>
 <p>代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">init: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'-----init----'</span>)</div><div class="line">    <span class="comment">//  也就是说在这里$el获取不到，数据观测也没有建立，事件绑定等等都没有完成  实例初始化时同步调用</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$el);</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$data.msg);</div><div class="line">    <span class="built_in">console</span>.log(<span class="built_in">document</span>.getElementById(<span class="string">"title"</span>))</div><div class="line">&#125;,</div><div class="line"><span class="attr">created</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// 这里$el依然获取不到，但是数据观测已经建立，也就是说可以获得数据了，但是依然没有开始编译，也就是说Vue</span></div><div class="line">    <span class="comment">// 的一些指令是不起作用的</span></div><div class="line">    <span class="comment">// 实例创建后同步调用</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'----created---'</span>)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$el);</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$data.msg);</div><div class="line">    <span class="built_in">console</span>.log(<span class="built_in">document</span>.getElementById(<span class="string">"title"</span>))</div><div class="line">&#125;,</div><div class="line"><span class="attr">beforeCompile</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'---beforeCompile---'</span>)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$el);</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$data.msg);</div><div class="line">    <span class="built_in">console</span>.log(<span class="built_in">document</span>.getElementById(<span class="string">"title"</span>))</div><div class="line">&#125;,</div><div class="line"><span class="attr">compiled</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'---compiled---'</span>)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$el);</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$data.msg);</div><div class="line">    <span class="comment">// 此时指令已经生效，但是不确保插入到文档中</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="built_in">document</span>.getElementById(<span class="string">"title"</span>))</div><div class="line">&#125;,</div><div class="line"><span class="attr">ready</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'---ready---'</span>)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$el);</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$data.msg);</div><div class="line">    <span class="comment">// 在编译结束后和$el第一次插入到文档中的时候</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="built_in">document</span>.getElementById(<span class="string">"title"</span>))  <span class="comment">//这时可以从整个文档中获取到模板中的元素</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'--在ready钩子函数中销毁实例--'</span>)</div><div class="line">    <span class="keyword">this</span>.$destroy(<span class="literal">true</span>);</div><div class="line">&#125;,</div><div class="line"><span class="attr">beforeDestroy</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// 在销毁实例时调用，所有功能都还保持</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'---beforeDestroy---'</span>)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$el);</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$data.msg);</div><div class="line">    <span class="built_in">console</span>.log(<span class="built_in">document</span>.getElementById(<span class="string">"title"</span>))</div><div class="line">&#125;,</div><div class="line"><span class="attr">destroyed</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">//在实例被销毁之后调用。此时所有的绑定和实例的指令已经解绑，所有的子实例也已经被销毁。</span></div><div class="line">    <span class="comment">// 与挂载元素解除绑定</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'---destroyed---'</span>)</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$el);</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$data.msg);</div><div class="line">    <span class="built_in">console</span>.log(<span class="built_in">document</span>.getElementById(<span class="string">"title"</span>))</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><img src="http://ok3x4ia9b.bkt.clouddn.com/17-1-21/56048235-file_1484985260986_9fc2.jpg" alt="结果"></p>
+<p><img src="http://images.djl.pub/17-1-21/56048235-file_1484985260986_9fc2.jpg" alt="结果"></p>
 <p>生命周期在组件开发总非常重要，尤其是能在适当的时机取得数据。</p>
 
       
@@ -343,17 +343,17 @@
   
     
     <div class="copyright">
-        <p><span>Title:</span><a href="/2017/01/21/Vue学习之生命周期/">Vue学习之生命周期</a></p>
-        <p><span>Author:</span><a href="/" title="Back to Homepage">DJL箫氏</a></p>
-        <p><span>Created:</span>2017-01-21, 16:19:44</p>
-        <p><span>Updated:</span>2018-03-24, 20:32:39</p>
+        <p><span>本文标题:</span><a href="/2017/01/21/Vue学习之生命周期/">Vue学习之生命周期</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">DJL箫氏</a></p>
+        <p><span>发布时间:</span>2017-01-21, 16:19:44</p>
+        <p><span>最后更新:</span>2019-01-02, 20:42:10</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2017/01/21/Vue学习之生命周期/" title="Vue学习之生命周期">http://djl.pub/2017/01/21/Vue学习之生命周期/</a>
-            <span class="copy-path" data-clipboard-text="From http://djl.pub/2017/01/21/Vue学习之生命周期/　　By DJL箫氏" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/01/21/Vue学习之生命周期/" title="Vue学习之生命周期">http://djl.pub/2017/01/21/Vue学习之生命周期/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://djl.pub/2017/01/21/Vue学习之生命周期/　　作者: DJL箫氏" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
-            <span>License:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"CC BY-NC-SA 4.0"</a> Keep Link &amp; Author if Distribute.
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
         </p>
     </div>
 
@@ -369,8 +369,8 @@
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/01/17/Vue-js学习/">
-                    Vue.js学习
+                <a href="/2017/01/13/hexo初探---让写作飞起来/">
+                    hexo初探---让写作飞起来
                 </a>
             </div>
         
@@ -380,7 +380,7 @@
 </article>
 
     <div id="toc" class="toc-article">
-        <strong class="toc-title">Contents</strong>
+        <strong class="toc-title">文章目录</strong>
         
             
         
@@ -396,10 +396,10 @@
         }
     </style>
 
-    <input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
     <script>
-        yiliaConfig.toc = ["Hide", "Show", !!"false"];
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
     </script>
 
 
@@ -463,21 +463,21 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/01/21/Vue学习之组件/" title="Pre: Vue学习之组件">
+            <a href="/2017/01/21/Vue学习之组件/" title="上一篇: Vue学习之组件">
                 <i class="fa fa-angle-left"></i>
             </a>
         
 
-        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/01/17/Vue-js学习/" title="Next: Vue.js学习">
+            <a href="/2017/01/13/hexo初探---让写作飞起来/" title="下一篇: hexo初探---让写作飞起来">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/09/06/设计模式学习之观察者模式和发布订阅模式/">设计模式学习之观察者模式和发布订阅模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/23/JavaScript 继承/">JavaScript 继承</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/22/原型&原型链深度解读/">原型&原型链深度解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/基于React的脚手架搭建/">基于React的脚手架搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/13/This解读/">This解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/26/Angular4学习之依赖注入/">Angular4学习之依赖注入</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/13/Javascript 异步编程/">Javascript 异步编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/11/响应式布局/">响应式布局</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/21/Angular学习之视图节点和内容节点/">Angular4学习之视图节点和内容节点</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/17/Angular4学习之生命周期/">Angular4学习之生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/webpack2实战/">webpack2实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/06/exports和module-exports的区别/">exports和module.exports的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/01/Vue2变化/">Vue2变化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/01/webpack引入插件的几种方法/">webpack引入插件的几种方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/15/自定义多选框/">自定义多选框</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/07/angular1学习之控制器通信/">angular1学习之控制器通信</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/angular1学习之directive/">angular1学习之directive</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/04/JavaScript模块加载 - AMD/">JavaScript模块加载 - AMD</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/NODE开发小工具/">Node开发小工具</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/CORS跨域/">CORS跨域</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/11/前端跨域请求原理及实现/">前端跨域请求原理及实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/13/better-scroll初探/">better-scroll初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/12/vue-resource初探/">vue-resource初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/08/vue-router初探/">vue-router初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/07/webpack1.0初探/">webpack1.0初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/29/Vuex初探/">Vuex初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之组件/">Vue学习之组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之生命周期/">Vue学习之生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/17/Vue-js学习/">Vue.js学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/13/hexo初探---让写作飞起来/">hexo初探---让写作飞起来</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/09/06/设计模式学习之观察者模式和发布订阅模式/">设计模式学习之观察者模式和发布订阅模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/23/JavaScript 继承/">JavaScript 继承</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/22/原型&原型链深度解读/">原型&原型链深度解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/基于React的脚手架搭建/">基于React的脚手架搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/13/This解读/">This解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/26/Angular4学习之依赖注入/">Angular4学习之依赖注入</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/13/Javascript 异步编程/">Javascript 异步编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/11/响应式布局/">响应式布局</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/21/Angular学习之视图节点和内容节点/">Angular4学习之视图节点和内容节点</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/17/Angular4学习之生命周期/">Angular4学习之生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/webpack2实战/">webpack2实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/06/exports和module-exports的区别/">exports和module.exports的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/01/Vue2变化/">Vue2变化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/01/webpack引入插件的几种方法/">webpack引入插件的几种方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/15/自定义多选框/">自定义多选框</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/07/angular1学习之控制器通信/">angular1学习之控制器通信</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/angular1学习之directive/">angular1学习之directive</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/04/JavaScript模块加载 - AMD/">JavaScript模块加载 - AMD</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/NODE开发小工具/">Node开发小工具</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/CORS跨域/">CORS跨域</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/11/前端跨域请求原理及实现/">前端跨域请求原理及实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/13/better-scroll初探/">better-scroll初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/12/vue-resource初探/">vue-resource初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/08/vue-router初探/">vue-router初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/07/webpack1.0初探/">webpack1.0初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/29/Vuex初探/">Vuex初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之组件/">Vue学习之组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之生命周期/">Vue学习之生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/13/hexo初探---让写作飞起来/">hexo初探---让写作飞起来</a></li></ul>
 
 
 
@@ -491,17 +491,17 @@
         <div id="footer-info">
             <div class="footer-left">
                 <i class="fa fa-copyright"></i> 
-                2017-2018 DJL箫氏
+                2017-2019 DJL箫氏
             </div>
             <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
             </div>
         </div>
         
             <div class="visit">
                 
                     <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" title="Site Visitors"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
                         </span>
                     </span>
                 
@@ -510,7 +510,7 @@
                 
                 
                     <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit"  title="Page Hits"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
                         </span>
                     </span>
                 
@@ -527,9 +527,9 @@
 
 
 <div class="scroll" id="scroll">
-    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
 </div>
 <script>
     // Open in New Window
