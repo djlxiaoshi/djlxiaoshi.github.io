@@ -17,17 +17,17 @@
 
 <meta name="description" content="基本概念首先我们看下面的示意图，我们可以看到每一个构造函数都会有一个prototype属性（js引擎自动帮我们加上的），这个属性会指向一个原型对象，这个构造函数通过new 会生成一个新的实例对象，这个实例拥有一个__prto__属性，而这个属性也会指向原型对象。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="原型&原型链深度解读">
+<meta property="og:title" content="原型&原型链">
 <meta property="og:url" content="http://djl.pub/2018/04/22/原型&原型链深度解读/index.html">
 <meta property="og:site_name" content="DJL箫氏">
 <meta property="og:description" content="基本概念首先我们看下面的示意图，我们可以看到每一个构造函数都会有一个prototype属性（js引擎自动帮我们加上的），这个属性会指向一个原型对象，这个构造函数通过new 会生成一个新的实例对象，这个实例拥有一个__prto__属性，而这个属性也会指向原型对象。">
-<meta property="og:image" content="http://ok3x4ia9b.bkt.clouddn.com/18-4-22/15949493.jpg">
+<meta property="og:image" content="http://images.djl.pub/18-4-22/15949493.jpg">
 <meta property="og:image" content="http://ok3x4ia9b.bkt.clouddn.com/18-4-22/6767201.jpg">
-<meta property="og:updated_time" content="2018-09-06T01:11:13.718Z">
+<meta property="og:updated_time" content="2019-01-03T01:48:44.794Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="原型&原型链深度解读">
+<meta name="twitter:title" content="原型&原型链">
 <meta name="twitter:description" content="基本概念首先我们看下面的示意图，我们可以看到每一个构造函数都会有一个prototype属性（js引擎自动帮我们加上的），这个属性会指向一个原型对象，这个构造函数通过new 会生成一个新的实例对象，这个实例拥有一个__prto__属性，而这个属性也会指向原型对象。">
-<meta name="twitter:image" content="http://ok3x4ia9b.bkt.clouddn.com/18-4-22/15949493.jpg">
+<meta name="twitter:image" content="http://images.djl.pub/18-4-22/15949493.jpg">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -59,7 +59,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>原型&amp;原型链深度解读 | DJL箫氏</title>
+<title>原型&amp;原型链 | DJL箫氏</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -297,7 +297,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      原型&amp;原型链深度解读
+      原型&amp;原型链
     </h1>
   
 
@@ -319,7 +319,7 @@
       
           
         <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>首先我们看下面的示意图，我们可以看到每一个构造函数都会有一个prototype属性（js引擎自动帮我们加上的），这个属性会指向一个原型对象，这个构造函数通过new 会生成一个新的实例对象，这个实例拥有一个<code>__prto__</code>属性，而这个属性也会指向原型对象。<br><a id="more"></a></p>
-<p><img src="http://ok3x4ia9b.bkt.clouddn.com/18-4-22/15949493.jpg" alt="原型链"></p>
+<p><img src="http://images.djl.pub/18-4-22/15949493.jpg" alt="原型链"></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span> (<span class="params"></span>) </span>&#123;&#125; <span class="comment">// 构造函数</span></div><div class="line"><span class="keyword">const</span> a = <span class="keyword">new</span> A(); <span class="comment">// 实例</span></div><div class="line"></div><div class="line">A.prototye === a.__proro__  <span class="comment">// true</span></div></pre></td></tr></table></figure>
 <p>也就是说通常情况下（没有手动给<code>A.prototye</code>重新赋值）构造函数的<code>prototype</code>和实例的<code>__proto__</code>指向同一地址。而原型对象会有<code>constructor</code>属性指向这个构造函数。同样原型对象也是一个对象，这个对象也会有他的<code>__proto__</code>属性，这个属性又会指向另一个原型对象，这样一层层链接下去就构成了我们通常所说的原型链。</p>
 <p>我们通常会通过<code>instanceof</code>这个操作符来判断某个对象是不是某个构造函数的实例（一般我们认为一个对象的<code>__proto__</code>属性和某个构造函数的<code>prototype</code>属性指向同一地址<code>instanceof</code>就会返回<code>true</code>），<code>a instanceof A</code>返回true，这样看来似乎并没与什么不妥，但是我们发现<code>a isntanceof Object</code>返回的也是true，a 是由Object构造函数的直接实例对象吗？a的<code>__proto__</code>和Object的<code>prototype</code>指向同一地址吗？显然不是，那为什么会返回true。其实<code>instanceof</code>表明的是在a这个对象的原型链上存在一个对象的<code>__proto__</code>属性和某个构造函数的<code>prototype</code>属性指向的是同一地址（翻译过来就是：a的整条<code>[[prototype]]</code>链中是否出现过<code>Object.prototype</code>）。<code>a.__proto__.__proto__ === Object.prototype</code>这里会返回true。其实要知道这样的关系，我们还可以使用<code>isPrototypeOf</code><br><code>Object.prototype.isPrototypeOf(a)</code>，当然也可以是<code>b.isPrototypeOf(a)</code></p>
@@ -347,12 +347,12 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/04/22/原型&原型链深度解读/">原型&amp;原型链深度解读</a></p>
+        <p><span>本文标题:</span><a href="/2018/04/22/原型&原型链深度解读/">原型&amp;原型链</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">DJL箫氏</a></p>
         <p><span>发布时间:</span>2018-04-22, 09:43:08</p>
-        <p><span>最后更新:</span>2018-09-06, 09:11:13</p>
+        <p><span>最后更新:</span>2019-01-03, 09:48:44</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/04/22/原型&原型链深度解读/" title="原型&amp;原型链深度解读">http://djl.pub/2018/04/22/原型&amp;原型链深度解读/</a>
+            <span>原始链接:</span><a class="post-url" href="/2018/04/22/原型&原型链深度解读/" title="原型&amp;原型链">http://djl.pub/2018/04/22/原型&amp;原型链深度解读/</a>
             <span class="copy-path" data-clipboard-text="原文: http://djl.pub/2018/04/22/原型&amp;原型链深度解读/　　作者: DJL箫氏" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -422,7 +422,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"原型&原型链深度解读　| DJL箫氏　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"原型&原型链　| DJL箫氏　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -481,7 +481,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/09/06/设计模式学习之观察者模式和发布订阅模式/">设计模式学习之观察者模式和发布订阅模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/23/JavaScript 继承/">JavaScript 继承</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/22/原型&原型链深度解读/">原型&原型链深度解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/基于React的脚手架搭建/">基于React的脚手架搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/13/This解读/">This解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/26/Angular4学习之依赖注入/">Angular4学习之依赖注入</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/13/Javascript 异步编程/">Javascript 异步编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/11/响应式布局/">响应式布局</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/21/Angular学习之视图节点和内容节点/">Angular4学习之视图节点和内容节点</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/17/Angular4学习之生命周期/">Angular4学习之生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/webpack2实战/">webpack2实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/06/exports和module-exports的区别/">exports和module.exports的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/01/Vue2变化/">Vue2变化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/01/webpack引入插件的几种方法/">webpack引入插件的几种方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/15/自定义多选框/">自定义多选框</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/07/angular1学习之控制器通信/">angular1学习之控制器通信</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/angular1学习之directive/">angular1学习之directive</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/04/JavaScript模块加载 - AMD/">JavaScript模块加载 - AMD</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/NODE开发小工具/">Node开发小工具</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/CORS跨域/">CORS跨域</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/11/前端跨域请求原理及实现/">前端跨域请求原理及实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/13/better-scroll初探/">better-scroll初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/12/vue-resource初探/">vue-resource初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/08/vue-router初探/">vue-router初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/07/webpack1.0初探/">webpack1.0初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/29/Vuex初探/">Vuex初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之组件/">Vue学习之组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之生命周期/">Vue学习之生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/13/hexo初探---让写作飞起来/">hexo初探---让写作飞起来</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/09/06/设计模式学习之观察者模式和发布订阅模式/">设计模式学习之观察者模式和发布订阅模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/23/JavaScript 继承/">JavaScript 继承</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/22/原型&原型链深度解读/">原型&原型链</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/基于React的脚手架搭建/">基于React的脚手架搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/13/This解读/">This解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/26/Angular4学习之依赖注入/">Angular4学习之依赖注入</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/13/Javascript 异步编程/">Javascript 异步编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/11/响应式布局/">响应式布局</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/21/Angular学习之视图节点和内容节点/">Angular4学习之视图节点和内容节点</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/17/Angular4学习之生命周期/">Angular4学习之生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/webpack2实战/">webpack2实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/06/exports和module-exports的区别/">exports和module.exports的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/01/Vue2变化/">Vue2变化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/01/webpack引入插件的几种方法/">webpack引入插件的几种方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/15/自定义多选框/">自定义多选框</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/07/angular1学习之控制器通信/">angular1学习之控制器通信</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/angular1学习之directive/">angular1学习之directive</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/04/JavaScript模块加载 - AMD/">JavaScript模块加载 - AMD</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/NODE开发小工具/">Node开发小工具</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/CORS跨域/">CORS跨域</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/11/前端跨域请求原理及实现/">前端跨域请求原理及实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/13/better-scroll初探/">better-scroll初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/12/vue-resource初探/">vue-resource初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/08/vue-router初探/">vue-router初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/07/webpack1.0初探/">webpack1.0初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/29/Vuex初探/">Vuex初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之组件/">Vue学习之组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之生命周期/">Vue学习之生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/13/hexo初探---让写作飞起来/">hexo初探---让写作飞起来</a></li></ul>
 
 
 
