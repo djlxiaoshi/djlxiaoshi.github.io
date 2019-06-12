@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="DJL箫氏" />
+
+
+
+<meta name="description" content="PWA（Progressive Web App）渐进式Web APP，它并不是单只某一项技术，而是一系列技术综合应用的结果，其中主要包含的相关技术就是Service Worker、Cache Api、Fetch Api、Push API、Notification API 和 postMessage API。使用PWA可以给我们带来什么好处呢？主要体现在如下几方面
+1 离线缓存2 web页面添加桌面">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PWA学习总结">
+<meta property="og:url" content="http://djl.pub/2019/06/12/PWA学习总结/index.html">
+<meta property="og:site_name" content="DJL箫氏的个人博客">
+<meta property="og:description" content="PWA（Progressive Web App）渐进式Web APP，它并不是单只某一项技术，而是一系列技术综合应用的结果，其中主要包含的相关技术就是Service Worker、Cache Api、Fetch Api、Push API、Notification API 和 postMessage API。使用PWA可以给我们带来什么好处呢？主要体现在如下几方面
+1 离线缓存2 web页面添加桌面">
+<meta property="og:image" content="http://images.djl.pub/sw-lifecycle.png">
+<meta property="og:image" content="http://images.djl.pub/xiaoshi-xiaowu.jpg">
+<meta property="og:updated_time" content="2019-06-12T02:13:42.568Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PWA学习总结">
+<meta name="twitter:description" content="PWA（Progressive Web App）渐进式Web APP，它并不是单只某一项技术，而是一系列技术综合应用的结果，其中主要包含的相关技术就是Service Worker、Cache Api、Fetch Api、Push API、Notification API 和 postMessage API。使用PWA可以给我们带来什么好处呢？主要体现在如下几方面
+1 离线缓存2 web页面添加桌面">
+<meta name="twitter:image" content="http://images.djl.pub/sw-lifecycle.png">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="DJL箫氏的个人博客" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>PWA学习总结 | DJL箫氏的个人博客</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">DJL箫氏</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜單</li>
+                        <li>標籤</li>
+                        
+                        <li>友情鏈接</li>
+                        
+                        
+                        <li>關於我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/随笔">随笔</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" href="http://www.weibo.com/u/3687140617/home" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/djlxiaoshi/" title="GitHub"></a>
+                            
+                                <a class="fa 简书" href="http://www.jianshu.com/u/d8657fcf1678" title="简书"></a>
+                            
+                                <a class="fa 博客园" href="http://www.cnblogs.com/djlxs/" title="博客园"></a>
+                            
+                                <a class="fa QQ" href="/1281233206" title="QQ"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AMD/">AMD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular4/">Angular4</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CORS/">CORS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PWA/">PWA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/This/">This</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue组件/">Vue组件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webpack/">Webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/async-await/">async/await</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/directive/">directive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/generator/">generator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jsop/">jsop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/promise/">promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/require-js/">require.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-resource/">vue-resource</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-router/">vue-router</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex/">vuex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/依赖注入/">依赖注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原型/">原型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/响应式布局/">响应式布局</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/异步编程/">异步编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/插件/">插件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生命周期/">生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/继承/">继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚手架/">脚手架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/跨域/">跨域</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/转载/">转载</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">大家好，欢迎来到DJL箫氏的个人博客。专注于前端，喜欢羽毛球、健身等等，如果愿意交流欢迎加我的微信：DJLXS0307（注明来自博客）</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">DJL箫氏</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">DJL箫氏</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/随笔">随笔</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://www.weibo.com/u/3687140617/home" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/djlxiaoshi/" title="GitHub"></a>
+                            
+                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/u/d8657fcf1678" title="简书"></a>
+                            
+                                <a class="fa 博客园" target="_blank" href="http://www.cnblogs.com/djlxs/" title="博客园"></a>
+                            
+                                <a class="fa QQ" target="_blank" href="/1281233206" title="QQ"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="標籤" friends="友情鏈接" about="關於我"/>
+</nav>
+      <div class="body-wrap"><article id="post-PWA学习总结" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/06/12/PWA学习总结/" class="article-date">
+      <time datetime="2019-06-12T02:13:08.000Z" itemprop="datePublished">2019-06-12</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      PWA学习总结
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PWA/">PWA</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>PWA（Progressive Web App）渐进式Web APP，它并不是单只某一项技术，而是一系列技术综合应用的结果，其中主要包含的相关技术就是Service Worker、Cache Api、Fetch Api、Push API、Notification API 和 postMessage API。使用PWA可以给我们带来什么好处呢？主要体现在如下几方面</p>
+<p>1 离线缓存<br>2 web页面添加桌面快速入口<br>3 消息推送<br><a id="more"></a></p>
+<h2 id="相关知识"><a href="#相关知识" class="headerlink" title="相关知识"></a>相关知识</h2><h3 id="Service-Worker"><a href="#Service-Worker" class="headerlink" title="Service Worker"></a>Service Worker</h3><p>简单来说，Service Worker 是一个可编程的 Web Worker，它就像一个位于浏览器与网络之间的客户端代理，可以拦截、处理、响应流经的 HTTP 请求。它没有调用 DOM 和其他页面 api 的能力，但他可以拦截网络请求，包括页面切换，静态资源下载，ajax请求所引起的网络请求。Service Worker 是一个独立于JavaScript主线程的浏览器线程。Service Worker有如下特性：</p>
+<ul>
+<li>必须在 HTTPS 环境下才能工作（在开发模式下<a href="http://localhost也可以工作）" target="_blank" rel="external">http://localhost也可以工作）</a></li>
+<li>不能直接操作 DOM，（但是可以通过postMessage发送某些信号，主进程根据信号类型，进行不同的操作）</li>
+<li>一个独立的 worker 线程，独立于当前网页进程，有自己独立的 worker context。</li>
+<li>运行于浏览器后台，可以控制打开的作用域范围下所有的页面请求</li>
+<li>Service Worker 必须要在主线中进行注册</li>
+<li>一旦被 install，就永远存在，除非被手动 unregister</li>
+<li>用到的时候可以直接唤醒，不用的时候自动睡眠</li>
+</ul>
+<h3 id="注册Service-Work"><a href="#注册Service-Work" class="headerlink" title="注册Service Work"></a>注册Service Work</h3><p>我们需要在主线程中注册Service Worker，并且一般是在页面触发load事件之后进行注册。当Service Worker注册成功后便会进入其生命周期。scope代表Service Worker控制该路径下的所有请求，如果请求路径不是在该路径之下，则请求不会被拦截。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 注册service worker</span></div><div class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'load'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  navigator.serviceWorker.register(<span class="string">'/sw.js'</span>, &#123;<span class="attr">scope</span>: <span class="string">'/'</span>&#125;)</div><div class="line">    .then(<span class="function"><span class="keyword">function</span> (<span class="params">registration</span>) </span>&#123;</div><div class="line"></div><div class="line">      <span class="comment">// 注册成功</span></div><div class="line">      <span class="built_in">console</span>.log(<span class="string">'ServiceWorker registration successful with scope: '</span>, registration.scope);</div><div class="line">    &#125;)</div><div class="line">    .catch(<span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</div><div class="line"></div><div class="line">      <span class="comment">// 注册失败:(</span></div><div class="line">      <span class="built_in">console</span>.log(<span class="string">'ServiceWorker registration failed: '</span>, err);</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="Service-Worker生命周期"><a href="#Service-Worker生命周期" class="headerlink" title="Service Worker生命周期"></a>Service Worker生命周期</h3><p>Service Worker生命周期大致如下</p>
+<blockquote>
+<p>install -&gt; installed -&gt; actvating -&gt; Active -&gt; Activated -&gt; Redundant</p>
+</blockquote>
+<p><img src="http://images.djl.pub/sw-lifecycle.png" alt="Service Worker生命周期图"></p>
+<p>在Service Worker注册成功之后就会触发install事件，在触发install事件后，我们就可以开始缓存一些静态资。waitUntil方法确保所有代码执行完毕后，Service Worker 才会完成Service Worker的安装。需要注意的是只有CACHE_LIST中的资源全部安装成功后，才会完成安装，否则失败，进入<code>redundant</code>状态，所以这里的静态资源最好不要太多。如果 sw.js 文件的内容有改动，当访问网站页面时浏览器获取了新的文件，它会认为有更新，于是会安装新的文件并触发 install 事件。但是此时已经处于激活状态的旧的 Service Worker 还在运行，新的 Service Worker 完成安装后会进入 waiting 状态。直到所有已打开的页面都关闭，旧的 Service Worker 自动停止，新的 Service Worker 才会在接下来打开的页面里生效。为了能够让新的Service Worker及时生效，我们使用<code>skipWaiting</code>直接使Service Worker跳过等待时期，从而直接进入下一个阶段。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> CACHE_NAME = <span class="string">'cache_v'</span> + <span class="number">2</span>;</div><div class="line"><span class="keyword">const</span> CACGE_LIST = [</div><div class="line">  <span class="string">'/'</span>,</div><div class="line">  <span class="string">'/index.html'</span>,</div><div class="line">  <span class="string">'/main.css'</span>,</div><div class="line">  <span class="string">'/app.js'</span>,</div><div class="line">  <span class="string">'/icon.png'</span></div><div class="line">];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">preCache</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="comment">// 安装成功后操作 CacheStorage 缓存，使用之前需要先通过 caches.open() 打开对应缓存空间。</span></div><div class="line">  <span class="keyword">return</span> caches.open(CACHE_NAME).then(<span class="function"><span class="params">cache</span> =&gt;</span> &#123;</div><div class="line">    <span class="comment">// 通过 cache 缓存对象的 addAll 方法添加 precache 缓存</span></div><div class="line">    <span class="keyword">return</span> cache.addAll(CACGE_LIST);</div><div class="line">  &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 安装</span></div><div class="line">self.addEventListener(<span class="string">'install'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</div><div class="line">  <span class="comment">// 等待promise执行完</span></div><div class="line">  event.waitUntil(</div><div class="line">    <span class="comment">// 如果上一个serviceWorker不销毁 需要手动skipWaiting()</span></div><div class="line">    preCache().then(skipWaiting)</div><div class="line">  );</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>在安装成功后，便会触发<code>activate</code>事件，在进入这个生命周期后，我们一般会删除掉之前已经过期的版本（因为默认情况下浏览器是不会自动删除过期的版本的），并更新客户端Service Worker（使用当前处于激活状态的Service Worker）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 删除过期缓存</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">clearCache</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> caches.keys().then(<span class="function"><span class="params">keys</span> =&gt;</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.all(keys.map(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</div><div class="line">      <span class="keyword">if</span> (key !== CACHE_NAME) &#123;</div><div class="line">        <span class="keyword">return</span> caches.delete(key);</div><div class="line">      &#125;</div><div class="line">    &#125;))</div><div class="line">  &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 激活 activate 事件中通常做一些过期资源释放的工作</span></div><div class="line">self.addEventListener(<span class="string">'activate'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">  e.waitUntil(</div><div class="line">    <span class="built_in">Promise</span>.all([</div><div class="line">      clearCache(),</div><div class="line">      self.clients.claim()</div><div class="line">    ])</div><div class="line">  );</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>在这里还有一个问题就是sw.js文件有可能会被浏览器缓存，所以我们一般需要设置sw.js不缓存或者较短的缓存时间<br>更多详细参考 <a href="https://zhuanlan.zhihu.com/p/28161855" target="_blank" rel="external">如何优雅的为 PWA 注册 Service Worker</a></p>
+</blockquote>
+<h3 id="Service-Worker-拦截请求"><a href="#Service-Worker-拦截请求" class="headerlink" title="Service Worker 拦截请求"></a>Service Worker 拦截请求</h3><p>之前说过，Service Worker 是可以拦截请求的，那么一定就会存在一个拦截请求的事件fetch。我们需要在sw.js去监听这个事件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">self.addEventListener(<span class="string">'fetch'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</div><div class="line">  event.respondWith(</div><div class="line">    caches.open(CACHE_NAME).then(<span class="function"><span class="params">cache</span> =&gt;</span> &#123;</div><div class="line">      <span class="keyword">return</span> cache.match(event.request).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">// 如果 Service Worker 有自己的返回，就直接返回，减少一次 http 请求</span></div><div class="line">        <span class="keyword">if</span> (response) &#123;</div><div class="line">          <span class="built_in">console</span>.log(<span class="string">'cache 缓存'</span>, event.request.url, response);</div><div class="line">          <span class="keyword">return</span> response;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            </div><div class="line">            <span class="keyword">if</span> (navigator.online) &#123;</div><div class="line">            </div><div class="line">                <span class="keyword">return</span> fetch(event.request).then(<span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</div><div class="line">                    <span class="built_in">console</span>.log(<span class="string">'network'</span>, event.request.url, response);</div><div class="line">            <span class="comment">// 由于响应是一个JavaScript或者HTML，会认为这个响应为一个流，而流是只能被消费一次的，所以只能被读一次</span></div><div class="line">            <span class="comment">// 第二次就会报错 参考文章https://jakearchibald.com/2014/reading-responses/</span></div><div class="line">            cache.put(event.request, response.clone());</div><div class="line">            <span class="keyword">return</span> response;</div><div class="line">          &#125;).catch(<span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.error(<span class="string">'请求失败'</span>, error);</div><div class="line">            <span class="keyword">throw</span> error;</div><div class="line">          &#125;);</div><div class="line">          </div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="comment">// 断网处理</span></div><div class="line">                offlineRequest(fetchRequest);</div><div class="line">            &#125;</div><div class="line">          </div><div class="line">        &#125;</div><div class="line">      &#125;);</div><div class="line">    &#125;)</div><div class="line">  );</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>这里我们在fetch事件中监听请求事件，我们通过cache.match来进行请求的比较，如果存再这个请求的响应我们就直接返回缓存结果，否则就去请求。在这里我们通过cache.add来添加新的缓存，他实际上内部是包含了fetch请求过程的（<strong>注意:Cache.put, Cache.add和Cache.addAll只能在GET请求下使用</strong>）。在match的时候，需要请求的url和header都一致才是相同的资源，可以设定第二个参数ignoreVary：true。<code>caches.match(event.request, {ignoreVary: true})</code><br>表示只要请求url相同就认为是同一个资源。另外需要提到一点，Fetch 请求默认是不附带 Cookies 等信息的，在请求静态资源上这没有问题，而且节省了网络请求大小。但对于动态页面，则可能会因为请求缺失 Cookies 而存在问题。此时可以给 Fetch 请求设置第二个参数。示例：<code>fetch(fetchRequest, { credentials: &#39;include&#39; } );</code></p>
+<h3 id="Cache-API"><a href="#Cache-API" class="headerlink" title="Cache API"></a>Cache API</h3><p>Cache API 不仅在Service Worker中可以使用，在主页面中也可以使用。我们通过 caches.open(cacheName)来打开一个缓存空间，在，默认情况下，如果我们不手动去清除这个缓存空间，这个缓存会一直存在，不会过期。在使用Cache API之前，我们都需要通过caches.open先去打开这个缓存空间，然后在使用相应的Cache方法。这里有几个注意点：</p>
+<ul>
+<li>Cache.put, Cache.add和Cache.addAll只能在GET请求下使用</li>
+<li>自Chrome 46版本起，Cache API只保存安全来源的请求，即那些通过HTTPS服务的请求。</li>
+<li>Cache API不支持HTTP缓存头</li>
+</ul>
+<p>在使用cache.add和cache.addAll的时候，是先根据url获取到相应的response，然后再添加到缓存中。过程类似于调用 fetch(), 然后使用 Cache.put() 将response添加到cache中</p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Cache" target="_blank" rel="external">详细MDN文档</a></p>
+<h3 id="Fetch-API"><a href="#Fetch-API" class="headerlink" title="Fetch API"></a>Fetch API</h3><p>Fetch API不仅可以在主线程中进行使用，也可以在Service Worker中进行使用。fetch 和 XMLHttpRequest有两种方式不同： </p>
+<ul>
+<li><p>当接收到一个代表错误的 HTTP 状态码时，从 fetch()返回的 Promise 不会被标记为 reject， 即使该 HTTP 响应的状态码是 404 或 500。相反，它会将 Promise 状态标记为 resolve （但是会将 resolve 的返回值的 ok 属性设置为 false ），仅当网络故障时或请求被阻止时，才会标记为 reject。</p>
+</li>
+<li><p>默认情况下，fetch 不会从服务端发送或接收任何 cookies, 如果站点依赖于用户 session，则会导致未经认证的请求（要发送 cookies，必须设置 credentials 选项）</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">// Example POST method implementation:</span></div><div class="line"></div><div class="line">postData(<span class="string">'http://example.com/answer'</span>, &#123;<span class="attr">answer</span>: <span class="number">42</span>&#125;)</div><div class="line">  .then(<span class="function"><span class="params">data</span> =&gt;</span> <span class="built_in">console</span>.log(data)) <span class="comment">// JSON from `response.json()` call</span></div><div class="line">  .catch(<span class="function"><span class="params">error</span> =&gt;</span> <span class="built_in">console</span>.error(error))</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">postData</span>(<span class="params">url, data</span>) </span>&#123;</div><div class="line">  <span class="comment">// Default options are marked with *</span></div><div class="line">  <span class="keyword">return</span> fetch(url, &#123;</div><div class="line">    <span class="attr">body</span>: <span class="built_in">JSON</span>.stringify(data), <span class="comment">// must match 'Content-Type' header</span></div><div class="line">    cache: <span class="string">'no-cache'</span>, <span class="comment">// *default, no-cache, reload, force-cache, only-if-cached</span></div><div class="line">    credentials: <span class="string">'same-origin'</span>, <span class="comment">// include（始终携带）, same-origin(同源携带cookie), omit（始终不携带）</span></div><div class="line">    headers: &#123;</div><div class="line">      <span class="string">'user-agent'</span>: <span class="string">'Mozilla/4.0 MDN Example'</span>,</div><div class="line">      <span class="string">'content-type'</span>: <span class="string">'application/json'</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">method</span>: <span class="string">'POST'</span>, <span class="comment">// *GET, POST, PUT, DELETE, etc.</span></div><div class="line">    mode: <span class="string">'cors'</span>, <span class="comment">// no-cors, cors, *same-origin</span></div><div class="line">    redirect: <span class="string">'follow'</span>, <span class="comment">// manual, *follow, error</span></div><div class="line">    referrer: <span class="string">'no-referrer'</span>, <span class="comment">// *client, no-referrer</span></div><div class="line">  &#125;)</div><div class="line">  .then(<span class="function"><span class="params">response</span> =&gt;</span> response.json()) <span class="comment">// parses response to JSON</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>更多信息请查阅：<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch" target="_blank" rel="external">使用 Fetch</a></p>
+<h3 id="Notification"><a href="#Notification" class="headerlink" title="Notification"></a>Notification</h3><p>Notification API 用来进行浏览器通知，当用户允许时，浏览器就可以弹出通知。这个API在主页面和Service Worker中都可以使用，<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/notification" target="_blank" rel="external">MDN文档</a></p>
+<ul>
+<li>在主页面中使用</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">// 先检查浏览器是否支持</span></div><div class="line">  <span class="keyword">if</span> (!(<span class="string">"Notification"</span> <span class="keyword">in</span> <span class="built_in">window</span>)) &#123;</div><div class="line">    alert(<span class="string">"This browser does not support desktop notification"</span>);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// 检查用户是否同意接受通知</span></div><div class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (Notification.permission === <span class="string">"granted"</span>) &#123;</div><div class="line">    <span class="comment">// If it's okay let's create a notification</span></div><div class="line">    <span class="keyword">new</span> Notification(title, &#123;</div><div class="line">      <span class="attr">body</span>: desc,</div><div class="line">      <span class="attr">icon</span>: <span class="string">'/icon.png'</span>,</div><div class="line">      <span class="attr">requireInteraction</span>: <span class="literal">true</span></div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// 否则我们需要向用户获取权限</span></div><div class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (Notification.permission !== <span class="string">'denied'</span>) &#123;</div><div class="line">    Notification.requestPermission(<span class="function"><span class="keyword">function</span> (<span class="params">permission</span>) </span>&#123;</div><div class="line">      <span class="comment">// 如果用户同意，就可以向他们发送通知</span></div><div class="line">      <span class="keyword">if</span> (permission === <span class="string">"granted"</span>) &#123;</div><div class="line">        <span class="keyword">new</span> Notification(title, &#123;</div><div class="line">          <span class="attr">body</span>: desc,</div><div class="line">          <span class="attr">icon</span>: <span class="string">'/icon.png'</span>,</div><div class="line">          <span class="attr">requireInteraction</span>: <span class="literal">true</span></div><div class="line">        &#125;);</div><div class="line">      &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">console</span>.warn(<span class="string">'用户拒绝通知'</span>);</div><div class="line">      &#125;</div><div class="line">    &#125;);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>在Service Worker中使用</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">// 发送 Notification 通知</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sendNotify</span>(<span class="params">title, options=&#123;&#125;, event</span>) </span>&#123;</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (Notification.permission !== <span class="string">'granted'</span>) &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Not granted Notification permission.'</span>);</div><div class="line"></div><div class="line">    <span class="comment">// 通过post一个message信号量，来在主页面中询问用户获取页面通知权限</span></div><div class="line">    postMessage(&#123;</div><div class="line">      <span class="attr">type</span>: <span class="string">'applyNotify'</span></div><div class="line">    &#125;)</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line"></div><div class="line">    <span class="comment">// 在Service Worker 中 触发一条通知</span></div><div class="line">    self.registration.showNotification(title || <span class="string">'Hi：'</span>, <span class="built_in">Object</span>.assign(&#123;</div><div class="line">      <span class="attr">body</span>: <span class="string">'这是一个通知示例'</span>,</div><div class="line">      <span class="attr">icon</span>: <span class="string">'/icon.png'</span>,</div><div class="line">      <span class="attr">requireInteraction</span>: <span class="literal">true</span></div><div class="line">    &#125;, options));</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们可以看见当我们在Service Worker中进行消息提示时，用户可能关闭了消息提示的功能，所以我们首先要再次询问用户是否开启消息提示的功能，但是在Service Worker中是不能够直接询问用户的，我们必须要在主页面中去询问，这个时候我们可以通过postMessage去发送一个信号量，根据这个信号量的类型，来做响应的处理（例如：询问消息提示的权限，DOM操作等等）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">postMessage</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">  self.clients.matchAll().then(<span class="function"><span class="params">clientList</span> =&gt;</span> &#123;</div><div class="line">    clientList.forEach(<span class="function"><span class="params">client</span> =&gt;</span> &#123;</div><div class="line">      <span class="comment">// 当前打开的标签页发送消息</span></div><div class="line">      <span class="keyword">if</span> (client.visibilityState === <span class="string">'visible'</span>) &#123;</div><div class="line">        client.postMessage(data);</div><div class="line">      &#125;</div><div class="line">    &#125;)</div><div class="line">  &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这里我们只向打开的标签页发送该信号量，避免重复询问</p>
+<h3 id="message-事件"><a href="#message-事件" class="headerlink" title="message 事件"></a>message 事件</h3><p>由于Service Worker是一个单独的浏览器线程，与JavaScript主线程互不干扰，但是我们还是可以通过postMessage实现通信，而且可以通过post特定的消息，从而让主线程去进行相应的DOM操作，实现间接操作DOM的方式。</p>
+<ul>
+<li><strong>页面发送消息给Service Worker</strong><br>在页面上通过 navigator.serviceWorker.controller 获得 ServiceWorker 的句柄。但只有 ServiceWorker 注册成功后该句柄才会存在。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sendMsg</span>(<span class="params">msg</span>) </span>&#123;</div><div class="line">    <span class="keyword">const</span> controller = navigator.serviceWorker.controller;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (!controller) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    controller.postMessage(msg, []);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 在 serviceWorker 注册成功后，页面上即可通过 navigator.serviceWorker.controller 发送消息给它</span></div><div class="line">navigator.serviceWorker</div><div class="line">    .register(<span class="string">'/test/sw.js'</span>, &#123;<span class="attr">scope</span>: <span class="string">'/test/'</span>&#125;)</div><div class="line">    .then(<span class="function"><span class="params">registration</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'ServiceWorker 注册成功！作用域为: '</span>, registration.scope))</div><div class="line">    .then(<span class="function"><span class="params">()</span> =&gt;</span> sendMsg(<span class="string">'hello sw!'</span>))</div><div class="line">    .catch(<span class="function"><span class="params">err</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'ServiceWorker 注册失败: '</span>, err));</div></pre></td></tr></table></figure>
+<p>在 ServiceWorker 内部，可以通过监听 message 事件即可获得消息：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">self.addEventListener(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">ev</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(ev.data);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>Service Worker发送消息给页面</strong></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">// self.clients.matchAll方法获取当前serviceWorker实例所接管的所有标签页，注意是当前实例 已经接管的</span></div><div class="line">self.clients.matchAll().then(<span class="function"><span class="params">clientList</span> =&gt;</span> &#123;</div><div class="line">    clientList.forEach(<span class="function"><span class="params">client</span> =&gt;</span> &#123;</div><div class="line">        client.postMessage(<span class="string">'Hi, I am send from Service worker！'</span>);</div><div class="line">    &#125;)</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>在主页面中监听</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">navigator.serviceWorker.addEventListener(<span class="string">'message'</span>, event =&gt; &#123;</div><div class="line">  <span class="built_in">console</span>.log(event.data);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Client/postMessage" target="_blank" rel="external">Client.postMessage</a></p>
+<h3 id="manifest"><a href="#manifest" class="headerlink" title="manifest"></a>manifest</h3><p>3 manifest.json 作用<br>PWA 添加至桌面的功能实现依赖于 manifest.json，也就是说如果要实现添加至主屏幕这个功能，就必须要有这个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;short_name&quot;: &quot;短名称&quot;,</div><div class="line">  &quot;name&quot;: &quot;这是一个完整名称&quot;,</div><div class="line">  &quot;icons&quot;: [</div><div class="line">  &#123;</div><div class="line">    &quot;src&quot;: &quot;icon.png&quot;,</div><div class="line">    &quot;type&quot;: &quot;image/png&quot;,</div><div class="line">    &quot;sizes&quot;: &quot;144x144&quot;</div><div class="line">  &#125;</div><div class="line">],</div><div class="line">  &quot;start_url&quot;: &quot;index.html&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>&lt;link rel=&quot;manifest&quot; href=&quot;path-to-manifest/manifest.json&quot;&gt;</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">name —— 网页显示给用户的完整名称</div><div class="line"></div><div class="line">short_name —— 当空间不足以显示全名时的网站缩写名称</div><div class="line"></div><div class="line">description —— 关于网站的详细描述</div><div class="line"></div><div class="line">start_url —— 网页的初始 相对 URL（比如 /）</div><div class="line"></div><div class="line">scope —— 导航范围。比如，/app/的scope就限制 app 在这个文件夹里。</div><div class="line"></div><div class="line">background-color —— 启动屏和浏览器的背景颜色</div><div class="line"></div><div class="line">theme_color —— 网站的主题颜色，一般都与背景颜色相同，它可以影响网站的显示</div><div class="line"></div><div class="line">orientation —— 首选的显示方向：any, natural, landscape, landscape-primary, landscape-secondary, portrait, portrait-primary, 和 portrait-secondary。</div><div class="line"></div><div class="line">display —— 首选的显示方式：fullscreen, standalone(看起来像是native app)，minimal-ui(有简化的浏览器控制选项) 和 browser(常规的浏览器 tab)</div><div class="line"></div><div class="line">icons —— 定义了 src URL, sizes和type的图片对象数组。</div></pre></td></tr></table></figure>
+<p><a href="https://juejin.im/entry/5a49d821518825258b745b76" target="_blank" rel="external">详细配置</a></p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/Manifest" target="_blank" rel="external">MDN详细配置</a></p>
+<p><a href="https://manifest-validator.appspot.com/" target="_blank" rel="external">manifest验证</a></p>
+<h3 id="相关问题"><a href="#相关问题" class="headerlink" title="相关问题"></a>相关问题</h3><ul>
+<li>对于不同的资源，我们可能有不同的缓存策略，怎么方便的去实现这些复杂的场景</li>
+</ul>
+<p>使用<a href="https://developers.google.com/web/tools/workbox/guides/get-started" target="_blank" rel="external">workbox</a>，如果使用webpack进行项目打包，我们可以使用<a href="https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin" target="_blank" rel="external">workbox-webpack-plugin插件</a></p>
+<ul>
+<li>为什么不适用其他的本地缓存方案</li>
+</ul>
+<blockquote>
+<p>Web Storage（例如 LocalStorage 和 SessionStorage）是同步的，不支持网页工作线程，并对大小和类型（仅限字符串）进行限制。 Cookie 具有自身的用途，但它们是同步的，缺少网页工作线程支持，同时对大小进行限制。WebSQL 不具有广泛的浏览器支持，因此不建议使用它。File System API 在 Chrome 以外的任意浏览器上都不受支持。目前正在 File and Directory Entries API 和 File API 规范中改进 File API，但该 API 还不够成熟也未完全标准化，因此无法被广泛采用。</p>
+</blockquote>
+<p>同步的问题 就是负担大，如果有大量请求缓存在本地缓存中，如果是同步，可能负担重</p>
+<ul>
+<li>在将相应存在cache中并返回给浏览器报错</li>
+</ul>
+<p>resulted in a network error response: a Response whose “body” is locked cannot be used to respond to a request</p>
+<p>这是因为在使用put的时候，是流的一个pipe操作，流是只能被消费一次的。我们可以clone这个response或者reques<a href="https://jakearchibald.com/2014/reading-responses/" target="_blank" rel="external">参考文章</a> </p>
+<ul>
+<li>在经过webpack打包后，所有的静态资源都会带有hash值，怎么办</li>
+</ul>
+<p>使用某些webpack插件，例如offline-plugin或者webpack-workbox-plugin</p>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><p><a href="https://github.com/djlxiaoshi/pwa-study" target="_blank" rel="external">pwa-study</a></p>
+<p><a href="https://github.com/djlxiaoshi/pwa-webpack-study" target="_blank" rel="external">pwa-webpack-study</a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><p><a href="https://github.com/nicejade/nice-front-end-tutorial/blob/master/tutorial/pwa-tutorial.md" target="_blank" rel="external">pwa系列参考文章</a></p>
+</li>
+<li><p><a href="https://lavas.baidu.com/pwa/engage-retain-users/add-to-home-screen/introduction" target="_blank" rel="external">百度Lavas教程</a></p>
+</li>
+<li><p><a href="https://zoumiaojiang.com/article/amazing-workbox-3/" target="_blank" rel="external">workbox-3博客文档</a></p>
+</li>
+<li><p><a href="https://developers.google.com/web/tools/workbox/guides/precache-files/" target="_blank" rel="external">workbox 官方文档</a></p>
+</li>
+<li><p><a href="https://lzw.me/a/pwa-service-worker.html#7" target="_blank" rel="external">网站渐进式增强体验(PWA)改造：Service Worker 应用详解</a></p>
+</li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/28161855" target="_blank" rel="external">如何优雅的为 PWA 注册 Service Worker</a></p>
+</li>
+<li><p><a href="https://github.com/lukeed/pwa" target="_blank" rel="external">Universal PWA Builder</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/59ed37f5f265da431e15eaac" target="_blank" rel="external">HTML5 桌面通知：Notification API</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5bf3f6b2e51d45360069e527" target="_blank" rel="external">Service Worker学习与实践（三）——消息推送</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/i10630226/article/details/78888698" target="_blank" rel="external">PWA-推送技术</a></p>
+</li>
+</ul>
+<h2 id="最后（欢迎大家关注我）"><a href="#最后（欢迎大家关注我）" class="headerlink" title="最后（欢迎大家关注我）"></a>最后（欢迎大家关注我）</h2><p><a href="http://djl.pub/">DJL箫氏个人博客</a></p>
+<p><a href="https://github.com/djlxiaoshi/blog/issues" target="_blank" rel="external">博客GitHub地址</a>（欢迎star）</p>
+<p><a href="https://www.jianshu.com/u/d8657fcf1678" target="_blank" rel="external">简书</a></p>
+<p><a href="https://juejin.im/user/57183fcac4c9710054bc2fcf" target="_blank" rel="external">掘金</a></p>
+<p>个人公众号<br><img src="http://images.djl.pub/xiaoshi-xiaowu.jpg" alt="个人公众号"></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文標題:</span><a href="/2019/06/12/PWA学习总结/">PWA学习总结</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主頁">DJL箫氏</a></p>
+        <p><span>發布時間:</span>2019-06-12, 10:13:08</p>
+        <p><span>最後更新:</span>2019-06-12, 10:13:42</p>
+        <p>
+            <span>原始鏈接:</span><a class="post-url" href="/2019/06/12/PWA学习总结/" title="PWA学习总结">http://djl.pub/2019/06/12/PWA学习总结/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://djl.pub/2019/06/12/PWA学习总结/　　作者: DJL箫氏" title="點擊複製文章鏈接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>許可協議:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"姓名標示-非商業性-相同方式分享 4.0 國際"</a> 轉載請保留原文鏈接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/01/02/前端性能优化/">
+                    前端性能优化
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目錄</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#相关知识"><span class="toc-number">1.</span> <span class="toc-text">相关知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Service-Worker"><span class="toc-number">1.1.</span> <span class="toc-text">Service Worker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注册Service-Work"><span class="toc-number">1.2.</span> <span class="toc-text">注册Service Work</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Service-Worker生命周期"><span class="toc-number">1.3.</span> <span class="toc-text">Service Worker生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Service-Worker-拦截请求"><span class="toc-number">1.4.</span> <span class="toc-text">Service Worker 拦截请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache-API"><span class="toc-number">1.5.</span> <span class="toc-text">Cache API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fetch-API"><span class="toc-number">1.6.</span> <span class="toc-text">Fetch API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Notification"><span class="toc-number">1.7.</span> <span class="toc-text">Notification</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#message-事件"><span class="toc-number">1.8.</span> <span class="toc-text">message 事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#manifest"><span class="toc-number">1.9.</span> <span class="toc-text">manifest</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相关问题"><span class="toc-number">1.10.</span> <span class="toc-text">相关问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码示例"><span class="toc-number">2.</span> <span class="toc-text">代码示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">3.</span> <span class="toc-text">参考资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后（欢迎大家关注我）"><span class="toc-number">4.</span> <span class="toc-text">最后（欢迎大家关注我）</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隱藏目錄"  title="點擊按鈕隱藏或者顯示文章目錄">
+
+    <script>
+        yiliaConfig.toc = ["隱藏目錄", "顯示目錄", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"PWA学习总结　| DJL箫氏的个人博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    <!-- 代码1：放在页面需要展示的位置  -->
+<!-- 如果您配置过sourceid，建议在div标签中配置sourceid、cid(分类id)，没有请忽略  -->
+<div id="cyReward" role="cylabs" data-use="reward"></div>
+<!-- 代码2：用来读取评论框配置，此代码需放置在代码1之后。 -->
+<!-- 如果当前页面有评论框，代码2请勿放置在评论框代码之前。 -->
+<!-- 如果页面同时使用多个实验室项目，以下代码只需要引入一次，只配置上面的div标签即可 -->
+<script type="text/javascript" charset="utf-8" src="https://changyan.itc.cn/js/lib/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="https://changyan.sohu.com/js/changyan.labs.https.js?appid=cyt9sxtmJ"></script>
+ 
+
+
+    
+        <section class="youyan" id="comments">
+    <div id="SOHUCS"></div>
+    <script type="text/javascript">
+        (function(){
+            var appid = 'cyt9sxtmJ';
+            var conf = 'f56c8c079d48297e7f6cc79683f3e36d';
+            var width = window.innerWidth || document.documentElement.clientWidth;
+            if (width < 960) {
+                window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
+            } else {
+                var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+    </script>
+</section>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主頁"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/01/02/前端性能优化/" title="下一篇: 前端性能优化">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/06/12/PWA学习总结/">PWA学习总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/前端性能优化/">前端性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Webpack优化/">Webpack优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/06/设计模式学习之观察者模式和发布订阅模式/">设计模式学习之观察者模式和发布订阅模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/23/JavaScript 继承/">JavaScript 继承</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/22/原型&原型链深度解读/">原型&原型链</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/基于React的脚手架搭建/">基于React的脚手架搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/13/This解读/">This解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/26/Angular4学习之依赖注入/">Angular4学习之依赖注入</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/13/Javascript 异步编程/">Javascript 异步编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/11/响应式布局/">响应式布局</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/21/Angular学习之视图节点和内容节点/">Angular4学习之视图节点和内容节点</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/17/Angular4学习之生命周期/">Angular4学习之生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/webpack2实战/">webpack2实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/06/exports和module-exports的区别/">exports和module.exports的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/01/Vue2变化/">Vue2变化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/01/webpack引入插件的几种方法/">webpack引入插件的几种方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/15/自定义多选框/">自定义多选框</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/07/angular1学习之控制器通信/">angular1学习之控制器通信</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/angular1学习之directive/">angular1学习之directive</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/04/JavaScript模块加载 - AMD/">JavaScript模块加载 - AMD</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/NODE开发小工具/">Node开发小工具</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/CORS跨域/">CORS跨域</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/11/前端跨域请求原理及实现/">前端跨域请求原理及实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/13/better-scroll初探/">better-scroll初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/12/vue-resource初探/">vue-resource初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/08/vue-router初探/">vue-router初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/07/webpack1.0初探/">webpack1.0初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/29/Vuex初探/">Vuex初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之组件/">Vue学习之组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之生命周期/">Vue学习之生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/13/hexo初探---让写作飞起来/">hexo初探---让写作飞起来</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017-2019 DJL箫氏
+            </div>
+            <div class="footer-right">
+                <!-- <a href="http://hexo.io/" target="_blank" title="快速、簡潔且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="簡而不減 Hexo 雙欄博客主題  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i> -->
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到訪數"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本頁閱讀量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回頂部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看評論"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="轉到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

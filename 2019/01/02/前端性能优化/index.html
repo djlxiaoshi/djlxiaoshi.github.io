@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="DJL箫氏" />
+
+
+
+<meta name="description" content="性能优化最核心的部分就是减少请求数量和资源下载量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端性能优化">
+<meta property="og:url" content="http://djl.pub/2019/01/02/前端性能优化/index.html">
+<meta property="og:site_name" content="DJL箫氏的个人博客">
+<meta property="og:description" content="性能优化最核心的部分就是减少请求数量和资源下载量">
+<meta property="og:image" content="http://images.djl.pub/19-1-3/90109613.jpg">
+<meta property="og:image" content="http://images.djl.pub/19-1-3/60652063.jpg">
+<meta property="og:image" content="http://images.djl.pub/19-1-3/25059745.jpg">
+<meta property="og:updated_time" content="2019-01-03T11:34:00.805Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端性能优化">
+<meta name="twitter:description" content="性能优化最核心的部分就是减少请求数量和资源下载量">
+<meta name="twitter:image" content="http://images.djl.pub/19-1-3/90109613.jpg">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="DJL箫氏的个人博客" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>前端性能优化 | DJL箫氏的个人博客</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">DJL箫氏</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜單</li>
+                        <li>標籤</li>
+                        
+                        <li>友情鏈接</li>
+                        
+                        
+                        <li>關於我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/随笔">随笔</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" href="http://www.weibo.com/u/3687140617/home" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/djlxiaoshi/" title="GitHub"></a>
+                            
+                                <a class="fa 简书" href="http://www.jianshu.com/u/d8657fcf1678" title="简书"></a>
+                            
+                                <a class="fa 博客园" href="http://www.cnblogs.com/djlxs/" title="博客园"></a>
+                            
+                                <a class="fa QQ" href="/1281233206" title="QQ"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AMD/">AMD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Angular4/">Angular4</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CORS/">CORS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PWA/">PWA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/This/">This</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue组件/">Vue组件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webpack/">Webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/async-await/">async/await</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/directive/">directive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/generator/">generator</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jsop/">jsop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/promise/">promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/require-js/">require.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-resource/">vue-resource</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue-router/">vue-router</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuex/">vuex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/依赖注入/">依赖注入</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原型/">原型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/响应式布局/">响应式布局</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/异步编程/">异步编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/插件/">插件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生命周期/">生命周期</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/继承/">继承</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚手架/">脚手架</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/跨域/">跨域</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/转载/">转载</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">大家好，欢迎来到DJL箫氏的个人博客。专注于前端，喜欢羽毛球、健身等等，如果愿意交流欢迎加我的微信：DJLXS0307（注明来自博客）</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">DJL箫氏</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">DJL箫氏</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/随笔">随笔</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://www.weibo.com/u/3687140617/home" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/djlxiaoshi/" title="GitHub"></a>
+                            
+                                <a class="fa 简书" target="_blank" href="http://www.jianshu.com/u/d8657fcf1678" title="简书"></a>
+                            
+                                <a class="fa 博客园" target="_blank" href="http://www.cnblogs.com/djlxs/" title="博客园"></a>
+                            
+                                <a class="fa QQ" target="_blank" href="/1281233206" title="QQ"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="標籤" friends="友情鏈接" about="關於我"/>
+</nav>
+      <div class="body-wrap"><article id="post-前端性能优化" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/01/02/前端性能优化/" class="article-date">
+      <time datetime="2019-01-02T11:21:08.000Z" itemprop="datePublished">2019-01-02</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      前端性能优化
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>性能优化最核心的部分就是减少请求数量和资源下载量<br><a id="more"></a></p>
+<h2 id="性能判断指标"><a href="#性能判断指标" class="headerlink" title="性能判断指标"></a>性能判断指标</h2><p><img src="http://images.djl.pub/19-1-3/90109613.jpg" alt=""></p>
+<p>DnsTime:DNS解析时间 （选择合适的DNS服务商 DNS预解析）</p>
+<p>ConnectTime：tcp连接时间 （忽略）</p>
+<p>SSLTime：SSL安全连接时间 （忽略）</p>
+<p>RequestTime：发送请求所用时间</p>
+<p>FirstByteTime(TTFB)：“最初的网络请求被发起”到“从服务器接收到第一个字节前”所花费的毫秒数（优化后端性能，购买更好的服务器内存、CPU、带宽等等）</p>
+<p>ReponseTime 资源下载时间</p>
+<h2 id="性能测试工具"><a href="#性能测试工具" class="headerlink" title="性能测试工具"></a>性能测试工具</h2><p>在这里推荐几款性能测试工具</p>
+<p><a href="https://developers.google.com/speed/pagespeed/insights/" target="_blank" rel="external">pagespeed</a></p>
+<p><a href="https://www.webpagetest.org/" target="_blank" rel="external">webpagetest</a> </p>
+<p><a href="https://tools.pingdom.com/" target="_blank" rel="external">pingdom</a></p>
+<p><a href="https://developers.google.com/web/tools/chrome-devtools/network-performance/resource-loading#resource-network-timing" target="_blank" rel="external">Google develop</a> </p>
+<h2 id="性能优化手段"><a href="#性能优化手段" class="headerlink" title="性能优化手段"></a>性能优化手段</h2><h3 id="文本文件优化"><a href="#文本文件优化" class="headerlink" title="文本文件优化"></a>文本文件优化</h3><p>首先从减少资源大小方面入手，首先就是我们的代码层面竟可能的精简</p>
+<ul>
+<li>比如公共代码的提取（通常在项目中我们会把代码分成业务代码，业务代码中的公共代码和第三方公共库）当然这些都是Webpack的code slipt功能来做的</li>
+<li>只加载我们需要的代码（treeshaking）,例如我们在使用lodash等等库的时候，我们往往只用到了部分功能，那么我们可以只需要加载我们需要使用的代码片段。首先是从代码源上面较少代码的体积。</li>
+<li>压缩代码（去掉注释，空格，使用更短的变量名等等），当然这些webpack插件已经帮我们实现好了</li>
+<li>服务端开启gzip压缩，我们可以通过判断<code>Content-Encoding</code>这个响应头，当然我们也可以直接通过这个<a href="http://www.whatsmyip.org/http-compression-test/" target="_blank" rel="external">在线工具</a>。</li>
+</ul>
+<p>到了现在我们的代码在大小方面或许没有多少优化空间了，但是最后还讲一点，就是有时候在引入库的时候，我们首先要思考是不是非得要引入这个库，因为有可能我们只用到了一点点，比如jQuery，在这里我推荐一个网站<a href="http://youmightnotneedjquery.com/#toggle_class" target="_blank" rel="external">也许你并不需要jQuery </a></p>
+<p>接下来就是从减少请求数量开始，我们常见的方式就是代码的合并，例如我们可能在webpack中会有一个bundle专门用来存放第三方库的代码，而不是每个库我都给他打包成一个bundle，实际也是为了减少请求数。</p>
+<h3 id="图片优化"><a href="#图片优化" class="headerlink" title="图片优化"></a>图片优化</h3><p>图片优化我们可以主要从如下四个方面：</p>
+<ul>
+<li>1 选择正确的格式</li>
+<li>2 选择合适的大小</li>
+<li>3 去除元数据适当压缩</li>
+<li>4 图片懒加载</li>
+</ul>
+<p>首先我们从图片格式说起，我们最常见的格式就是PNG，JPG和Gif。对于gif我们都知道是在有动画效果的时候我们去使用，但是对于png和jpg我们该什么场景下去使用。首先png是一种无损格式，支持半透明，一般图片占用体积非常大，可能动不动就上M了。jpg是一种有损格式，不支持半透明效果。所以在一般情况下我们建议在没有透明效果的要求下，我们都应该使用jpg格式。因为在同等视觉效果下，jpg可能是png的一半体积。当然现在还有一些其他更现代化的格式例如webp等等，视觉效果更好，支持动画，透明而且占用体积小，这基本就是我们理想中的图片格式，但是遗憾的就是目前的支持情况不太好，可以期待一下。</p>
+<p><img src="http://images.djl.pub/19-1-3/60652063.jpg" alt=""></p>
+<p>选择合适的大小，这个很容易明白，就是根据图片在网站中展示的真是大小来进行图片的尺寸更改，因为在一般情况下，设计给我们切得图都是1000 甚至2000像素的，但是在网页中我们可能只展示四五百左右的像素，所以图片尺寸调整也是非常重要的</p>
+<p>图片压缩，在照片中会存在一些照片基本信息（例如地理位置，曝光度等等），实际上这些数据对于我们来说是无用的，这一部分数据通常可能有20~30k左右，因此我们可以采用一些工具将这些元数据给去掉。一些图片压缩工具：<br><a href="http://www.verexif.com/en/" target="_blank" rel="external">http://www.verexif.com/en/</a><br><a href="https://tinypng.com/" target="_blank" rel="external">https://tinypng.com/</a></p>
+<p>最后就是图片懒加载，这个是非常有用的手段，然后实施起来也很简单，甚至不用我们自己去写js代码。这里主要推荐下面两款图片按需加载的库。<br><a href="https://github.com/aFarkas/lazysizes" target="_blank" rel="external">https://github.com/aFarkas/lazysizes</a><br><a href="https://github.com/tuupola/jquery_lazyload" target="_blank" rel="external">https://github.com/tuupola/jquery_lazyload</a><br>我们可以先加载一张低分辨率的，然后等图片真正到了可视区域再去加载真实图片。</p>
+<p>当然还有一些其他图片优化相关的比如响应式图片，但是由于我还没有真正实践过，所以暂且不谈。</p>
+<p>更多关于图片优化内容可以参考这篇文章：<br><a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization" target="_blank" rel="external">https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization</a><br><a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/automating-image-optimization/" target="_blank" rel="external">https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/automating-image-optimization/</a></p>
+<h3 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h3><p>其实缓存才是性能优化里面最重要的一环，而一般缓存都是需要后端来进行配合。<br>关于缓存相关的请求头<br>expires: 绝对时间 （客户端的时间可能不准确）<br>cache-control: 相对时间<br>last-modify：服务器端绝对时间 （只能精确到1s，如果是在1s之内放生变化，还是会用缓存的）<br>Etag：根据内容生成的一个hash值</p>
+<p>优先级 cache-control &gt; expires &gt; etag &gt; last-modify<br>强缓存 200 from memory  from disk<br>协商缓存 304</p>
+<h3 id="离线缓存"><a href="#离线缓存" class="headerlink" title="离线缓存"></a>离线缓存</h3><p>这一块应该是PWA相关的知识，离线缓存主要用来提升应用处于离线下的用户体验，但是由于现在还没有实践过，所以就到这了。</p>
+<h3 id="性能监控"><a href="#性能监控" class="headerlink" title="性能监控"></a>性能监控</h3><p>我们在做性能测试的时候其实我们都是在自己的机器上测试的，但是我们其实并不知道用户所处的真正的环境，那么我们为了获取用户真实的数据我们可以做呢？我们可以通过performance API 写一个性能监控脚本 然后将获取到的真实数据上报到我们的服务器上面。</p>
+<p><img src="http://images.djl.pub/19-1-3/25059745.jpg" alt=""></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> pageNav = performance.getEntriesByType(<span class="string">"navigation"</span>)[<span class="number">0</span>];</div><div class="line"><span class="keyword">var</span> dnsTime = pageNav.domainLookupEnd - pageNav.domainLookupStart;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Request plus response time (network only)</span></div><div class="line"><span class="keyword">var</span> totalTime = pageNav.responseEnd - pageNav.requestStart;</div><div class="line"></div><div class="line"><span class="comment">// Response time only (download)</span></div><div class="line"><span class="keyword">var</span> downloadTime = pageNav.responseEnd - pageNav.responseStart;</div><div class="line"></div><div class="line"><span class="comment">// Time to First Byte (TTFB)</span></div><div class="line"><span class="keyword">var</span> ttfb = pageNav.responseStart - pageNav.requestStart;</div></pre></td></tr></table></figure>
+<p>参考链接；<a href="https://developers.google.com/web/fundamentals/performance/navigation-and-resource-timing/" target="_blank" rel="external">https://developers.google.com/web/fundamentals/performance/navigation-and-resource-timing/</a></p>
+<p><a href="https://developers.google.com/web/tools/chrome-devtools/network-performance/understanding-resource-timing?hl=zh-cn" target="_blank" rel="external">https://developers.google.com/web/tools/chrome-devtools/network-performance/understanding-resource-timing?hl=zh-cn</a></p>
+<p>在这里由于我也没有真正做过，所以不详细讲，大家有兴趣可以参考这篇文章</p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a href="https://developers.google.cn/web/fundamentals/performance/why-performance-matters/" target="_blank" rel="external">谷歌开发文档-性能优化</a></p>
+<h2 id="最后（欢迎大家关注我）"><a href="#最后（欢迎大家关注我）" class="headerlink" title="最后（欢迎大家关注我）"></a>最后（欢迎大家关注我）</h2><p><a href="http://djl.pub/">DJL箫氏个人博客</a><br><a href="https://github.com/djlxiaoshi/blog/issues" target="_blank" rel="external">博客GitHub地址</a><br><a href="https://www.jianshu.com/u/d8657fcf1678" target="_blank" rel="external">简书</a><br><a href="https://juejin.im/user/57183fcac4c9710054bc2fcf" target="_blank" rel="external">掘金</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文標題:</span><a href="/2019/01/02/前端性能优化/">前端性能优化</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主頁">DJL箫氏</a></p>
+        <p><span>發布時間:</span>2019-01-02, 19:21:08</p>
+        <p><span>最後更新:</span>2019-01-03, 19:34:00</p>
+        <p>
+            <span>原始鏈接:</span><a class="post-url" href="/2019/01/02/前端性能优化/" title="前端性能优化">http://djl.pub/2019/01/02/前端性能优化/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://djl.pub/2019/01/02/前端性能优化/　　作者: DJL箫氏" title="點擊複製文章鏈接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>許可協議:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"姓名標示-非商業性-相同方式分享 4.0 國際"</a> 轉載請保留原文鏈接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2019/06/12/PWA学习总结/">
+                    PWA学习总结
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/01/02/Webpack优化/">
+                    Webpack优化
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目錄</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#性能判断指标"><span class="toc-number">1.</span> <span class="toc-text">性能判断指标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#性能测试工具"><span class="toc-number">2.</span> <span class="toc-text">性能测试工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#性能优化手段"><span class="toc-number">3.</span> <span class="toc-text">性能优化手段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#文本文件优化"><span class="toc-number">3.1.</span> <span class="toc-text">文本文件优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图片优化"><span class="toc-number">3.2.</span> <span class="toc-text">图片优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缓存"><span class="toc-number">3.3.</span> <span class="toc-text">缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#离线缓存"><span class="toc-number">3.4.</span> <span class="toc-text">离线缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#性能监控"><span class="toc-number">3.5.</span> <span class="toc-text">性能监控</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文章"><span class="toc-number">4.</span> <span class="toc-text">参考文章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后（欢迎大家关注我）"><span class="toc-number">5.</span> <span class="toc-text">最后（欢迎大家关注我）</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隱藏目錄"  title="點擊按鈕隱藏或者顯示文章目錄">
+
+    <script>
+        yiliaConfig.toc = ["隱藏目錄", "顯示目錄", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"前端性能优化　| DJL箫氏的个人博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    <!-- 代码1：放在页面需要展示的位置  -->
+<!-- 如果您配置过sourceid，建议在div标签中配置sourceid、cid(分类id)，没有请忽略  -->
+<div id="cyReward" role="cylabs" data-use="reward"></div>
+<!-- 代码2：用来读取评论框配置，此代码需放置在代码1之后。 -->
+<!-- 如果当前页面有评论框，代码2请勿放置在评论框代码之前。 -->
+<!-- 如果页面同时使用多个实验室项目，以下代码只需要引入一次，只配置上面的div标签即可 -->
+<script type="text/javascript" charset="utf-8" src="https://changyan.itc.cn/js/lib/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="https://changyan.sohu.com/js/changyan.labs.https.js?appid=cyt9sxtmJ"></script>
+ 
+
+
+    
+        <section class="youyan" id="comments">
+    <div id="SOHUCS"></div>
+    <script type="text/javascript">
+        (function(){
+            var appid = 'cyt9sxtmJ';
+            var conf = 'f56c8c079d48297e7f6cc79683f3e36d';
+            var width = window.innerWidth || document.documentElement.clientWidth;
+            if (width < 960) {
+                window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>');
+            } else {
+                var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })();
+    </script>
+</section>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2019/06/12/PWA学习总结/" title="上一篇: PWA学习总结">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/01/02/Webpack优化/" title="下一篇: Webpack优化">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/06/12/PWA学习总结/">PWA学习总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/前端性能优化/">前端性能优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/Webpack优化/">Webpack优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/06/设计模式学习之观察者模式和发布订阅模式/">设计模式学习之观察者模式和发布订阅模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/23/JavaScript 继承/">JavaScript 继承</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/22/原型&原型链深度解读/">原型&原型链</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/基于React的脚手架搭建/">基于React的脚手架搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/13/This解读/">This解读</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/26/Angular4学习之依赖注入/">Angular4学习之依赖注入</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/13/Javascript 异步编程/">Javascript 异步编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/11/响应式布局/">响应式布局</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/21/Angular学习之视图节点和内容节点/">Angular4学习之视图节点和内容节点</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/17/Angular4学习之生命周期/">Angular4学习之生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/webpack2实战/">webpack2实战</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/06/exports和module-exports的区别/">exports和module.exports的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/01/Vue2变化/">Vue2变化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/01/webpack引入插件的几种方法/">webpack引入插件的几种方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/15/自定义多选框/">自定义多选框</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/07/angular1学习之控制器通信/">angular1学习之控制器通信</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/06/angular1学习之directive/">angular1学习之directive</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/04/JavaScript模块加载 - AMD/">JavaScript模块加载 - AMD</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/NODE开发小工具/">Node开发小工具</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/25/CORS跨域/">CORS跨域</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/11/前端跨域请求原理及实现/">前端跨域请求原理及实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/13/better-scroll初探/">better-scroll初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/12/vue-resource初探/">vue-resource初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/08/vue-router初探/">vue-router初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/07/webpack1.0初探/">webpack1.0初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/29/Vuex初探/">Vuex初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之组件/">Vue学习之组件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/21/Vue学习之生命周期/">Vue学习之生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/13/hexo初探---让写作飞起来/">hexo初探---让写作飞起来</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2017-2019 DJL箫氏
+            </div>
+            <div class="footer-right">
+                <!-- <a href="http://hexo.io/" target="_blank" title="快速、簡潔且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="簡而不減 Hexo 雙欄博客主題  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i> -->
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到訪數"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本頁閱讀量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回頂部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看評論"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="轉到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
