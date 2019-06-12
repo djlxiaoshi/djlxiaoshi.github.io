@@ -106,26 +106,16 @@
 <h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><p><a href="https://github.com/djlxiaoshi/pwa-study" target="_blank" rel="external">pwa-study</a></p>
 <p><a href="https://github.com/djlxiaoshi/pwa-webpack-study" target="_blank" rel="external">pwa-webpack-study</a></p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><p><a href="https://github.com/nicejade/nice-front-end-tutorial/blob/master/tutorial/pwa-tutorial.md" target="_blank" rel="external">pwa系列参考文章</a></p>
-</li>
-<li><p><a href="https://lavas.baidu.com/pwa/engage-retain-users/add-to-home-screen/introduction" target="_blank" rel="external">百度Lavas教程</a></p>
-</li>
-<li><p><a href="https://zoumiaojiang.com/article/amazing-workbox-3/" target="_blank" rel="external">workbox-3博客文档</a></p>
-</li>
-<li><p><a href="https://developers.google.com/web/tools/workbox/guides/precache-files/" target="_blank" rel="external">workbox 官方文档</a></p>
-</li>
-<li><p><a href="https://lzw.me/a/pwa-service-worker.html#7" target="_blank" rel="external">网站渐进式增强体验(PWA)改造：Service Worker 应用详解</a></p>
-</li>
-<li><p><a href="https://zhuanlan.zhihu.com/p/28161855" target="_blank" rel="external">如何优雅的为 PWA 注册 Service Worker</a></p>
-</li>
-<li><p><a href="https://github.com/lukeed/pwa" target="_blank" rel="external">Universal PWA Builder</a></p>
-</li>
-<li><p><a href="https://juejin.im/post/59ed37f5f265da431e15eaac" target="_blank" rel="external">HTML5 桌面通知：Notification API</a></p>
-</li>
-<li><p><a href="https://juejin.im/post/5bf3f6b2e51d45360069e527" target="_blank" rel="external">Service Worker学习与实践（三）——消息推送</a></p>
-</li>
-<li><p><a href="https://blog.csdn.net/i10630226/article/details/78888698" target="_blank" rel="external">PWA-推送技术</a></p>
-</li>
+<li><a href="https://github.com/nicejade/nice-front-end-tutorial/blob/master/tutorial/pwa-tutorial.md" target="_blank" rel="external">pwa系列参考文章</a></li>
+<li><a href="https://lavas.baidu.com/pwa/engage-retain-users/add-to-home-screen/introduction" target="_blank" rel="external">百度Lavas教程</a></li>
+<li><a href="https://zoumiaojiang.com/article/amazing-workbox-3/" target="_blank" rel="external">workbox-3博客文档</a></li>
+<li><a href="https://developers.google.com/web/tools/workbox/guides/precache-files/" target="_blank" rel="external">workbox 官方文档</a></li>
+<li><a href="https://lzw.me/a/pwa-service-worker.html#7" target="_blank" rel="external">网站渐进式增强体验(PWA)改造：Service Worker 应用详解</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/28161855" target="_blank" rel="external">如何优雅的为 PWA 注册 Service Worker</a></li>
+<li><a href="https://github.com/lukeed/pwa" target="_blank" rel="external">Universal PWA Builder</a></li>
+<li><a href="https://juejin.im/post/59ed37f5f265da431e15eaac" target="_blank" rel="external">HTML5 桌面通知：Notification API</a></li>
+<li><a href="https://juejin.im/post/5bf3f6b2e51d45360069e527" target="_blank" rel="external">Service Worker学习与实践（三）——消息推送</a></li>
+<li><a href="https://blog.csdn.net/i10630226/article/details/78888698" target="_blank" rel="external">PWA-推送技术</a></li>
 </ul>
 <h2 id="最后（欢迎大家关注我）"><a href="#最后（欢迎大家关注我）" class="headerlink" title="最后（欢迎大家关注我）"></a>最后（欢迎大家关注我）</h2><p><a href="http://djl.pub/">DJL箫氏个人博客</a></p>
 <p><a href="https://github.com/djlxiaoshi/blog/issues" target="_blank" rel="external">博客GitHub地址</a>（欢迎star）</p>
