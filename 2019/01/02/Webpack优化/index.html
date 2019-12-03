@@ -146,13 +146,13 @@
                 <div class="tips-box hide">
                     <div class="tips-arrow"></div>
                     <ul class="tips-inner">
-                        <li>菜单</li>
-                        <li>标签</li>
+                        <li>菜單</li>
+                        <li>標籤</li>
                         
-                        <li>友情链接</li>
+                        <li>友情鏈接</li>
                         
                         
-                        <li>关于我</li>
+                        <li>關於我</li>
                         
                     </ul>
                 </div>
@@ -276,7 +276,7 @@
             </nav>
         </header>                
     </div>
-    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+    <link class="menu-list" tags="標籤" friends="友情鏈接" about="關於我"/>
 </nav>
       <div class="body-wrap"><article id="post-Webpack优化" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -405,17 +405,17 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/01/02/Webpack优化/">Webpack优化</a></p>
-        <p><span>文章作者:</span><a href="/" title="回到主页">DJL箫氏</a></p>
-        <p><span>发布时间:</span>2019-01-02, 19:11:08</p>
-        <p><span>最后更新:</span>2019-01-03, 19:34:13</p>
+        <p><span>本文標題:</span><a href="/2019/01/02/Webpack优化/">Webpack优化</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主頁">DJL箫氏</a></p>
+        <p><span>發布時間:</span>2019-01-02, 19:11:08</p>
+        <p><span>最後更新:</span>2019-01-03, 19:34:13</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/01/02/Webpack优化/" title="Webpack优化">http://djl.pub/2019/01/02/Webpack优化/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://djl.pub/2019/01/02/Webpack优化/　　作者: DJL箫氏" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始鏈接:</span><a class="post-url" href="/2019/01/02/Webpack优化/" title="Webpack优化">http://djl.pub/2019/01/02/Webpack优化/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://djl.pub/2019/01/02/Webpack优化/　　作者: DJL箫氏" title="點擊複製文章鏈接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
-            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+            <span>許可協議:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"姓名標示-非商業性-相同方式分享 4.0 國際"</a> 轉載請保留原文鏈接及作者。
         </p>
     </div>
 
@@ -442,7 +442,7 @@
 </article>
 
     <div id="toc" class="toc-article">
-        <strong class="toc-title">文章目录</strong>
+        <strong class="toc-title">文章目錄</strong>
         
             <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#缩小文件匹配范围-include-exclude"><span class="toc-number">1.</span> <span class="toc-text">缩小文件匹配范围(include/exclude)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缓存loader的执行结果-cacheDirectory"><span class="toc-number">2.</span> <span class="toc-text">缓存loader的执行结果(cacheDirectory)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化-resolve-modules-配置"><span class="toc-number">3.</span> <span class="toc-text">优化 resolve modules 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化-resolve-alias-配置"><span class="toc-number">4.</span> <span class="toc-text">优化 resolve.alias 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化-resolve-extensions-配置"><span class="toc-number">5.</span> <span class="toc-text">优化 resolve.extensions 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化-module-noParse-配置"><span class="toc-number">6.</span> <span class="toc-text">优化 module. noParse 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-DllPlugin"><span class="toc-number">7.</span> <span class="toc-text">使用 DllPlugin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用HappyPack"><span class="toc-number">8.</span> <span class="toc-text">使用HappyPack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-ParallelUglifyPlugin"><span class="toc-number">9.</span> <span class="toc-text">使用 ParallelUglifyPlugin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Tree-Shaking"><span class="toc-number">10.</span> <span class="toc-text">使用Tree Shaking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提取公共代码"><span class="toc-number">11.</span> <span class="toc-text">提取公共代码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Webpack3提取公共代码"><span class="toc-number">11.1.</span> <span class="toc-text">Webpack3提取公共代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Webpack4提取公共代码"><span class="toc-number">11.2.</span> <span class="toc-text">Webpack4提取公共代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#区别"><span class="toc-number">11.3.</span> <span class="toc-text">区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#按需加载"><span class="toc-number">12.</span> <span class="toc-text">按需加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考文章"><span class="toc-number">13.</span> <span class="toc-text">参考文章</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最后（欢迎大家关注我）"><span class="toc-number">14.</span> <span class="toc-text">最后（欢迎大家关注我）</span></a></li></ol>
         
@@ -458,10 +458,10 @@
         }
     </style>
 
-    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+    <input type="button" id="tocButton" value="隱藏目錄"  title="點擊按鈕隱藏或者顯示文章目錄">
 
     <script>
-        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+        yiliaConfig.toc = ["隱藏目錄", "顯示目錄", !!"false"];
     </script>
 
 
@@ -556,14 +556,14 @@
                 2017-2019 DJL箫氏
             </div>
             <div class="footer-right">
-                <!-- <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i> -->
+                <!-- <a href="http://hexo.io/" target="_blank" title="快速、簡單且強大的網誌框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="簡而不減 Hexo 雙欄網誌主題  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i> -->
             </div>
         </div>
         
             <div class="visit">
                 
                     <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        <span id="site-visit" title="本站到訪數"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
                         </span>
                     </span>
                 
@@ -572,7 +572,7 @@
                 
                 
                     <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        <span id="page-visit"  title="本頁閱讀量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
                         </span>
                     </span>
                 
@@ -589,9 +589,9 @@
 
 
 <div class="scroll" id="scroll">
-    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+    <a href="#" title="返回頂部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看評論"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="轉到底部"><i class="fa fa-arrow-down"></i></a>
 </div>
 <script>
     // Open in New Window
